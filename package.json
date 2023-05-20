@@ -1,5 +1,5 @@
 {
-  "name": "tailwind",
+  "name": "tw",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -36,7 +36,7 @@
     ]
   },
   "devDependencies": {
-    "saas": "^1.0.0",
+    "sass": "^1.62.1",
     "tailwindcss": "^3.3.2"
   }
 }
