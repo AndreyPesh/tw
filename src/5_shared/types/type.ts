@@ -5,5 +5,11 @@ export type LoginFormData = {
   password: string;
 };
 
+export type SignupFormData = LoginFormData & {
+  name: string;
+  confirmPassword: string;
+};
+
 export type RegisterLoginFormData = ReturnType<UseFormRegister<LoginFormData>>;
-export type RegisterLoginFormErrors = FieldErrors<LoginFormData>;
+export type RegisterSignupFormData = ReturnType<UseFormRegister<SignupFormData>>;
+

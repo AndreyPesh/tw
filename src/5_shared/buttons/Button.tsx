@@ -8,6 +8,7 @@ interface ButtonProps {
   type?: 'button' | 'submit' | 'reset';
   handler?: () => void;
   isLoading?: boolean;
+  styles?: string;
 }
 
 const Button: FC<PropsWithChildren<ButtonProps>> = ({
@@ -15,6 +16,7 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
   type = 'button',
   handler,
   isLoading,
+  styles = '',
   children,
 }) => {
   return (
@@ -25,20 +27,16 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
       className={classnames(
         'px-5 py-3 bg-primary font-semibold text-sm rounded-md hover:shadow-md hover:opacity-90 border ',
         {
-          'bg-transparent': variant === EnumTypeButton.TRANSPARENT,
-          'text-primary': variant === EnumTypeButton.TRANSPARENT,
-          'hover:border-primary': variant === EnumTypeButton.TRANSPARENT,
+          'bg-transparent text-primary hover:border-primary':
+            variant === EnumTypeButton.TRANSPARENT,
           'text-white': variant === EnumTypeButton.PRIMARY,
         },
         {
-          'bg-transparent': variant === EnumTypeButton.OUTLINE,
-          'text-gray-600': variant === EnumTypeButton.OUTLINE,
-          'hover:opacity-100 hover:shadow-none':
+          'bg-transparent text-gray-600 hover:opacity-100 hover:shadow-none hover:text-black border-none':
             variant === EnumTypeButton.OUTLINE,
-          'hover:text-black': variant === EnumTypeButton.OUTLINE,
-          'border-none': variant === EnumTypeButton.OUTLINE,
         },
-        { 'cursor-not-allowed hover:opacity-60 opacity-50': isLoading }
+        { 'cursor-not-allowed hover:opacity-50 opacity-50': isLoading },
+        { [styles]: styles }
       )}
     >
       {isLoading && <Spinner />}
