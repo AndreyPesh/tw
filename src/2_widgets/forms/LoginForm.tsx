@@ -8,9 +8,11 @@ import MiddleTitle from '@/src/5_shared/titles/MiddleTitle';
 import { URL_SIGNUP_PAGE } from '@/src/5_shared/types/constant';
 import { LoginFormData } from '@/src/5_shared/types/type';
 import { schemaLogin } from './schemas/loginValidate';
+import { useState } from 'react';
 
 const LoginForm = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const {
     register,
@@ -19,6 +21,8 @@ const LoginForm = () => {
   } = useForm<LoginFormData>({ resolver: yupResolver(schemaLogin) });
 
   const onSubmit: SubmitHandler<LoginFormData> = (loginFormData) => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 4000);
     console.log(loginFormData);
   };
 
@@ -42,7 +46,11 @@ const LoginForm = () => {
           register={register('password')}
           error={errors.password}
         />
-        <Button type="submit" variant={EnumTypeButton.PRIMARY}>
+        <Button
+          type="submit"
+          variant={EnumTypeButton.PRIMARY}
+          isLoading={loading}
+        >
           Log in
         </Button>
       </form>
