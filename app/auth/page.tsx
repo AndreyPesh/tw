@@ -1,9 +1,11 @@
+import Auth from "@/src/1_page/Auth";
+
 export const metadata = {
   title: 'Sign in',
 };
 
 const AuthPage = () => {
-  return <div>Auth page</div>;
+  return <Auth />;
 };
 
 export default AuthPage;

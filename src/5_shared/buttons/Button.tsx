@@ -4,11 +4,17 @@ import classnames from 'classnames';
 
 interface ButtonProps {
   type: EnumTypeButton;
+  handler?: () => void;
 }
 
-const Button: FC<PropsWithChildren<ButtonProps>> = ({ type, children }) => {
+const Button: FC<PropsWithChildren<ButtonProps>> = ({
+  type,
+  handler,
+  children,
+}) => {
   return (
     <button
+      onClick={handler}
       className={classnames(
         'px-5 py-3 bg-primary font-semibold text-sm rounded-md hover:shadow-md',
         {

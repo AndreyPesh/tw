@@ -1,6 +1,5 @@
+import AuthButton from '@/src/3_features/authButton/AuthButton';
 import Navigation from '@/src/3_features/navigation/Navigation';
-import Button from '@/src/5_shared/buttons/Button';
-import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -19,10 +18,7 @@ const Header = () => {
         </Link>
         <Navigation />
       </div>
-      <div className="[&>*:last-child]:ml-6">
-        <Button type={EnumTypeButton.TRANSPARENT}>Sign up</Button>
-        <Button type={EnumTypeButton.PRIMARY}>Log in</Button>
-      </div>
+      <AuthButton />
     </header>
   );
 };
