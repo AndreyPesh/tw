@@ -1,5 +1,5 @@
 export const enum EnumLinkPage {
-  HOME = '/home',
+  HOME = '/',
   PRODUCTS = '/products',
   CONTACTS = '/contacts'
 }
