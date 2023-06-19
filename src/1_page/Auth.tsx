@@ -3,6 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import { TYPE_AUTH_PARAM } from '../5_shared/types/constant';
 import { useEffect, useState } from 'react';
 import { EnumTypeAuth } from '../5_shared/types/enum';
+import LoginForm from '../2_widgets/forms/LoginForm';
 
 const Auth = () => {
   const [currentTypeAuth, setCurrentTypeAuth] = useState<EnumTypeAuth>(
@@ -18,7 +19,7 @@ const Auth = () => {
   return (
     <section className="container mx-auto">
       {currentTypeAuth === EnumTypeAuth.LOGIN ? (
-        <h1>Login</h1>
+        <LoginForm />
       ) : (
         <h1>Register</h1>
       )}

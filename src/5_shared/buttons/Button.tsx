@@ -3,24 +3,36 @@ import { EnumTypeButton } from './types/enums';
 import classnames from 'classnames';
 
 interface ButtonProps {
-  type: EnumTypeButton;
+  variant: EnumTypeButton;
+  type?: 'button' | 'submit' | 'reset';
   handler?: () => void;
 }
 
 const Button: FC<PropsWithChildren<ButtonProps>> = ({
-  type,
+  variant,
+  type = 'button',
   handler,
   children,
 }) => {
   return (
     <button
+      type={type}
       onClick={handler}
       className={classnames(
-        'px-5 py-3 bg-primary font-semibold text-sm rounded-md hover:shadow-md',
+        'px-5 py-3 bg-primary font-semibold text-sm rounded-md hover:shadow-md hover:opacity-90 border',
         {
-          'bg-transparent': type === EnumTypeButton.TRANSPARENT,
-          'text-primary': type === EnumTypeButton.TRANSPARENT,
-          'text-white': type === EnumTypeButton.PRIMARY,
+          'bg-transparent': variant === EnumTypeButton.TRANSPARENT,
+          'text-primary': variant === EnumTypeButton.TRANSPARENT,
+          'hover:border-primary': variant === EnumTypeButton.TRANSPARENT,
+          'text-white': variant === EnumTypeButton.PRIMARY,
+          
+        },
+        {
+          'bg-transparent': variant === EnumTypeButton.OUTLINE,
+          'text-gray-600': variant === EnumTypeButton.OUTLINE,
+          'hover:opacity-100 hover:shadow-none': variant === EnumTypeButton.OUTLINE,
+          'hover:text-black': variant === EnumTypeButton.OUTLINE,
+          'border-none': variant === EnumTypeButton.OUTLINE,
         }
       )}
     >

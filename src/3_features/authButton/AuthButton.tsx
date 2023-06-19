@@ -2,25 +2,22 @@
 
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
-import { TYPE_AUTH_PARAM } from '@/src/5_shared/types/constant';
-import { EnumLinkPage, EnumTypeAuth } from '@/src/5_shared/types/enum';
+import { URL_LOGIN_PAGE, URL_SIGNUP_PAGE } from '@/src/5_shared/types/constant';
 import { useRouter } from 'next/navigation';
-
-const URL_AUTH_PAGE = `${EnumLinkPage.AUTH}?${TYPE_AUTH_PARAM}=`;
 
 const AuthButton = () => {
   const router = useRouter();
   return (
     <div className="[&>*:last-child]:ml-6">
       <Button
-        type={EnumTypeButton.TRANSPARENT}
-        handler={() => router.push(`${URL_AUTH_PAGE}${EnumTypeAuth.SIGNUP}`)}
+        variant={EnumTypeButton.TRANSPARENT}
+        handler={() => router.push(URL_SIGNUP_PAGE)}
       >
         Sign up
       </Button>
       <Button
-        type={EnumTypeButton.PRIMARY}
-        handler={() => router.push(`${URL_AUTH_PAGE}${EnumTypeAuth.LOGIN}`)}
+        variant={EnumTypeButton.PRIMARY}
+        handler={() => router.push(URL_LOGIN_PAGE)}
       >
         Log in
       </Button>
