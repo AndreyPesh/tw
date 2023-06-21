@@ -1,6 +1,7 @@
 import Header from '@/src/2_widgets/header/Header';
 import '@/src/5_shared/styles/globals.css';
 import { Inter } from 'next/font/google';
+import { ProviderRedux } from '@/src/5_shared/store/provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,8 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        {children}
+        <ProviderRedux>
+          <>
+            <Header />
+            {children}
+          </>
+        </ProviderRedux>
       </body>
     </html>
   );

@@ -11,6 +11,10 @@ module.exports = {
         primary: '#437EF7',
         light: '#EAEBF0',
         red: '#F04438'
+      },
+      backgroundImage: {
+        logout: "url('/logout.svg')",
+        'logout-hover': "url('/logout-hover.svg')",
       }
     },
     container: {
