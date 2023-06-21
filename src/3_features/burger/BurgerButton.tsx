@@ -1,17 +1,22 @@
 'use client';
+import { useActions } from '@/src/5_shared/hooks/useActions';
 import { useOutside } from '@/src/5_shared/hooks/useOutside';
+import { useAppSelector } from '@/src/5_shared/store/hooks/redux';
 import classNames from 'classnames';
 
 const BurgerButton = () => {
-  const { ref, isShow, setIsShow } = useOutside(false);
+  const active = useAppSelector((state) => state.burger.active);
+  // const { ref, active, setActive } = useOutside(false);
+  const { toggle } = useActions();
 
   const onToggleBurger = () => {
-    setIsShow((isShow) => !isShow);
+    // setActive((active) => !active);
+    toggle()
   };
 
   return (
     <div
-      ref={ref}
+      // ref={ref}
       onClick={onToggleBurger}
       className="relative md:hidden flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-slate-700 ring-0 ring-gray-300 hover:ring-8 focus:ring-4 ring-opacity-30 duration-200 shadow-md cursor-pointer"
     >
@@ -20,39 +25,39 @@ const BurgerButton = () => {
           className={classNames(
             'bg-white h-[2px] w-7 transform transition-all duration-300 origin-left',
             {
-              'translate-x-10': isShow,
+              'translate-x-10': active,
             }
           )}
         />
         <span
           className={classNames(
             'bg-white h-[2px] w-7 rounded transform transition-all duration-300  delay-75',
-            { 'translate-x-10': isShow }
+            { 'translate-x-10': active }
           )}
         />
         <span
           className={classNames(
             'bg-white h-[2px] w-7 transform transition-all duration-300 origin-left delay-150',
-            { 'translate-x-10': isShow }
+            { 'translate-x-10': active }
           )}
         />
 
         <div
           className={classNames(
             'absolute items-center justify-between transform transition-all duration-500 top-2.5 -translate-x-10 flex w-0',
-            { 'translate-x-0 w-12': isShow }
+            { 'translate-x-0 w-12': active }
           )}
         >
           <span
             className={classNames(
               'absolute bg-white h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300',
-              { 'rotate-45': isShow }
+              { 'rotate-45': active }
             )}
           />
           <span
             className={classNames(
               'absolute bg-white h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300',
-              { '-rotate-45': isShow }
+              { '-rotate-45': active }
             )}
           />
         </div>
