@@ -1,23 +1,15 @@
 'use client';
 import { useActions } from '@/src/5_shared/hooks/useActions';
-import { useOutside } from '@/src/5_shared/hooks/useOutside';
 import { useAppSelector } from '@/src/5_shared/store/hooks/redux';
 import classNames from 'classnames';
 
 const BurgerButton = () => {
   const active = useAppSelector((state) => state.burger.active);
-  // const { ref, active, setActive } = useOutside(false);
   const { toggle } = useActions();
-
-  const onToggleBurger = () => {
-    // setActive((active) => !active);
-    toggle()
-  };
 
   return (
     <div
-      // ref={ref}
-      onClick={onToggleBurger}
+      onClick={() => toggle()}
       className="relative md:hidden flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-slate-700 ring-0 ring-gray-300 hover:ring-8 focus:ring-4 ring-opacity-30 duration-200 shadow-md cursor-pointer"
     >
       <div className="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
