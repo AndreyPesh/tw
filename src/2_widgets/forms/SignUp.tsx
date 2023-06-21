@@ -74,7 +74,7 @@ const SignupForm = () => {
         </Button>
       </form>
       <div className="mt-5 inline-flex justify-between items-center text-gray-500">
-        <h3>Don't have an account?</h3>
+        <h3>Do you have an account?</h3>
         <Button
           variant={EnumTypeButton.OUTLINE}
           handler={() => {

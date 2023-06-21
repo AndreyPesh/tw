@@ -3,7 +3,7 @@ import ItemNavigation from './item/ItemNavigation';
 
 const Navigation = () => {
   return (
-    <nav className='inline-flex w-1/2 justify-around'>
+    <nav className='inline-flex w-1/2 justify-around items-center'>
       {listNav.map((item) => (
         <ItemNavigation key={item.link} name={item.name} link={item.link} />
       ))}
