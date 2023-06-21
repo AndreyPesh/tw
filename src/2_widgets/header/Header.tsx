@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const Header = () => {
   return (
-    <header className="w-full px-10 md:px-20 py-5 flex justify-between items-center border-b border-b-light">
+    <header className="relative w-full px-10 md:px-20 py-2 md:py-0 flex justify-between items-center border-b border-b-light">
       {/* <div>
         <div className="w-1/2 flex justify-between">
           <Link href="/">
@@ -25,12 +25,11 @@ const Header = () => {
       <Link href="/">
         <Image priority width={160} height={40} src={'./logo.svg'} alt="Logo" />
       </Link>
-      <div className='hidden md:flex w-2/3 justify-between'>
+      <div className="absolute top-[67px] right-0 w-screen h-[calc(100vh-67px)] flex flex-col justify-between bg-white md:flex-row md:relative md:top-0 md:h-auto md:w-2/3">
         <Navigation />
         <AuthButton />
       </div>
       <BurgerButton />
-      <span className='md:hidden'>Menu</span>
     </header>
   );
 };

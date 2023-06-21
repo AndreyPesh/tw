@@ -8,7 +8,7 @@ interface ItemNavigationProps {
 }
 
 const ItemNavigation: FC<ItemNavigationProps> = ({ name, link }) => {
-  return <Link href={link}>{name}</Link>;
+  return <Link href={link} className='inline-flex w-full px-10 py-3 md:p-5 md:w-auto'>{name}</Link>;
 };
 
 export default ItemNavigation;

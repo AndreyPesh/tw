@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 const AuthButton = () => {
   const router = useRouter();
   return (
-    <div className="[&>*:last-child]:ml-6">
+    <div className="self-center mb-10 md:mb-0 [&>*:last-child]:ml-6">
       <Button
         variant={EnumTypeButton.TRANSPARENT}
         handler={() => router.push(URL_SIGNUP_PAGE)}
