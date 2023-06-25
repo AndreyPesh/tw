@@ -5,6 +5,7 @@ import Navigation from '@/src/3_features/navigation/Navigation';
 import UserButton from '@/src/3_features/userButton/UserButton';
 import { useActions } from '@/src/5_shared/hooks/useActions';
 import { useAppSelector } from '@/src/5_shared/store/hooks/redux';
+import { EnumLinkPage } from '@/src/5_shared/types/enum';
 import classNames from 'classnames';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -14,11 +15,10 @@ const Header = () => {
   const { data: session } = useSession();
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
-  const isAuth = false;
 
   return (
     <header className="relative w-full px-5 md:px-20 py-2 md:py-0 flex justify-between items-center border-b border-b-light">
-      <Link href="/">
+      <Link href={EnumLinkPage.HOME}>
         <Image priority width={160} height={40} src={'./logo.svg'} alt="Logo" />
       </Link>
       <div

@@ -49,16 +49,6 @@ export const authOptions: AuthOptions = {
     //   console.log(user);
     //   return true;
     // },
-    // async redirect({ url, baseUrl }) {
-    //   // Allows relative callback URLs
-    //   console.log(`Base url:${baseUrl} URL: ${url}`);
-
-    //   // if (url.startsWith('/')) return `${baseUrl}${url}`;
-    //   // // Allows callback URLs on the same origin
-    //   // else if (new URL(url).origin === baseUrl) return url;
-    //   // return baseUrl;
-    //   return url;
-    // },
     // async signIn(user, account, profile) {
     //   return true
     // },

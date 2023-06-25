@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getCsrfToken, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,7 +10,7 @@ import MiddleTitle from '@/src/5_shared/titles/MiddleTitle';
 import { URL_SIGNUP_PAGE } from '@/src/5_shared/types/constant';
 import { LoginFormData } from '@/src/5_shared/types/type';
 import { schemaLogin } from './schemas/loginValidate';
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
+import { EnumLinkPage } from '@/src/5_shared/types/enum';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -25,12 +25,10 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginFormData> = async (loginFormData) => {
     setLoading(true);
     await signIn('credentials', {
-      // callbackUrl: '/user',
-      redirect: false,
+      callbackUrl: EnumLinkPage.USER,
       email: loginFormData.email,
       password: loginFormData.password,
     });
-    // setTimeout(() => setLoading(false), 4000);
     setLoading(false);
   };
 
@@ -79,13 +77,3 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
-
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//   console.log('get crsf');
-  
-//   return {
-//     props: {
-//       csrfToken: await getCsrfToken(context),
-//     },
-//   };
-// }
