@@ -1,44 +1,11 @@
-import NextAuth, { AuthOptions, CookiesOptions } from 'next-auth';
+import { COOKIES } from '@/src/5_shared/types/constant';
+import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-const cookies: Partial<CookiesOptions> = {
-  sessionToken: {
-    name: `next-auth.session-token`,
-    options: {
-      httpOnly: true,
-      sameSite: 'none',
-      path: '/',
-      // domain: process.env.NEXT_PUBLIC_DOMAIN,​
-      secure: true,
-    },
-  },
-  callbackUrl: {
-    name: `next-auth.callback-url`,
-    options: {
-      httpOnly: true,
-      sameSite: 'none',
-      path: '/',
-      // domain: process.env.NEXT_PUBLIC_DOMAIN,​
-      secure: true,
-    },
-  },
-  csrfToken: {
-    name: 'next-auth.csrf-token',
-    options: {
-      httpOnly: true,
-      sameSite: 'none',
-      path: '/',
-      // domain: process.env.NEXT_PUBLIC_DOMAIN,​
-      secure: true,
-    },
-  },
-};
-
 export const authOptions: AuthOptions = {
-  cookies: cookies,
+  cookies: COOKIES,
   pages: {
     signIn: '/auth?type_auth=login',
-    signOut: '/auth?type_auth=login',
   },
   session: {
     strategy: 'jwt',
@@ -50,10 +17,7 @@ export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'credentials',
-      credentials: {
-        username: {},
-        password: {},
-      },
+      credentials: {},
       async authorize(credentials: any, req): Promise<any | null> {
         // let user: ResponseData = { refresh: '', access: '' };
         // console.log(credentials.email);

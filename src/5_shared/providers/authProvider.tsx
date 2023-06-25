@@ -1,8 +1,9 @@
 'use client';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { GetServerSideProps } from 'next';
 import { Session, getServerSession } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 type Props = {
   session?: Session | null;
@@ -13,8 +14,10 @@ export const NextAuthProvider = ({ session, children }: Props) => {
   return <SessionProvider session={session}>{children}</SessionProvider>;
 };
 
-export async function getServerSideProps(context: any) {
-  const session = await getServerSession(context.req, context.res, authOptions);
+export const getServerSideProps: GetServerSideProps<{
+  session: Session | null
+}> = async () => {
+  const session = await getServerSession(authOptions);
   return {
     props: {
       session,
