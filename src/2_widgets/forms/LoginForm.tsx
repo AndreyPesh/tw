@@ -1,6 +1,8 @@
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/navigation';
 import Input from '@/src/3_features/input/Input';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
@@ -8,7 +10,7 @@ import MiddleTitle from '@/src/5_shared/titles/MiddleTitle';
 import { URL_SIGNUP_PAGE } from '@/src/5_shared/types/constant';
 import { LoginFormData } from '@/src/5_shared/types/type';
 import { schemaLogin } from './schemas/loginValidate';
-import { useState } from 'react';
+import { EnumLinkPage } from '@/src/5_shared/types/enum';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -20,10 +22,14 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormData>({ resolver: yupResolver(schemaLogin) });
 
-  const onSubmit: SubmitHandler<LoginFormData> = (loginFormData) => {
+  const onSubmit: SubmitHandler<LoginFormData> = async (loginFormData) => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 4000);
-    console.log(loginFormData);
+    await signIn('credentials', {
+      callbackUrl: EnumLinkPage.USER,
+      email: loginFormData.email,
+      password: loginFormData.password,
+    });
+    setLoading(false);
   };
 
   return (
@@ -47,7 +53,7 @@ const LoginForm = () => {
           error={errors.password}
         />
         <Button
-          styles='w-full sm:w-40'
+          styles="w-full sm:w-40"
           type="submit"
           variant={EnumTypeButton.PRIMARY}
           isLoading={loading}

@@ -8,6 +8,7 @@ interface InputProps {
   label: string;
   type: string;
   placeholder?: string;
+  defaultValue?: string;
   register: RegisterLoginFormData | RegisterSignupFormData;
   error?: FieldError | undefined;
 }
@@ -19,6 +20,7 @@ const Input: FC<InputProps> = ({
   placeholder,
   register,
   error,
+  defaultValue = ''
 }) => {
   return (
     <div>
@@ -30,6 +32,7 @@ const Input: FC<InputProps> = ({
       </label>
       <div className="mt-2">
         <input
+          defaultValue={defaultValue}
           type={type}
           placeholder={placeholder}
           {...register}
