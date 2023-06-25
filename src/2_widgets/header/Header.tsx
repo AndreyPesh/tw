@@ -6,10 +6,12 @@ import UserButton from '@/src/3_features/userButton/UserButton';
 import { useActions } from '@/src/5_shared/hooks/useActions';
 import { useAppSelector } from '@/src/5_shared/store/hooks/redux';
 import classNames from 'classnames';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const Header = () => {
+  const { data: session } = useSession();
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
   const isAuth = false;
@@ -30,7 +32,7 @@ const Header = () => {
         )}
       >
         <Navigation />
-        {isAuth ? <UserButton /> : <AuthButton />}
+        {session ? <UserButton /> : <AuthButton />}
       </div>
       <BurgerButton />
     </header>

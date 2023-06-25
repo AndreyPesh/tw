@@ -2,6 +2,7 @@ import Header from '@/src/2_widgets/header/Header';
 import '@/src/5_shared/styles/globals.css';
 import { Inter } from 'next/font/google';
 import { ProviderRedux } from '@/src/5_shared/store/provider';
+import { NextAuthProvider } from '@/src/5_shared/providers/authProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,11 +21,21 @@ export default function RootLayout({
       <body className={inter.className}>
         <ProviderRedux>
           <>
-            <Header />
-            {children}
+            <NextAuthProvider>
+              <Header />
+              {children}
+            </NextAuthProvider>
           </>
         </ProviderRedux>
       </body>
     </html>
   );
 }
+
+// export async function getServerSideProps(ctx) {
+//   return {
+//     props: {
+//       session: await getSession(ctx)
+//     }
+//   }
+// }

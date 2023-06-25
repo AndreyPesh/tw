@@ -23,7 +23,8 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<LoginFormData> = async (loginFormData) => {
     setLoading(true);
-    await signIn('Login', {
+    await signIn('credentials', {
+      // callbackUrl: '/user',
       redirect: false,
       email: loginFormData.email,
       password: loginFormData.password,
