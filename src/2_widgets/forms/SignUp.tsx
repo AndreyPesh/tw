@@ -11,21 +11,37 @@ import Button from '@/src/5_shared/buttons/Button';
 import { URL_LOGIN_PAGE } from '@/src/5_shared/types/constant';
 import { SignupFormData } from '@/src/5_shared/types/type';
 import { schemaSignup } from './schemas/signupValidate';
+import { signIn } from 'next-auth/react';
+import { Auth } from '@/src/5_shared/service/auth/Auth';
 
 const SignupForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
 
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm<SignupFormData>({ resolver: yupResolver(schemaSignup) });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormData>({ resolver: yupResolver(schemaSignup) });
+  } = useForm<SignupFormData>();
 
-  const onSubmit: SubmitHandler<SignupFormData> = (loginFormData) => {
+  const onSubmit: SubmitHandler<SignupFormData> = async (loginFormData) => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 4000);
-    console.log(loginFormData);
+    const res = await Auth.signup(loginFormData)
+    console.log(res);
+    
+    // const data = await res.json();
+    // if (!data.user) return null;
+    // await signIn('credentials', {
+    //   // username: data.user.username,
+    //   // password: form.get('password'),
+    //   callbackUrl: '/',
+    // });
+    setLoading(false);
   };
 
   return (

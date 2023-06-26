@@ -1,5 +1,8 @@
+import prisma from '@/global.d';
 import { COOKIES } from '@/src/5_shared/types/constant';
+import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth, { AuthOptions } from 'next-auth';
+import { Adapter } from 'next-auth/adapters';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOptions: AuthOptions = {
@@ -11,51 +14,36 @@ export const authOptions: AuthOptions = {
     strategy: 'jwt',
   },
   secret: process.env.NEXTAUTH_SECRET,
-  // jwt: {
-  //   maxAge: 60 * 60 * 24 * 30,
-  // },
   providers: [
     CredentialsProvider({
       name: 'credentials',
       credentials: {},
       async authorize(credentials: any, req): Promise<any | null> {
-        // let user: ResponseData = { refresh: '', access: '' };
-        // console.log(credentials.email);
-        console.log('call authorize');
-
-        // return null;
-        try {
-          // const response = await axios.post<ResponseData>(
-          //   'http://localhost:4200/api/auth/login',
-          //   credentials
-          // );
-          // if (response.status === 200) {
-          //   user = response.data;
-          //   return user;
-          // }
-          return {
-            name: 'User is logged',
-            password: '12434',
-          };
-        } catch (error) {
-          console.log(error);
-        }
-        return null;
+        // const { username, password } = loginUserSchema.parse(credentials);
+        // const user = await prisma.user.findUnique({
+        //   where: { username },
+        // });
+        // if (!user) return null;
+        // const isPasswordValid = await bcrypt.compare(password, user.password);
+        // if (!isPasswordValid) return null;
+        // return user;
       },
     }),
   ],
+  adapter: PrismaAdapter(prisma) as Adapter,
   callbacks: {
-    // async signIn({ user, account, profile, email, credentials }) {
-    //   console.log(user);
-    //   return true;
-    // },
-    // async signIn(user, account, profile) {
-    //   return true
-    // },
-    async session(session: any) {
+    session({ session, token }) {
+      // session?.user?.id = token.id;
+      // session.user.username = token.username;
       return session;
     },
-    async jwt(token: any) {
+    jwt({ token, account, user }) {
+      if (account) {
+        token.accessToken = account.access_token;
+        token.id = user.id;
+        // token.username = (user as User).username;
+        console.log({ user });
+      }
       return token;
     },
   },
