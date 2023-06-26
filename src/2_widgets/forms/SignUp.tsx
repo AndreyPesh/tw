@@ -13,10 +13,12 @@ import { SignupFormData } from '@/src/5_shared/types/type';
 import { schemaSignup } from './schemas/signupValidate';
 import { signIn } from 'next-auth/react';
 import { Auth } from '@/src/5_shared/service/auth/Auth';
+import { ResponseStatus } from '@/src/5_shared/utils/server/types/enum';
 
 const SignupForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState('');
 
   // const {
   //   register,
@@ -31,9 +33,15 @@ const SignupForm = () => {
 
   const onSubmit: SubmitHandler<SignupFormData> = async (loginFormData) => {
     setLoading(true);
-    const res = await Auth.signup(loginFormData)
-    console.log(res);
-    
+    setError('');
+    const response = await Auth.signup(loginFormData);
+    console.log(response);
+    if (response && response.status === ResponseStatus.BAD_REQUEST) {
+      response.message && setError(response.message);
+      setLoading(false);
+      return;
+    }
+
     // const data = await res.json();
     // if (!data.user) return null;
     // await signIn('credentials', {
@@ -41,6 +49,7 @@ const SignupForm = () => {
     //   // password: form.get('password'),
     //   callbackUrl: '/',
     // });
+    setError('');
     setLoading(false);
   };
 
@@ -80,6 +89,7 @@ const SignupForm = () => {
           register={register('confirmPassword')}
           error={errors.confirmPassword}
         />
+        {error && <span className="block text-red text-center">{error}</span>}
         <Button
           styles="w-full sm:w-40"
           type="submit"
