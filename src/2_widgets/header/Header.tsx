@@ -15,7 +15,8 @@ const Header = () => {
   const { data: session } = useSession();
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
-
+  console.log(session);
+  
   return (
     <header className="relative w-full px-5 md:px-20 py-2 md:py-0 flex justify-between items-center border-b border-b-light">
       <Link href={EnumLinkPage.HOME}>
