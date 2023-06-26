@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/global.d';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import { SignupFormData } from '@/src/5_shared/types/type';
 import { validateSignupData } from '@/src/5_shared/utils/server/validate/validateFormData';
 import { ResponseServer } from '@/src/5_shared/utils/server/types/interface';
@@ -29,7 +29,7 @@ export const POST = async (req: NextRequest): Promise<ResponseServer> => {
     }
 
     const { name, email, password } = data;
-    const hashPassword = await bcrypt.hash(password, 5);
+    const hashPassword = await bcryptjs.hash(password, 5);
 
     await prisma.user.create({
       data: { name, email, password: hashPassword },
@@ -40,8 +40,6 @@ export const POST = async (req: NextRequest): Promise<ResponseServer> => {
       data: { user: { name, email } },
     });
   } catch (error) {
-    console.log(error);
-    
     return NextResponse.json({
       status: ResponseStatus.INTERNAL,
       message: 'Something went wrong',

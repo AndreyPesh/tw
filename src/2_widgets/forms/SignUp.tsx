@@ -14,41 +14,36 @@ import { schemaSignup } from './schemas/signupValidate';
 import { signIn } from 'next-auth/react';
 import { Auth } from '@/src/5_shared/service/auth/Auth';
 import { ResponseStatus } from '@/src/5_shared/utils/server/types/enum';
+import { EnumLinkPage } from '@/src/5_shared/types/enum';
 
 const SignupForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState('');
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm<SignupFormData>({ resolver: yupResolver(schemaSignup) });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormData>();
+  } = useForm<SignupFormData>({ resolver: yupResolver(schemaSignup) });
 
   const onSubmit: SubmitHandler<SignupFormData> = async (loginFormData) => {
     setLoading(true);
     setError('');
     const response = await Auth.signup(loginFormData);
-    console.log(response);
+
     if (response && response.status === ResponseStatus.BAD_REQUEST) {
       response.message && setError(response.message);
       setLoading(false);
       return;
+    } else if (response?.status === ResponseStatus.OK) {
+      await signIn('credentials', {
+        email: loginFormData.email,
+        password: loginFormData.password,
+        callbackUrl: EnumLinkPage.HOME,
+      });
     }
 
-    // const data = await res.json();
-    // if (!data.user) return null;
-    // await signIn('credentials', {
-    //   // username: data.user.username,
-    //   // password: form.get('password'),
-    //   callbackUrl: '/',
-    // });
     setError('');
     setLoading(false);
   };
