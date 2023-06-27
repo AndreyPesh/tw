@@ -15,7 +15,6 @@ const Header = () => {
   const { data: session } = useSession();
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
-  console.log(session);
 
   return (
     <header className="border-b border-b-light">

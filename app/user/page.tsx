@@ -12,7 +12,7 @@ const UserPage = () => {
     <>
       <Header />
       <Suspense fallback={<Loading />}>
-        <div className="">User page</div>
+        <div className="container">User page</div>
       </Suspense>
     </>
   );
