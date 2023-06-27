@@ -3,7 +3,7 @@
 import { GetServerSideProps } from 'next';
 import { Session, getServerSession } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '../utils/server/auth';
 
 type Props = {
   session?: Session | null;
@@ -15,7 +15,7 @@ export const NextAuthProvider = ({ session, children }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps<{
-  session: Session | null
+  session: Session | null;
 }> = async () => {
   const session = await getServerSession(authOptions);
   return {
@@ -23,4 +23,4 @@ export const getServerSideProps: GetServerSideProps<{
       session,
     },
   };
-}
+};
