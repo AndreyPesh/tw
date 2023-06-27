@@ -15,6 +15,7 @@ import { EnumLinkPage } from '@/src/5_shared/types/enum';
 const LoginForm = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState('');
 
   const {
     register,
@@ -24,11 +25,21 @@ const LoginForm = () => {
 
   const onSubmit: SubmitHandler<LoginFormData> = async (loginFormData) => {
     setLoading(true);
-    await signIn('credentials', {
-      callbackUrl: EnumLinkPage.USER,
+    setError('');
+    const response = await signIn('credentials', {
+      redirect: false,
       email: loginFormData.email,
       password: loginFormData.password,
     });
+    if (response?.error) {
+      setError(response.error);
+      setLoading(false);
+      return;
+    }
+    if (response?.url) {
+      router.push(EnumLinkPage.HOME);
+    }
+
     setLoading(false);
   };
 
@@ -52,6 +63,7 @@ const LoginForm = () => {
           register={register('password')}
           error={errors.password}
         />
+        {error && <span className="block text-red text-center">{error}</span>}
         <Button
           styles="w-full sm:w-40"
           type="submit"
