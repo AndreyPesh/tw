@@ -1,9 +1,20 @@
+import Header from '@/src/2_widgets/header/Header';
+import { Suspense } from 'react';
+import Loading from './loading';
 
-const ProductPage = () => {
+export const metadata = {
+  title: 'Products',
+  description: 'Products page',
+};
+
+const ProductPage = async () => {
   return (
-    <div>
-      Products
-    </div>
+    <>
+      <Header />
+      <Suspense fallback={<Loading />}>
+        <div className='container'>Products</div>
+      </Suspense>
+    </>
   );
 };
 
