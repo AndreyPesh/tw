@@ -35,6 +35,7 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
           'bg-transparent text-gray-600 hover:opacity-100 hover:shadow-none hover:text-black border-none':
             variant === EnumTypeButton.OUTLINE,
         },
+        { 'bg-transparent text-success border-success': variant === EnumTypeButton.SUCCESS },
         { 'cursor-not-allowed hover:opacity-50 opacity-50': isLoading },
         { [styles]: styles }
       )}

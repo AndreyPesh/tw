@@ -1,6 +1,7 @@
 import Header from '@/src/2_widgets/header/Header';
 import React, { Suspense } from 'react';
 import Loading from './loading';
+import UserAccount from '@/src/1_page/UserAccount';
 
 export const metadata = {
   title: 'Account',
@@ -12,7 +13,8 @@ const UserPage = () => {
     <>
       <Header />
       <Suspense fallback={<Loading />}>
-        <div className="container">User page</div>
+        {/* <div className="container">User page</div> */}
+        <UserAccount />
       </Suspense>
     </>
   );

@@ -10,7 +10,8 @@ module.exports = {
       colors: {
         primary: '#437EF7',
         light: '#EAEBF0',
-        red: '#F04438'
+        red: '#F04438',
+        success: '#0f766e'
       },
       backgroundImage: {
         logout: "url('/logout.svg')",
