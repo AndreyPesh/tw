@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <header className="border-b border-b-light">
-      <div className="container mx-auto relative w-full py-2 md:py-0 flex justify-between items-center">
+      <div className="container mx-auto w-full py-2 md:py-0 flex justify-between items-center">
         <Link href={EnumLinkPage.HOME}>
           <Image
             priority
@@ -31,7 +31,7 @@ const Header = () => {
         <div
           onClick={() => toggle()}
           className={classNames(
-            'absolute top-[67px] right-0 w-full h-[calc(100vh-67px)] flex flex-col justify-between bg-white md:flex-row md:relative md:top-0 md:left-0 md:h-auto md:w-2/3 duration-200',
+            'absolute top-[67px] right-0 w-full h-[calc(100%-67px)] flex flex-col justify-between bg-white md:flex-row md:relative md:top-0 md:left-0 md:h-auto md:w-2/3 duration-200',
             {
               'left-0': active,
               'left-[-100vw]': !active,
