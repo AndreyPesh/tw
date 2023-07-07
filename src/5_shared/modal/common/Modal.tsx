@@ -1,6 +1,7 @@
+import { MouseEvent } from 'react';
 import classNames from 'classnames';
 import useAddImageModalStore from '../addImageModal/state';
-import { MouseEvent } from 'react';
+import Cross from '../Cross';
 
 const enum MODAL_DATA_ATTR {
   CLOSE = 'close',
@@ -14,7 +15,7 @@ const Modal = () => {
     if (dataset.modal === MODAL_DATA_ATTR.CLOSE) {
       closeModal();
     }
-    console.log(event);
+    console.log(event.target);
   };
 
   return (
@@ -29,8 +30,9 @@ const Modal = () => {
         className="w-full h-full flex items-center justify-center"
         data-modal={'close'}
       >
-        <div className="p-5 w-[80%] h-[80%] bg-white inset-0 rounded-lg">
+        <div className="relative p-5 w-[80%] h-[80%] bg-white inset-0 rounded-lg">
           window
+          <Cross />
         </div>
       </div>
     </div>
