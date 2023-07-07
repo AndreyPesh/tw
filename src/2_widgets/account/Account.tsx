@@ -1,8 +1,8 @@
 'use client';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
-import Modal from '@/src/5_shared/modal/addImageModal/Modal';
 import useAddImageModalStore from '@/src/5_shared/modal/addImageModal/state';
+import Modal from '@/src/5_shared/modal/common/Modal';
 import Image from 'next/image';
 import { FC } from 'react';
 
