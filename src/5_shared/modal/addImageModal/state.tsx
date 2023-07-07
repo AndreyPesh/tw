@@ -9,7 +9,7 @@ interface ImageModalStore {
 const useAddImageModalStore = create<ImageModalStore>((set) => ({
   isShow: false,
   openModal: () => set(() => ({ isShow: true })),
-  closeModal: () => set((state) => ({ isShow: false })),
+  closeModal: () => set(() => ({ isShow: false })),
 }));
 
 export default useAddImageModalStore;

@@ -8,7 +8,9 @@ const Modal = () => {
 
   const toggleModal = (event: MouseEvent<HTMLElement>) => {
     //   setIsShow((state) => !state);
-    const { dataset } = event.currentTarget;
+    const { dataset } = event.target as HTMLElement;
+    console.log(event);
+    
   };
 
   return (
