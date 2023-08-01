@@ -1,12 +1,32 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { withAuth } from 'next-auth/middleware';
 
-export { default } from 'next-auth/middleware';
-
-export function middleware(request: NextRequest) {
-  console.log(`middleware ${request.nextUrl}`);
-  return NextResponse.next();
-  
-}
+export default withAuth(
+  // `withAuth` augments your `Request` with the user's token.
+  // function middleware(req) {
+  //   console.log(req.nextauth.token);
+  // },
+  {
+    callbacks: {
+      authorized: ({ token }) => token !== null,
+    },
+  }
+);
 
 export const config = { matcher: ['/user'] };
-// export const config = { matcher: [] };
+
+// import { getServerSession } from 'next-auth';
+// import { NextRequest, NextResponse } from 'next/server';
+// import { authOptions } from './src/5_shared/utils/server/auth';
+
+// export { default } from 'next-auth/middleware';
+
+// export async function middleware(request: NextRequest) {
+//   // const session = await getServerSession(authOptions);
+//   // if (session === null) {
+//   //   return NextResponse.rewrite(new URL('/auth', request.url));
+//   // }
+//   return NextResponse.next();
+// }
+
+// export const config = { matcher: ['/user'] };
+// // export const config = { matcher: [] };
