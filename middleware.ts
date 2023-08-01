@@ -7,7 +7,7 @@ export default withAuth(
   //   console.log(req.nextauth.token);
   // },
   {
-    secret: process.env.SECRET as string,
+    secret: process.env.NEXTAUTH_SECRET as string,
   }
 );
 
