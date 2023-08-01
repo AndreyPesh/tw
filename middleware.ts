@@ -1,3 +1,4 @@
+// export { default } from 'next-auth/middleware';
 import { withAuth } from 'next-auth/middleware';
 
 export default withAuth(
@@ -6,9 +7,7 @@ export default withAuth(
   //   console.log(req.nextauth.token);
   // },
   {
-    callbacks: {
-      authorized: ({ token }) => token !== null,
-    },
+    secret: process.env.SECRET as string,
   }
 );
 
