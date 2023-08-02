@@ -2,7 +2,6 @@ import { Inter } from 'next/font/google';
 import '@/src/5_shared/styles/globals.css';
 import { ProviderRedux } from '@/src/5_shared/store/provider';
 import { NextAuthProvider } from '@/src/5_shared/providers/authProvider';
-import Header from '@/src/2_widgets/header/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 
