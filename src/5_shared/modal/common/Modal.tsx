@@ -1,13 +1,5 @@
-import {
-  FC,
-  MouseEvent,
-  PropsWithChildren,
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react';
+import { FC, MouseEvent, PropsWithChildren, useEffect, useState } from 'react';
 import classNames from 'classnames';
-import useAddImageModalStore from '../addImageModal/state';
 import Cross from '../Cross';
 import { ModalStateManagement } from '../types/interface';
 
@@ -53,7 +45,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({ children, management }) => {
         className="w-full h-full flex items-center justify-center"
         data-modal={'close'}
       >
-        <div className="relative p-5 w-[80%] h-[80%] bg-white inset-0 rounded-lg">
+        <div className={`relative p-5 bg-white inset-0 rounded-lg`}>
           {children}
           <Cross />
         </div>
