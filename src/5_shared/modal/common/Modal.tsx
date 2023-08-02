@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import useAddImageModalStore from '../addImageModal/state';
 import Cross from '../Cross';
@@ -8,23 +8,34 @@ const enum MODAL_DATA_ATTR {
 }
 
 const Modal = () => {
+  const [isModalAppear, setIsModalAppear] = useState<boolean>(false);
   const { isShow, closeModal } = useAddImageModalStore();
 
-  const toggle = (event: MouseEvent<HTMLElement>) => {
+  const closeModalHandler = (event: MouseEvent<HTMLElement>) => {
     const { dataset } = event.target as HTMLElement;
     if (dataset.modal === MODAL_DATA_ATTR.CLOSE) {
       closeModal();
     }
-    console.log(event.target);
   };
+
+  useEffect(() => {
+    if (isShow) {
+      setIsModalAppear(true);
+    }
+  }, [isShow]);
 
   return (
     <div
       className={classNames(
-        'fixed top-0 left-0 w-full h-full bg-slate-900/75',
-        { hidden: !isShow }
+        `fixed top-0 left-0 w-full h-full bg-slate-900/75`,
+        { hidden: !isModalAppear },
+        { 'animate-appear': isShow },
+        { 'animate-disappear': !isShow }
       )}
-      onClick={toggle}
+      onClick={closeModalHandler}
+      onAnimationEnd={() => {
+        !isShow && setIsModalAppear(false);
+      }}
     >
       <div
         className="w-full h-full flex items-center justify-center"
