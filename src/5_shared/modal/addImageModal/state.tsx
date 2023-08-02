@@ -1,12 +1,7 @@
 import { create } from 'zustand';
+import { ModalStateManagement } from '../types/interface';
 
-interface ImageModalStore {
-  isShow: boolean;
-  openModal: () => void;
-  closeModal: () => void;
-}
-
-const useAddImageModalStore = create<ImageModalStore>((set) => ({
+const useAddImageModalStore = create<ModalStateManagement>((set) => ({
   isShow: false,
   openModal: () => set(() => ({ isShow: true })),
   closeModal: () => set(() => ({ isShow: false })),
