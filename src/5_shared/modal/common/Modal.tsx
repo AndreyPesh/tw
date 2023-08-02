@@ -1,15 +1,27 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import {
+  FC,
+  MouseEvent,
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import useAddImageModalStore from '../addImageModal/state';
 import Cross from '../Cross';
+import { ModalStateManagement } from '../types/interface';
+
+interface ModalProps {
+  management: () => ModalStateManagement;
+}
 
 const enum MODAL_DATA_ATTR {
   CLOSE = 'close',
 }
 
-const Modal = () => {
+const Modal: FC<PropsWithChildren<ModalProps>> = ({ children, management }) => {
   const [isModalAppear, setIsModalAppear] = useState<boolean>(false);
-  const { isShow, closeModal } = useAddImageModalStore();
+  const { isShow, closeModal } = management();
 
   const closeModalHandler = (event: MouseEvent<HTMLElement>) => {
     const { dataset } = event.target as HTMLElement;
@@ -42,7 +54,7 @@ const Modal = () => {
         data-modal={'close'}
       >
         <div className="relative p-5 w-[80%] h-[80%] bg-white inset-0 rounded-lg">
-          window
+          {children}
           <Cross />
         </div>
       </div>
