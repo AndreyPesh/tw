@@ -1,15 +1,22 @@
-export { default } from 'next-auth/middleware';
-// import { withAuth } from 'next-auth/middleware';
+// export { default } from 'next-auth/middleware';
+import { withAuth } from 'next-auth/middleware';
 
-// export default withAuth(
-//   // `withAuth` augments your `Request` with the user's token.
-//   function middleware(req) {
-//     console.log(req.nextauth);
-//   },
-//   {
-//     secret: process.env.NEXTAUTH_SECRET as string,
-//   }
-// );
+export default withAuth(
+  // `withAuth` augments your `Request` with the user's token.
+  function middleware(req) {
+    console.log(req.nextauth);
+  },
+  {
+    callbacks: {
+      authorized({ req, token }) {
+        console.log(token);
+
+        return !!token;
+      },
+    },
+    // secret: process.env.NEXTAUTH_SECRET as string,
+  }
+);
 
 export const config = { matcher: ['/user'] };
 
