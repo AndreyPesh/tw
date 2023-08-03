@@ -1,4 +1,4 @@
-import { FC, FormEvent } from 'react';
+import { FC } from 'react';
 import useAddImageModalStore from '../state';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
@@ -6,13 +6,11 @@ import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 interface UploadFileButtonsProps {
   triggerInputHandler: () => void;
   deleteFileHandler: () => void;
-  submitFileHandler: (event: FormEvent) => Promise<void>;
 }
 
 const UploadFileButtons: FC<UploadFileButtonsProps> = ({
   triggerInputHandler,
-  deleteFileHandler,
-  submitFileHandler,
+  deleteFileHandler
 }) => {
   const { closeModal } = useAddImageModalStore();
   return (
@@ -26,7 +24,7 @@ const UploadFileButtons: FC<UploadFileButtonsProps> = ({
         </Button>
       </div>
       <div className="pl-2 pr-2 inline-flex justify-center">
-        <Button variant={EnumTypeButton.SUCCESS} handler={submitFileHandler}>
+        <Button variant={EnumTypeButton.SUCCESS} type='submit'>
           Save
         </Button>
         <Button variant={EnumTypeButton.TRANSPARENT} handler={closeModal}>
