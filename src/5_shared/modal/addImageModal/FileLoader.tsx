@@ -1,16 +1,20 @@
-import Button from '@/src/5_shared/buttons/Button';
-import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
-import useAddImageModalStore from '@/src/5_shared/modal/addImageModal/state';
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
-import { DEFAULT_NAME_AVATAR } from '../../types/constant';
 import axios from 'axios';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import UploadFileButtons from './ui/UploadFileButtonsProps';
+import { DEFAULT_NAME_AVATAR } from '../../types/constant';
 
 const FileLoader = () => {
   const [imageSrc, setImageSrc] = useState<string>(DEFAULT_NAME_AVATAR);
   const [formData, setFormData] = useState<FormData>();
-  const { closeModal } = useAddImageModalStore();
+
   const inputFileRef = useRef<HTMLInputElement>(null);
   const refImage = useRef<HTMLImageElement>(null);
+
+  const triggerInputHandler = () => {
+    if (inputFileRef.current) {
+      inputFileRef.current.click();
+    }
+  };
 
   const selectFileHandler = (event: ChangeEvent<HTMLInputElement>) => {
     let filesList = event.target.files as FileList;
@@ -19,7 +23,7 @@ const FileLoader = () => {
       setImageSrc(currentImageSrc);
       const formData = new FormData();
       formData.append('file', filesList[0]);
-      formData.append('upload_preset','ozmlbz2d');
+      formData.append('upload_preset', 'ozmlbz2d');
       setFormData(formData);
 
       if (refImage.current) {
@@ -31,19 +35,13 @@ const FileLoader = () => {
     }
   };
 
-  const deleteImageHandler = () => {
+  const deleteFileHandler = () => {
     setImageSrc(DEFAULT_NAME_AVATAR);
   };
 
-  const inputHandler = () => {
-    if (inputFileRef.current) {
-      inputFileRef.current.click();
-    }
-  };
-
-  const submitPhotoHandler = async (event: FormEvent) => {
+  const submitFileHandler = async (event: FormEvent) => {
     event.preventDefault();
-    
+
     try {
       const response = await axios.post(
         'https://api.cloudinary.com/v1_1/dc2l3gcuy/image/upload',
@@ -53,7 +51,6 @@ const FileLoader = () => {
     } catch (error) {
       console.error(error);
     }
-    
   };
 
   return (
@@ -70,22 +67,11 @@ const FileLoader = () => {
             onChange={selectFileHandler}
           />
         </div>
-        <div>
-          <Button variant={EnumTypeButton.PRIMARY} handler={inputHandler}>
-            Select image
-          </Button>
-          <Button variant={EnumTypeButton.DANGER} handler={deleteImageHandler}>
-            Delete
-          </Button>
-        </div>
-        <div className="pl-2 pr-2 inline-flex justify-center">
-          <Button variant={EnumTypeButton.SUCCESS} handler={submitPhotoHandler}>
-            Save
-          </Button>
-          <Button variant={EnumTypeButton.TRANSPARENT} handler={closeModal}>
-            Cancel
-          </Button>
-        </div>
+        <UploadFileButtons
+          triggerInputHandler={triggerInputHandler}
+          deleteFileHandler={deleteFileHandler}
+          submitFileHandler={submitFileHandler}
+        />
       </form>
     </div>
   );
