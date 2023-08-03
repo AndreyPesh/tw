@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren, SyntheticEvent } from 'react';
 import { EnumTypeButton } from './types/enums';
 import classnames from 'classnames';
 import Spinner from './spinner/Spinner';
@@ -6,7 +6,7 @@ import Spinner from './spinner/Spinner';
 interface ButtonProps {
   variant: EnumTypeButton;
   type?: 'button' | 'submit' | 'reset';
-  handler?: () => void;
+  handler?: (event: SyntheticEvent) => void;
   isLoading?: boolean;
   styles?: string;
 }
@@ -40,6 +40,10 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
             variant === EnumTypeButton.SUCCESS,
         },
         { 'cursor-not-allowed hover:opacity-50 opacity-50': isLoading },
+        {
+          'bg-transparent text-red border-red':
+            variant === EnumTypeButton.DANGER,
+        },
         { [styles]: styles }
       )}
     >

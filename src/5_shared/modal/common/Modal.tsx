@@ -45,7 +45,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({ children, management }) => {
         className="w-full h-full flex items-center justify-center"
         data-modal={'close'}
       >
-        <div className={`relative p-5 bg-white inset-0 rounded-lg`}>
+        <div className={`relative p-5 pt-12 bg-white inset-0 rounded-lg`}>
           {children}
           <Cross />
         </div>

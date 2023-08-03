@@ -3,4 +3,5 @@ export const enum EnumTypeButton {
   TRANSPARENT = 'transparent',
   OUTLINE = 'outline',
   SUCCESS = 'success',
+  DANGER = 'danger',
 }
