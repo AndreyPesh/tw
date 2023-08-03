@@ -1,6 +1,8 @@
 import { CookiesOptions } from 'next-auth';
 import { EnumLinkPage, EnumTypeAuth } from './enum';
 
+export const DEFAULT_NAME_AVATAR = './avatar.svg';
+
 export const TYPE_AUTH_PARAM = 'type_auth';
 
 export const URL_LOGIN_PAGE = `${EnumLinkPage.AUTH}?${TYPE_AUTH_PARAM}=${EnumTypeAuth.LOGIN}`;

@@ -2,9 +2,10 @@ import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 import useAddImageModalStore from '@/src/5_shared/modal/addImageModal/state';
 import { ChangeEvent, useRef, useState } from 'react';
+import { DEFAULT_NAME_AVATAR } from '../../types/constant';
 
 const FileLoader = () => {
-  const [imageSrc, setImageSrc] = useState<string>('');
+  const [imageSrc, setImageSrc] = useState<string>(DEFAULT_NAME_AVATAR);
   const { closeModal } = useAddImageModalStore();
   const inputFileRef = useRef<HTMLInputElement>(null);
   const refImage = useRef<HTMLImageElement>(null);
@@ -20,12 +21,12 @@ const FileLoader = () => {
           refImage.current && URL.revokeObjectURL(refImage.current.src);
         };
       }
+      event.target.value = '';
     }
   };
 
   const deleteImageHandler = () => {
-    setImageSrc('');
-    // inputFileRef.current && inputFileRef.current;
+    setImageSrc(DEFAULT_NAME_AVATAR);
   };
 
   const inputHandler = () => {

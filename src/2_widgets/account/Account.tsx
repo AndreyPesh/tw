@@ -6,6 +6,7 @@ import useAddImageModalStore from '@/src/5_shared/modal/addImageModal/state';
 import Modal from '@/src/5_shared/modal/common/Modal';
 import Image from 'next/image';
 import { FC } from 'react';
+import { DEFAULT_NAME_AVATAR } from '@/src/5_shared/types/constant';
 
 interface AccountProps {
   name: string | null;
@@ -15,7 +16,7 @@ interface AccountProps {
 
 const Account: FC<AccountProps> = ({ name, email, image }) => {
   const { openModal } = useAddImageModalStore();
-  const imageUrl = (image && image) || './avatar.svg';
+  const imageUrl = (image && image) || DEFAULT_NAME_AVATAR;
 
   return (
     <>
