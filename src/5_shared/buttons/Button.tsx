@@ -40,6 +40,10 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
             variant === EnumTypeButton.SUCCESS,
         },
         { 'cursor-not-allowed hover:opacity-50 opacity-50': isLoading },
+        {
+          'bg-transparent text-red border-red':
+            variant === EnumTypeButton.DANGER,
+        },
         { [styles]: styles }
       )}
     >
