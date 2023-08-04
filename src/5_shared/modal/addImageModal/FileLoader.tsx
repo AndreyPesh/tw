@@ -51,10 +51,9 @@ const FileLoader = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/dc2l3gcuy/image/upload',
-        formData
-      );
+      const response = await axios.post('/api/user/account/avatar', formData, {
+        headers: { 'Content-type': 'multipart/form-data' },
+      });
       console.log(response);
     } catch (error) {
       console.error(error);
