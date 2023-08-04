@@ -1,9 +1,10 @@
-import axios from 'axios';
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import UploadFileButtons from './ui/UploadFileButtonsProps';
 import { DEFAULT_NAME_AVATAR } from '../../types/constant';
+import { sendFile } from './helpers/sendFile';
 
 const FileLoader = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>(DEFAULT_NAME_AVATAR);
   const [formData, setFormData] = useState<FormData>();
 
@@ -49,14 +50,15 @@ const FileLoader = () => {
 
   const submitFileHandler = async (event: FormEvent) => {
     event.preventDefault();
-
     try {
-      const response = await axios.post('/api/user/account/avatar', formData, {
-        headers: { 'Content-type': 'multipart/form-data' },
-      });
-      console.log(response);
+      setIsLoading(true);
+      if (formData) {
+        await sendFile(formData);
+      }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,6 +77,7 @@ const FileLoader = () => {
           />
         </div>
         <UploadFileButtons
+          isLoading={isLoading}
           triggerInputHandler={triggerInputHandler}
           deleteFileHandler={deleteFileHandler}
         />
