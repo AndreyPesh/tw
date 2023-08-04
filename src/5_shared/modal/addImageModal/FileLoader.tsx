@@ -1,9 +1,12 @@
-import axios from 'axios';
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import UploadFileButtons from './ui/UploadFileButtonsProps';
 import { DEFAULT_NAME_AVATAR } from '../../types/constant';
+import { sendFile } from './helpers/sendFile';
+import { useSession } from 'next-auth/react';
 
 const FileLoader = () => {
+  const { data: session, update } = useSession();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>(DEFAULT_NAME_AVATAR);
   const [formData, setFormData] = useState<FormData>();
 
@@ -49,15 +52,25 @@ const FileLoader = () => {
 
   const submitFileHandler = async (event: FormEvent) => {
     event.preventDefault();
-
     try {
-      const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/dc2l3gcuy/image/upload',
-        formData
-      );
-      console.log(response);
+      setIsLoading(true);
+      if (formData) {
+        const newImageUrl = await sendFile(formData);
+
+        if (newImageUrl && session && session.user) {
+          await update({
+            ...session,
+            user: {
+              ...session?.user,
+              image: newImageUrl,
+            },
+          });
+        }
+      }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,6 +89,7 @@ const FileLoader = () => {
           />
         </div>
         <UploadFileButtons
+          isLoading={isLoading}
           triggerInputHandler={triggerInputHandler}
           deleteFileHandler={deleteFileHandler}
         />

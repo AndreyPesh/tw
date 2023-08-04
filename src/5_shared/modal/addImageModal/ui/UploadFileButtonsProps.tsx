@@ -4,13 +4,15 @@ import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 
 interface UploadFileButtonsProps {
+  isLoading: boolean;
   triggerInputHandler: () => void;
   deleteFileHandler: () => void;
 }
 
 const UploadFileButtons: FC<UploadFileButtonsProps> = ({
+  isLoading,
   triggerInputHandler,
-  deleteFileHandler
+  deleteFileHandler,
 }) => {
   const { closeModal } = useAddImageModalStore();
   return (
@@ -24,7 +26,11 @@ const UploadFileButtons: FC<UploadFileButtonsProps> = ({
         </Button>
       </div>
       <div className="pl-2 pr-2 inline-flex justify-center">
-        <Button variant={EnumTypeButton.SUCCESS} type='submit'>
+        <Button
+          variant={EnumTypeButton.SUCCESS}
+          type="submit"
+          isLoading={isLoading}
+        >
           Save
         </Button>
         <Button variant={EnumTypeButton.TRANSPARENT} handler={closeModal}>

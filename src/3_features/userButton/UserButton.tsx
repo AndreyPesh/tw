@@ -4,12 +4,13 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
+import { DEFAULT_NAME_AVATAR } from '@/src/5_shared/types/constant';
 
 const UserButton = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const userImage =
-    session && session.user?.image ? session.user.image : './avatar.svg';
+    session && session.user?.image ? session.user.image : DEFAULT_NAME_AVATAR;
 
   const onSignOut = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -21,9 +22,9 @@ const UserButton = () => {
       onClick={() => router.push(EnumLinkPage.USER)}
       className="flex items-center justify-around cursor-pointer border-t"
     >
-      <div className='p-2 inline-flex items-center hover:shadow-sm'>
+      <div className="p-2 inline-flex items-center hover:shadow-sm">
         <Image priority alt="user" width={48} height={48} src={userImage} />
-        <p className='ml-2 text-sm'>
+        <p className="ml-2 text-sm">
           {session && session.user ? (
             <span>{session.user.name}</span>
           ) : (

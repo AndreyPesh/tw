@@ -63,22 +63,16 @@ export const authOptions: AuthOptions = {
   ],
   adapter: PrismaAdapter(prisma) as Adapter,
   callbacks: {
-    // signIn({ user }) {
-    //   return true;
-    // },
-    // session({ session, token }) {
-    //   // session?.user?.id = token.id;
-    //   // session.user.username = token.username;
-    //   return session;
-    // },
-    // jwt({ token, account, user }) {
-    //   if (account) {
-    //     token.accessToken = account.access_token;
-    //     token.id = user.id;
-    //     // token.username = (user as User).username;
-    //     // console.log({ user });
-    //   }
-    //   return token;
-    // },
+    async jwt({ token, user, trigger, session }) {
+      if (trigger === 'update') {
+        return { ...token, ...session.user };
+      }
+      return { ...token, ...user };
+    },
+
+    async session({ session, token }) {
+      session.user = token;
+      return session;
+    },
   },
 };
