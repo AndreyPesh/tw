@@ -2,8 +2,10 @@ import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import UploadFileButtons from './ui/UploadFileButtonsProps';
 import { DEFAULT_NAME_AVATAR } from '../../types/constant';
 import { sendFile } from './helpers/sendFile';
+import { useSession } from 'next-auth/react';
 
 const FileLoader = () => {
+  const { data: session, update } = useSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>(DEFAULT_NAME_AVATAR);
   const [formData, setFormData] = useState<FormData>();
@@ -53,7 +55,17 @@ const FileLoader = () => {
     try {
       setIsLoading(true);
       if (formData) {
-        await sendFile(formData);
+        const newImageUrl = await sendFile(formData);
+
+        if (newImageUrl && session && session.user) {
+          await update({
+            ...session,
+            user: {
+              ...session?.user,
+              image: newImageUrl,
+            },
+          });
+        }
       }
     } catch (error) {
       console.error(error);

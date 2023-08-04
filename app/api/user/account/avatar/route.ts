@@ -22,15 +22,15 @@ const setImageRequest = async (request: NextRequest, res: NextResponse) => {
     if (responseCloud.status === STATUS_CODE.OK) {
       const urlImage = (responseCloud as ResponseSuccess).data as string;
       if (user && user.email) {
-        const isImageUpdated = await updateImageDb(urlImage, user.email);
-        if (!isImageUpdated) {
+        const newUrlImage = await updateImageDb(urlImage, user.email);
+        if (!newUrlImage) {
           throw new Error();
         }
+        return NextResponse.json({
+          status: STATUS_CODE.OK,
+          data: { usrImage: newUrlImage },
+        });
       }
-
-      return NextResponse.json({
-        status: STATUS_CODE.OK,
-      });
     } else {
       throw new Error();
     }

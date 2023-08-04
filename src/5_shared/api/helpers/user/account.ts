@@ -10,7 +10,7 @@ export const updateImageDb = async (urlImage: string, email: string) => {
         image: urlImage,
       },
     });
-    return updateUser ? true : false;
+    return updateUser ? updateUser.image : null;
   } catch (error) {
     throw new Error();
   }

@@ -6,8 +6,11 @@ export const sendFile = async (formData: FormData) => {
     const response = await axios.post(LIST_ROUTES.AVATAR, formData, {
       headers: { 'Content-type': 'multipart/form-data' },
     });
-    response.data.status === STATUS_CODE.OK ? true : false;
+    if (response.data.status === STATUS_CODE.OK) {
+      return response.data.data.usrImage as string;
+    }
+    return null;
   } catch {
-    return false;
+    throw new Error();
   }
 };
