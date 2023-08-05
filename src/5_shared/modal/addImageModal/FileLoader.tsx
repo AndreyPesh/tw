@@ -1,14 +1,20 @@
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import UploadFileButtons from './ui/UploadFileButtonsProps';
 import { DEFAULT_NAME_AVATAR } from '../../types/constant';
 import { sendFile } from './helpers/sendFile';
-import { useSession } from 'next-auth/react';
+import useAddImageModalStore from './state';
+import { createFormData } from './helpers/createFormData';
+import { revokeImageFromMemory } from './helpers/revokeImageFromMemory';
+import { useUpdateSession } from './hooks/useUpdateSession';
 
 const FileLoader = () => {
-  const { data: session, update } = useSession();
+  const router = useRouter();
+  const { closeModal } = useAddImageModalStore();
+  const updateSessionWithNewImage = useUpdateSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imageSrc, setImageSrc] = useState<string>(DEFAULT_NAME_AVATAR);
-  const [formData, setFormData] = useState<FormData>();
+  const [formData, setFormData] = useState<FormData>(new FormData());
 
   const inputFileRef = useRef<HTMLInputElement>(null);
   const refImage = useRef<HTMLImageElement>(null);
@@ -24,26 +30,11 @@ const FileLoader = () => {
     if (filesList.length > 0) {
       const currentImageSrc = URL.createObjectURL(filesList[0]);
       setImageSrc(currentImageSrc);
-      createFormData(filesList[0]);
-      revokeImageFromMemory();
+      createFormData(filesList[0], setFormData);
+      revokeImageFromMemory(refImage);
 
       event.target.value = '';
     }
-  };
-
-  const revokeImageFromMemory = () => {
-    if (refImage.current) {
-      refImage.current.onload = function handleLoad() {
-        refImage.current && URL.revokeObjectURL(refImage.current.src);
-      };
-    }
-  };
-
-  const createFormData = (file: File) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'ozmlbz2d');
-    setFormData(formData);
   };
 
   const deleteFileHandler = () => {
@@ -57,14 +48,10 @@ const FileLoader = () => {
       if (formData) {
         const newImageUrl = await sendFile(formData);
 
-        if (newImageUrl && session && session.user) {
-          await update({
-            ...session,
-            user: {
-              ...session?.user,
-              image: newImageUrl,
-            },
-          });
+        if (newImageUrl) {
+          updateSessionWithNewImage(newImageUrl);
+          router.refresh();
+          closeModal();
         }
       }
     } catch (error) {
