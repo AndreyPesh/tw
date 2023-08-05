@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import UploadFileButtons from './ui/UploadFileButtonsProps';
 import { DEFAULT_NAME_AVATAR } from '../../types/constant';
@@ -8,12 +8,18 @@ import { createFormData } from './helpers/createFormData';
 import { revokeImageFromMemory } from './helpers/revokeImageFromMemory';
 import { useUpdateSession } from './hooks/useUpdateSession';
 
-const FileLoader = () => {
+interface FileLoaderProps {
+  initImageUrl?: string;
+}
+
+const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
   const router = useRouter();
   const { closeModal } = useAddImageModalStore();
   const updateSessionWithNewImage = useUpdateSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [imageSrc, setImageSrc] = useState<string>(DEFAULT_NAME_AVATAR);
+  const [imageSrc, setImageSrc] = useState<string>(
+    initImageUrl ? initImageUrl : DEFAULT_NAME_AVATAR
+  );
   const [formData, setFormData] = useState<FormData>(new FormData());
 
   const inputFileRef = useRef<HTMLInputElement>(null);

@@ -46,7 +46,10 @@ const Account: FC<AccountProps> = ({ name, email, image }) => {
           </div>
         </div>
       </section>
-      <Modal children={<FileLoader />} management={useAddImageModalStore} />
+      <Modal
+        children={<FileLoader initImageUrl={imageUrl} />}
+        management={useAddImageModalStore}
+      />
     </>
   );
 };
