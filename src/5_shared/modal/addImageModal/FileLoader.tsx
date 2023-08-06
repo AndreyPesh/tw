@@ -1,4 +1,5 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import UploadFileButtons from './ui/UploadFileButtonsProps';
 import { DEFAULT_NAME_AVATAR } from '../../types/constant';
@@ -43,8 +44,35 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
     }
   };
 
-  const deleteFileHandler = () => {
-    setImageSrc(DEFAULT_NAME_AVATAR);
+  const updateImage = async () => {
+    const newImageUrl = await sendFile(formData);
+    if (newImageUrl) {
+      updateSessionWithNewImage(newImageUrl);
+      router.refresh();
+      closeModal();
+    }
+  };
+
+  const deleteFileHandler = async () => {
+    try {
+      setIsLoading(true);
+
+      const initImage = await axios.get<{}, { data: string }>(
+        DEFAULT_NAME_AVATAR
+      );
+
+      if (initImage.data) {
+        // const blobImage = new File([initImage.data]);
+
+        // createFormData(new File([initImage.data], imageSrc), setFormData);
+        await updateImage();
+        setImageSrc(DEFAULT_NAME_AVATAR);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const submitFileHandler = async (event: FormEvent) => {
@@ -52,13 +80,7 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
     try {
       setIsLoading(true);
       if (formData) {
-        const newImageUrl = await sendFile(formData);
-
-        if (newImageUrl) {
-          updateSessionWithNewImage(newImageUrl);
-          router.refresh();
-          closeModal();
-        }
+        await updateImage();
       }
     } catch (error) {
       console.error(error);

@@ -1,12 +1,11 @@
-import { sendFileToCloud } from '@/src/5_shared/api/helpers/cloud/cloudRequest';
-import { updateImageDb } from '@/src/5_shared/api/helpers/user/account';
-import { GENERAL_MESSAGE_ERROR } from '@/src/5_shared/api/types/constants';
-import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
-import { ResponseSuccess } from '@/src/5_shared/api/types/interfaces';
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
+import CloudAPI from '@/src/5_shared/api/helpers/cloud/CloudAPI';
+import CloudinaryAPI from '@/src/5_shared/api/helpers/cloud/cloudinary/CloudinaryAPI';
+import { updateImageDb } from '@/src/5_shared/api/helpers/user/account';
+import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 
-const setImageRequest = async (request: NextRequest, res: NextResponse) => {
+const setImageRequest = async (request: NextRequest) => {
   try {
     const session = await getServerSession();
     if (!session) {
@@ -15,12 +14,16 @@ const setImageRequest = async (request: NextRequest, res: NextResponse) => {
       });
     }
     const { user } = session;
-
+    const cloudAPI = new CloudAPI(new CloudinaryAPI());
     const formData = await request.formData();
-    const responseCloud = await sendFileToCloud(formData);
+
+    if (user && user.image) {
+      await cloudAPI.removeImageFromCloud(user.image);
+    }
+    const responseCloud = await cloudAPI.uploadImageToCloud(formData);
 
     if (responseCloud.status === STATUS_CODE.OK) {
-      const urlImage = (responseCloud as ResponseSuccess).data as string;
+      const urlImage = responseCloud.data as string;
       if (user && user.email) {
         const newUrlImage = await updateImageDb(urlImage, user.email);
         if (!newUrlImage) {
@@ -37,7 +40,7 @@ const setImageRequest = async (request: NextRequest, res: NextResponse) => {
   } catch (error) {
     return NextResponse.json({
       status: STATUS_CODE.INTERNAL,
-      message: GENERAL_MESSAGE_ERROR,
+      message: (error as Error).message,
     });
   }
 };
