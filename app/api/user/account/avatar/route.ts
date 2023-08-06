@@ -11,11 +11,11 @@ const userDB = new UserDB();
 const setImageRequest = async (request: NextRequest) => {
   try {
     const session = await getServerSession();
-    console.log(session);
     
     if (!session) {
       return NextResponse.json({
         status: STATUS_CODE.UNAUTHORIZED,
+        data: session
       });
     }
     const { user } = session;
