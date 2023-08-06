@@ -16,4 +16,20 @@ export class UserDB {
       throw new Error();
     }
   };
+
+  deleteImage = async (email: string) => {
+    try {
+      const user = await prisma.user.update({
+        where: {
+          email,
+        },
+        data: {
+          image: null,
+        },
+      });
+      return user;
+    } catch (error) {
+      throw new Error();
+    }
+  };
 }

@@ -1,5 +1,5 @@
 'use client';
-import FileLoader from '@/src/5_shared/modal/addImageModal/FileLoader';
+import FileLoader from '@/src/5_shared/modal/addImageModal/ui/FileLoader';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 import useAddImageModalStore from '@/src/5_shared/modal/addImageModal/state';

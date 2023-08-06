@@ -5,6 +5,9 @@ import CloudinaryAPI from '@/src/5_shared/api/helpers/cloud/cloudinary/Cloudinar
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 import { UserDB } from '@/src/5_shared/api/helpers/db/user/User';
 
+const cloudAPI = new CloudAPI(new CloudinaryAPI());
+const userDB = new UserDB();
+
 const setImageRequest = async (request: NextRequest) => {
   try {
     const session = await getServerSession();
@@ -14,7 +17,6 @@ const setImageRequest = async (request: NextRequest) => {
       });
     }
     const { user } = session;
-    const cloudAPI = new CloudAPI(new CloudinaryAPI());
     const formData = await request.formData();
 
     if (user && user.image) {
@@ -25,10 +27,7 @@ const setImageRequest = async (request: NextRequest) => {
     if (responseCloud.status === STATUS_CODE.OK) {
       const urlImage = responseCloud.data as string;
       if (user && user.email) {
-        const newUrlImage = await new UserDB().updateImageDb(
-          urlImage,
-          user.email
-        );
+        const newUrlImage = await userDB.updateImageDb(urlImage, user.email);
         if (!newUrlImage) {
           throw new Error();
         }
@@ -48,4 +47,29 @@ const setImageRequest = async (request: NextRequest) => {
   }
 };
 
-export { setImageRequest as POST };
+const removeImage = async () => {
+  try {
+    const session = await getServerSession();
+    if (!session) {
+      return NextResponse.json({
+        status: STATUS_CODE.UNAUTHORIZED,
+      });
+    }
+    const { user } = session;
+
+    if (user && user.image && user.email) {
+      await cloudAPI.removeImageFromCloud(user.image);
+      await userDB.deleteImage(user.email);
+      return NextResponse.json({
+        status: STATUS_CODE.OK,
+      });
+    }
+  } catch (error) {
+    return NextResponse.json({
+      status: STATUS_CODE.INTERNAL,
+      message: (error as Error).message,
+    });
+  }
+};
+
+export { setImageRequest as POST, removeImage as DELETE };

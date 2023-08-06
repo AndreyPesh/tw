@@ -19,4 +19,15 @@ export class UserAPI {
       throw new Error();
     }
   };
+
+  deleteAvatar = async () => {
+    try {
+      const { data } = await axios.delete<{ status: number }>(
+        LIST_ROUTES.AVATAR
+      );
+      return data.status === STATUS_CODE.OK ? true : false;
+    } catch {
+      throw new Error('Cant remove file avatar');
+    }
+  };
 }
