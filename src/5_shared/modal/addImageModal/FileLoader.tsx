@@ -7,7 +7,7 @@ import useAddImageModalStore from './state';
 import { createFormData } from './helpers/createFormData';
 import { revokeImageFromMemory } from './helpers/revokeImageFromMemory';
 import { useUpdateSession } from './hooks/useUpdateSession';
-import { userAPI } from '../../api/userAPI';
+import { UserAPI } from '../../api/userAPI';
 
 interface FileLoaderProps {
   initImageUrl?: string;
@@ -45,7 +45,7 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
   };
 
   const updateImage = async () => {
-    const newImageUrl = await new userAPI().updateAvatar(formData);
+    const newImageUrl = await new UserAPI().updateAvatar(formData);
     if (newImageUrl) {
       updateSessionWithNewImage(newImageUrl);
       router.refresh();

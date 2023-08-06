@@ -2,8 +2,8 @@ import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import CloudAPI from '@/src/5_shared/api/helpers/cloud/CloudAPI';
 import CloudinaryAPI from '@/src/5_shared/api/helpers/cloud/cloudinary/CloudinaryAPI';
-import { updateImageDb } from '@/src/5_shared/api/helpers/user/account';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
+import { UserDB } from '@/src/5_shared/api/helpers/db/user/User';
 
 const setImageRequest = async (request: NextRequest) => {
   try {
@@ -25,7 +25,10 @@ const setImageRequest = async (request: NextRequest) => {
     if (responseCloud.status === STATUS_CODE.OK) {
       const urlImage = responseCloud.data as string;
       if (user && user.email) {
-        const newUrlImage = await updateImageDb(urlImage, user.email);
+        const newUrlImage = await new UserDB().updateImageDb(
+          urlImage,
+          user.email
+        );
         if (!newUrlImage) {
           throw new Error();
         }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { LIST_ROUTES, STATUS_CODE } from './types/enums';
 
-export class userAPI {
+export class UserAPI {
   updateAvatar = async (formData: FormData) => {
     try {
       const { status, data: response } = await axios.post(
