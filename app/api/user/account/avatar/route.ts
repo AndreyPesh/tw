@@ -1,12 +1,14 @@
-import { sendFileToCloud } from '@/src/5_shared/api/helpers/cloud/cloudRequest';
-import { updateImageDb } from '@/src/5_shared/api/helpers/user/account';
-import { GENERAL_MESSAGE_ERROR } from '@/src/5_shared/api/types/constants';
-import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
-import { ResponseSuccess } from '@/src/5_shared/api/types/interfaces';
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
+import CloudAPI from '@/src/5_shared/api/helpers/cloud/CloudAPI';
+import CloudinaryAPI from '@/src/5_shared/api/helpers/cloud/cloudinary/CloudinaryAPI';
+import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
+import { UserDB } from '@/src/5_shared/api/helpers/db/user/User';
 
-const setImageRequest = async (request: NextRequest, res: NextResponse) => {
+const cloudAPI = new CloudAPI(new CloudinaryAPI());
+const userDB = new UserDB();
+
+const setImageRequest = async (request: NextRequest) => {
   try {
     const session = await getServerSession();
     if (!session) {
@@ -15,14 +17,17 @@ const setImageRequest = async (request: NextRequest, res: NextResponse) => {
       });
     }
     const { user } = session;
-
     const formData = await request.formData();
-    const responseCloud = await sendFileToCloud(formData);
+
+    if (user && user.image) {
+      await cloudAPI.removeImageFromCloud(user.image);
+    }
+    const responseCloud = await cloudAPI.uploadImageToCloud(formData);
 
     if (responseCloud.status === STATUS_CODE.OK) {
-      const urlImage = (responseCloud as ResponseSuccess).data as string;
+      const urlImage = responseCloud.data as string;
       if (user && user.email) {
-        const newUrlImage = await updateImageDb(urlImage, user.email);
+        const newUrlImage = await userDB.updateImageDb(urlImage, user.email);
         if (!newUrlImage) {
           throw new Error();
         }
@@ -37,9 +42,34 @@ const setImageRequest = async (request: NextRequest, res: NextResponse) => {
   } catch (error) {
     return NextResponse.json({
       status: STATUS_CODE.INTERNAL,
-      message: GENERAL_MESSAGE_ERROR,
+      message: (error as Error).message,
     });
   }
 };
 
-export { setImageRequest as POST };
+const removeImage = async () => {
+  try {
+    const session = await getServerSession();
+    if (!session) {
+      return NextResponse.json({
+        status: STATUS_CODE.UNAUTHORIZED,
+      });
+    }
+    const { user } = session;
+
+    if (user && user.image && user.email) {
+      await cloudAPI.removeImageFromCloud(user.image);
+      await userDB.deleteImage(user.email);
+      return NextResponse.json({
+        status: STATUS_CODE.OK,
+      });
+    }
+  } catch (error) {
+    return NextResponse.json({
+      status: STATUS_CODE.INTERNAL,
+      message: (error as Error).message,
+    });
+  }
+};
+
+export { setImageRequest as POST, removeImage as DELETE };

@@ -5,12 +5,14 @@ import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 
 interface UploadFileButtonsProps {
   isLoading: boolean;
+  isLoadingDelete: boolean;
   triggerInputHandler: () => void;
   deleteFileHandler: () => void;
 }
 
 const UploadFileButtons: FC<UploadFileButtonsProps> = ({
   isLoading,
+  isLoadingDelete,
   triggerInputHandler,
   deleteFileHandler,
 }) => {
@@ -21,7 +23,11 @@ const UploadFileButtons: FC<UploadFileButtonsProps> = ({
         <Button variant={EnumTypeButton.PRIMARY} handler={triggerInputHandler}>
           Select image
         </Button>
-        <Button variant={EnumTypeButton.DANGER} handler={deleteFileHandler}>
+        <Button
+          variant={EnumTypeButton.DANGER}
+          handler={deleteFileHandler}
+          isLoading={isLoadingDelete}
+        >
           Delete
         </Button>
       </div>
