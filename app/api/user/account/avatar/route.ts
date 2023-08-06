@@ -4,18 +4,18 @@ import CloudAPI from '@/src/5_shared/api/helpers/cloud/CloudAPI';
 import CloudinaryAPI from '@/src/5_shared/api/helpers/cloud/cloudinary/CloudinaryAPI';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 import { UserDB } from '@/src/5_shared/api/helpers/db/user/User';
+import { authOptions } from '@/src/5_shared/utils/server/auth';
 
 const cloudAPI = new CloudAPI(new CloudinaryAPI());
 const userDB = new UserDB();
 
 const setImageRequest = async (request: NextRequest) => {
   try {
-    const session = await getServerSession();
-    
+    const session = await getServerSession(authOptions);
+
     if (!session) {
       return NextResponse.json({
-        status: STATUS_CODE.UNAUTHORIZED,
-        data: session
+        status: STATUS_CODE.UNAUTHORIZED
       });
     }
     const { user } = session;
@@ -51,7 +51,7 @@ const setImageRequest = async (request: NextRequest) => {
 
 const removeImage = async () => {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({
         status: STATUS_CODE.UNAUTHORIZED,

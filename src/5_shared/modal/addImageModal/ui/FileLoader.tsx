@@ -14,7 +14,6 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
   const { closeModal } = useAddImageModalStore();
   const updateSessionWithNewImage = useUpdateSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false);
 
   const [imageSrc, setImageSrc] = useState<string>(
     initImageUrl ? initImageUrl : ADD_FILE_TEMPLATE
@@ -46,7 +45,6 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
 
   const deleteFileHandler = async () => {
     try {
-      setIsLoadingDelete(true);
       const isImageRemoved = await userAPI.deleteAvatar();
       if (isImageRemoved) {
         updateSessionWithNewImage(null);
@@ -56,8 +54,6 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
       setImageSrc(ADD_FILE_TEMPLATE);
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoadingDelete(false);
     }
   };
 
@@ -82,9 +78,9 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
 
   return (
     <div>
-      <form onSubmit={submitFileHandler}>
-        <div className="w-[200px] h-[200px] border">
-          <img ref={refImage} src={imageSrc} />
+      <form onSubmit={submitFileHandler} className="">
+        <div className="m-auto max-w-md max-h-md w-60 h-60 rounded">
+          <img ref={refImage} src={imageSrc} className="w-[100%] h-[100%]" />
         </div>
         <div className="hidden">
           <input
@@ -96,7 +92,6 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
         </div>
         <UploadFileButtons
           isLoading={isLoading}
-          isLoadingDelete={isLoadingDelete}
           triggerInputHandler={triggerInputHandler}
           deleteFileHandler={deleteFileHandler}
         />
