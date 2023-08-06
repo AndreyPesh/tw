@@ -3,11 +3,11 @@ import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import UploadFileButtons from './ui/UploadFileButtonsProps';
 import { DEFAULT_NAME_AVATAR } from '../../types/constant';
-import { sendFile } from './helpers/sendFile';
 import useAddImageModalStore from './state';
 import { createFormData } from './helpers/createFormData';
 import { revokeImageFromMemory } from './helpers/revokeImageFromMemory';
 import { useUpdateSession } from './hooks/useUpdateSession';
+import { userAPI } from '../../api/userAPI';
 
 interface FileLoaderProps {
   initImageUrl?: string;
@@ -45,7 +45,7 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
   };
 
   const updateImage = async () => {
-    const newImageUrl = await sendFile(formData);
+    const newImageUrl = await new userAPI().updateAvatar(formData);
     if (newImageUrl) {
       updateSessionWithNewImage(newImageUrl);
       router.refresh();
