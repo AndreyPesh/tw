@@ -6,8 +6,8 @@ import useAddImageModalStore from '../state';
 import { createFormData } from '../helpers/createFormData';
 import { revokeImageFromMemory } from '../helpers/revokeImageFromMemory';
 import { useUpdateSession } from '../hooks/useUpdateSession';
-import { UserAPI } from '../../../api/UserAPI';
 import { FileLoaderProps } from '../../types/interface';
+import { UserAPI } from '@/src/5_shared/api/UserAPI';
 
 const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
   const router = useRouter();
