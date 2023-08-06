@@ -15,8 +15,7 @@ const setImageRequest = async (request: NextRequest) => {
 
     if (!session) {
       return NextResponse.json({
-        status: STATUS_CODE.UNAUTHORIZED,
-        data: session,
+        status: STATUS_CODE.UNAUTHORIZED
       });
     }
     const { user } = session;
@@ -52,7 +51,7 @@ const setImageRequest = async (request: NextRequest) => {
 
 const removeImage = async () => {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({
         status: STATUS_CODE.UNAUTHORIZED,
