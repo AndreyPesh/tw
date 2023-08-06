@@ -7,7 +7,7 @@ import { createFormData } from '../helpers/createFormData';
 import { revokeImageFromMemory } from '../helpers/revokeImageFromMemory';
 import { useUpdateSession } from '../hooks/useUpdateSession';
 import { FileLoaderProps } from '../../types/interface';
-import { UserAPI } from '@/src/5_shared/api/UserAPI';
+import { UserAPI } from '@/src/5_shared/api/AccountAPI';
 
 const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
   const router = useRouter();
