@@ -13,6 +13,7 @@ import { useAppSelector } from '@/src/5_shared/store/hooks/redux';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
 
 const Header = ({ user }: { user: User | null }) => {
+
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
 
