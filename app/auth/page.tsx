@@ -10,7 +10,7 @@ export const metadata = {
 const AuthPage = () => {
   return (
     <>
-      <Header />
+      <Header user={null} />
       <Suspense fallback={<Loading />}>
         <Auth />
       </Suspense>
