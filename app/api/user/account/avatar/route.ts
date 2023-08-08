@@ -15,14 +15,15 @@ const setImageRequest = async (request: NextRequest) => {
 
     if (!session) {
       return NextResponse.json({
-        status: STATUS_CODE.UNAUTHORIZED
+        status: STATUS_CODE.UNAUTHORIZED,
       });
     }
     const { user } = session;
     const formData = await request.formData();
 
-    if (user && user.image) {
-      await cloudAPI.removeImageFromCloud(user.image);
+    if (user && user.email) {
+      const userData = await userDB.getUser(user.email);
+      userData?.image && (await cloudAPI.removeImageFromCloud(userData.image));
     }
     const responseCloud = await cloudAPI.uploadImageToCloud(formData);
 
@@ -60,7 +61,10 @@ const removeImage = async () => {
     const { user } = session;
 
     if (user && user.image && user.email) {
-      await cloudAPI.removeImageFromCloud(user.image);
+      const userData = await userDB.getUser(user.email);
+      if (userData && userData.image) {
+        await cloudAPI.removeImageFromCloud(userData.image);
+      }
       await userDB.deleteImage(user.email);
       return NextResponse.json({
         status: STATUS_CODE.OK,

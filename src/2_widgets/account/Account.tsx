@@ -1,4 +1,6 @@
 'use client';
+
+import { User } from '@prisma/client';
 import FileLoader from '@/src/5_shared/modal/addImageModal/ui/FileLoader';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
@@ -8,13 +10,8 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { DEFAULT_NAME_AVATAR } from '@/src/5_shared/types/constant';
 
-interface AccountProps {
-  name: string | null;
-  email: string | null;
-  image: string | null;
-}
 
-const Account: FC<AccountProps> = ({ name, email, image }) => {
+const Account: FC<Partial<User>> = ({ name, email, image }) => {
   const { openModal } = useAddImageModalStore();
   const imageUrl = (image && image) || DEFAULT_NAME_AVATAR;
 

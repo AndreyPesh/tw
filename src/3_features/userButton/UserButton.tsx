@@ -1,16 +1,17 @@
 'use client';
+
 import { MouseEvent } from 'react';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
 import { DEFAULT_NAME_AVATAR } from '@/src/5_shared/types/constant';
+import { User } from '@prisma/client';
 
-const UserButton = () => {
+const UserButton = async ({ user }: { user: User }) => {
   const router = useRouter();
-  const { data: session } = useSession();
-  const userImage =
-    session && session.user?.image ? session.user.image : DEFAULT_NAME_AVATAR;
+  const { name, image } = user;
+  const userImage: string = image ? image : DEFAULT_NAME_AVATAR;
 
   const onSignOut = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -25,11 +26,7 @@ const UserButton = () => {
       <div className="p-2 inline-flex items-center hover:shadow-sm">
         <Image priority alt="user" width={48} height={48} src={userImage} />
         <p className="ml-2 text-sm">
-          {session && session.user ? (
-            <span>{session.user.name}</span>
-          ) : (
-            <span>Username</span>
-          )}
+          <span>{name}</span>
         </p>
       </div>
       <span

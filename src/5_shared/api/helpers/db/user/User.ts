@@ -1,6 +1,15 @@
 import prisma from '@/global.d';
 
 export class UserDB {
+  getUser = async (email: string) => {
+    try {
+      const user = await prisma.user.findUnique({ where: { email } });
+      return user;
+    } catch {
+      throw new Error('Cant get user');
+    }
+  };
+
   updateImageDb = async (urlImage: string, email: string) => {
     try {
       const updateUser = await prisma.user.update({
