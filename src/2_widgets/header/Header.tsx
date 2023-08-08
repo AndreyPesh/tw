@@ -1,4 +1,9 @@
 'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { User } from '@prisma/client';
+import classNames from 'classnames';
 import AuthButton from '@/src/3_features/authButton/AuthButton';
 import BurgerButton from '@/src/3_features/burger/BurgerButton';
 import Navigation from '@/src/3_features/navigation/Navigation';
@@ -6,13 +11,8 @@ import UserButton from '@/src/3_features/userButton/UserButton';
 import { useActions } from '@/src/5_shared/hooks/useActions';
 import { useAppSelector } from '@/src/5_shared/store/hooks/redux';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
-import classNames from 'classnames';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
 
-const Header = () => {
-  const { data: session } = useSession();
+const Header = ({ user }: { user: User | null }) => {
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
 
@@ -39,7 +39,7 @@ const Header = () => {
           )}
         >
           <Navigation />
-          {session ? <UserButton /> : <AuthButton />}
+          {user ? <UserButton user={user} /> : <AuthButton />}
         </div>
         <BurgerButton />
       </div>
