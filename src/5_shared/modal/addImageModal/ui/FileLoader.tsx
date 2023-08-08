@@ -5,14 +5,12 @@ import { ADD_FILE_TEMPLATE } from '../../../types/constant';
 import useAddImageModalStore from '../state';
 import { createFormData } from '../helpers/createFormData';
 import { revokeImageFromMemory } from '../helpers/revokeImageFromMemory';
-import { useUpdateSession } from '../hooks/useUpdateSession';
 import { FileLoaderProps } from '../../types/interface';
 import { UserAPI } from '@/src/5_shared/api/AccountAPI';
 
 const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
   const router = useRouter();
   const { closeModal } = useAddImageModalStore();
-  const updateSessionWithNewImage = useUpdateSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [imageSrc, setImageSrc] = useState<string>(
@@ -47,7 +45,6 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
     try {
       const isImageRemoved = await userAPI.deleteAvatar();
       if (isImageRemoved) {
-        updateSessionWithNewImage(null);
         router.refresh();
       }
       closeModal();
@@ -64,7 +61,6 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
       if (formData) {
         const newImageUrl = await userAPI.updateAvatar(formData);
         if (newImageUrl) {
-          updateSessionWithNewImage(newImageUrl);
           router.refresh();
           closeModal();
         }
