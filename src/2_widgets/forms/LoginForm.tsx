@@ -37,6 +37,7 @@ const LoginForm = () => {
       return;
     }
     if (response?.url) {
+      router.refresh();
       router.push(EnumLinkPage.HOME);
     }
 
