@@ -9,7 +9,7 @@ import Modal from '@/src/5_shared/modal/common/Modal';
 import Image from 'next/image';
 import { FC } from 'react';
 import { DEFAULT_NAME_AVATAR } from '@/src/5_shared/types/constant';
-
+import DeleteButtonIcon from '@/src/5_shared/buttons/DeleteButtonIcon';
 
 const Account: FC<Partial<User>> = ({ name, email, image }) => {
   const { openModal } = useAddImageModalStore();
@@ -27,7 +27,8 @@ const Account: FC<Partial<User>> = ({ name, email, image }) => {
               src={imageUrl}
               className="w-[150px] h-[150px] rounded-full shadow-lg"
             />
-            <div className="py-5">
+            <div className="py-1 flex items-center justify-around flex-col h-[120px]">
+              <DeleteButtonIcon disabled={imageUrl === DEFAULT_NAME_AVATAR} />
               <Button
                 variant={EnumTypeButton.SUCCESS}
                 handler={() => openModal()}
@@ -43,10 +44,7 @@ const Account: FC<Partial<User>> = ({ name, email, image }) => {
           </div>
         </div>
       </section>
-      <Modal
-        children={<FileLoader initImageUrl={imageUrl} />}
-        management={useAddImageModalStore}
-      />
+      <Modal children={<FileLoader />} management={useAddImageModalStore} />
     </>
   );
 };
