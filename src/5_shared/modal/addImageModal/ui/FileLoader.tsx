@@ -1,21 +1,18 @@
-import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import UploadFileButtons from './UploadFileButtonsProps';
 import { ADD_FILE_TEMPLATE } from '../../../types/constant';
 import useAddImageModalStore from '../state';
 import { createFormData } from '../helpers/createFormData';
 import { revokeImageFromMemory } from '../helpers/revokeImageFromMemory';
-import { FileLoaderProps } from '../../types/interface';
 import { UserAPI } from '@/src/5_shared/api/AccountAPI';
 
-const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
+const FileLoader = () => {
   const router = useRouter();
   const { closeModal } = useAddImageModalStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [imageSrc, setImageSrc] = useState<string>(
-    initImageUrl ? initImageUrl : ADD_FILE_TEMPLATE
-  );
+  const [imageSrc, setImageSrc] = useState<string>(ADD_FILE_TEMPLATE);
 
   const [formData, setFormData] = useState<FormData>(new FormData());
 
@@ -41,22 +38,10 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
     }
   };
 
-  const deleteFileHandler = async () => {
-    try {
-      const isImageRemoved = await userAPI.deleteAvatar();
-      if (isImageRemoved) {
-        router.refresh();
-      }
-      closeModal();
-      setImageSrc(ADD_FILE_TEMPLATE);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const submitFileHandler = async (event: FormEvent) => {
     event.preventDefault();
     try {
+      if (imageSrc === ADD_FILE_TEMPLATE) return;
       setIsLoading(true);
       if (formData) {
         const newImageUrl = await userAPI.updateAvatar(formData);
@@ -68,6 +53,7 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
     } catch (error) {
       console.error(error);
     } finally {
+      setImageSrc(ADD_FILE_TEMPLATE);
       setIsLoading(false);
     }
   };
@@ -76,20 +62,17 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
     <div>
       <form onSubmit={submitFileHandler} className="">
         <div className="m-auto max-w-md max-h-md w-60 h-60 rounded">
-          <img ref={refImage} src={imageSrc} className="w-[100%] h-[100%]" />
-        </div>
-        <div className="hidden">
-          <input
-            type="file"
-            ref={inputFileRef}
-            onChange={selectFileHandler}
+          <img
+            ref={refImage}
+            src={imageSrc}
+            className="w-[100%] h-[100%] cursor-pointer"
+            onClick={triggerInputHandler}
           />
         </div>
-        <UploadFileButtons
-          isLoading={isLoading}
-          triggerInputHandler={triggerInputHandler}
-          deleteFileHandler={deleteFileHandler}
-        />
+        <div className="hidden">
+          <input type="file" ref={inputFileRef} onChange={selectFileHandler} />
+        </div>
+        <UploadFileButtons isLoading={isLoading} />
       </form>
     </div>
   );
