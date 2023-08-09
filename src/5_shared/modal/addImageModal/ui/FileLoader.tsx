@@ -81,7 +81,6 @@ const FileLoader: FC<FileLoaderProps> = ({ initImageUrl }) => {
         <div className="hidden">
           <input
             type="file"
-            accept="image/*"
             ref={inputFileRef}
             onChange={selectFileHandler}
           />
