@@ -32,7 +32,7 @@ const Header = ({ user }: { user: User | null }) => {
         <div
           onClick={() => toggle()}
           className={classNames(
-            'absolute top-[67px] right-0 w-full h-[calc(100%-67px)] flex flex-col justify-between bg-white md:flex-row md:relative md:top-0 md:left-0 md:h-auto md:w-2/3 duration-200',
+            'absolute top-[67px] right-0 w-full h-[calc(100%-67px)] flex flex-col justify-between bg-white md:flex-row md:relative md:top-0 md:left-0 md:h-auto md:w-2/3 duration-200 z-10',
             {
               'left-0': active,
               'left-[-100vw]': !active,
