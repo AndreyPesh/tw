@@ -7,6 +7,7 @@ interface ButtonIconProps {
   type?: 'button' | 'submit' | 'reset';
   handler?: () => void;
   disabled?: boolean;
+  styles?: string;
 }
 
 const ButtonIcon: FC<ButtonIconProps> = ({
@@ -15,9 +16,15 @@ const ButtonIcon: FC<ButtonIconProps> = ({
   handler,
   type = 'button',
   disabled = false,
+  styles,
 }) => {
   return (
-    <button onClick={handler} type={type} disabled={disabled}>
+    <button
+      onClick={handler}
+      type={type}
+      disabled={disabled}
+      className={`${styles}`}
+    >
       <Icon
         {...iconProps}
         style={disabled ? { opacity: 0.5 } : { opacity: 1 }}

@@ -1,4 +1,6 @@
 import React, { ChangeEvent, FC, useState } from 'react';
+import { IoMdCheckmark } from 'react-icons/io';
+import ButtonIcon from '@/src/5_shared/buttons/ButtonIcon';
 
 interface EditInputProps {
   value: string;
@@ -17,34 +19,45 @@ const EditInput: FC<EditInputProps> = ({
   submitHandler,
   error,
 }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [currentValue, setCurrentValue] = useState<string>(value);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setCurrentValue(event.target.value);
   };
 
-  const onSubmitHandler = () => {
-    submitHandler(currentValue);
+  const onSubmitHandler = async () => {
+    try {
+      setIsLoading(true);
+      await submitHandler(currentValue);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <>
-      <div className="flex">
-        <label className="">{label}</label>
+      <div className="relative flex items-center text-sm">
+        <label className="min-w-[70px]">{label} :</label>
         <input
           name={name}
           type={type}
           value={currentValue}
           onChange={onChangeHandler}
+          className="text-sm bg-gray-50 appearance-none border border-gray-200 rounded w-full py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-success"
         />
-        <div>
-          <button type="button" onClick={onSubmitHandler}>
-            ok
-          </button>
-          <button type="button">del</button>
+        <div className="absolute right-1">
+          <ButtonIcon
+            icon={IoMdCheckmark}
+            iconProps={{ size: 20, color: '#0f766e' }}
+            type={'button'}
+            handler={onSubmitHandler}
+            disabled={isLoading}
+            styles="border border-success rounded focus:shadow"
+          />
         </div>
       </div>
-      {error.length > 0 && <p className="text-red">{error}</p>}
+      {error.length > 0 && <p className="text-sm text-red text-center">{error}</p>}
     </>
   );
 };

@@ -74,21 +74,25 @@ const UserDataForm: FC<UserDataFormProps> = ({ name, email }) => {
 
   return (
     <form>
-      <EditInput
-        name="name"
-        label="Name"
-        value={name}
-        submitHandler={onSubmitName}
-        error={error.name}
-      />
-      <EditInput
-        name="email"
-        type="email"
-        label="E-mail"
-        value={email}
-        error={error.email}
-        submitHandler={onSubmitEmail}
-      />
+      <div className="p-2 mb-2 border rounded">
+        <EditInput
+          name="name"
+          label="Name"
+          value={name}
+          submitHandler={onSubmitName}
+          error={error.name}
+        />
+      </div>
+      <div className="p-2 border rounded">
+        <EditInput
+          name="email"
+          type="email"
+          label="E-mail"
+          value={email}
+          error={error.email}
+          submitHandler={onSubmitEmail}
+        />
+      </div>
     </form>
   );
 };
