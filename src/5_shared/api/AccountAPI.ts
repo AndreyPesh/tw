@@ -15,6 +15,19 @@ export class UserAPI {
     }
   };
 
+  updateEmail = async (email: string, newEmail: string) => {
+    try {
+      const { status } = await axios.patch(
+        LIST_ROUTES.EMAIL,
+        { email, newEmail },
+        { headers: { 'Content-type': 'application/json' } }
+      );
+      return status;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  };
+
   updateAvatar = async (formData: FormData) => {
     try {
       const { status, data: response } = await axios.post(

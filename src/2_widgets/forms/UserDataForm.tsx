@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { userEmailSchema, userNameSchema } from './schemas/userDataValidate';
 import EditInput from '@/src/3_features/input/editInput/EditInput';
@@ -17,6 +18,7 @@ interface ErrorsList {
 
 const UserDataForm: FC<UserDataFormProps> = ({ name, email }) => {
   const router = useRouter();
+  const { data: session, update } = useSession();
   const [error, setError] = useState<ErrorsList>({
     name: '',
     email: '',
@@ -51,7 +53,23 @@ const UserDataForm: FC<UserDataFormProps> = ({ name, email }) => {
       setError((prev) => ({ ...prev, email: (error as Error).message }));
       return;
     }
-    console.log(`change email ${validate.email}`);
+
+    try {
+      const status = await new UserAPI().updateEmail(email, validate.email);
+
+      if (status === STATUS_CODE.OK && session && session.user) {
+        await update({
+          ...session,
+          user: {
+            ...session.user,
+            email: validate.email,
+          },
+        });
+        router.refresh();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
