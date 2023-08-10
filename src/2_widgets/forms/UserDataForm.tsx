@@ -1,6 +1,9 @@
 import React, { FC, useState } from 'react';
-import EditInput from '@/src/3_features/input/editInput/EditInput';
+import { useRouter } from 'next/navigation';
 import { userEmailSchema, userNameSchema } from './schemas/userDataValidate';
+import EditInput from '@/src/3_features/input/editInput/EditInput';
+import { UserAPI } from '@/src/5_shared/api/AccountAPI';
+import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 
 interface UserDataFormProps {
   name: string;
@@ -13,21 +16,30 @@ interface ErrorsList {
 }
 
 const UserDataForm: FC<UserDataFormProps> = ({ name, email }) => {
+  const router = useRouter();
   const [error, setError] = useState<ErrorsList>({
     name: '',
     email: '',
   });
 
-  const onSubmitName = async (data: string) => {
+  const onSubmitName = async (name: string) => {
     let validate = { name: '' };
     try {
-      validate = await userNameSchema.validate({ name: data });
+      validate = await userNameSchema.validate({ name });
       setError((prev) => ({ ...prev, name: '' }));
     } catch (error) {
       setError((prev) => ({ ...prev, name: (error as Error).message }));
       return;
     }
-    console.log(`change name to ${validate.name}`);
+    try {
+      const status = await new UserAPI().updateName(email, name);
+
+      if (status === STATUS_CODE.OK) {
+        router.refresh();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onSubmitEmail = async (data: string) => {

@@ -10,6 +10,18 @@ export class UserDB {
     }
   };
 
+  updateName = async (email: string, name: string) => {
+    try {
+      const userData = await prisma.user.update({
+        where: { email },
+        data: { name },
+      });
+      return userData ? userData : null;
+    } catch (error) {
+      throw new Error('Cant update user name');
+    }
+  };
+
   updateImageDb = async (urlImage: string, email: string) => {
     try {
       const updateUser = await prisma.user.update({
