@@ -13,7 +13,7 @@ import {
   DEFAULT_USER_NAME,
 } from '@/src/5_shared/types/constant';
 import DeleteButtonIcon from '@/src/5_shared/buttons/DeleteButtonIcon';
-import EditInput from '@/src/3_features/input/editInput/EditInput';
+import UserDataForm from '../forms/UserDataForm';
 
 const Account: FC<Partial<User>> = ({ name, email, image }) => {
   const { openModal } = useAddImageModalStore();
@@ -42,12 +42,7 @@ const Account: FC<Partial<User>> = ({ name, email, image }) => {
               </Button>
             </div>
           </div>
-          <div className="mt-10 py-10 border text-center">
-            <p>{name}</p>
-            <p>{email}</p>
-            <EditInput fieldName="Name" value={currentUserName} />
-            <p className="break-normal">{}</p>
-          </div>
+          <UserDataForm name={currentUserName} email={email as string} />
         </div>
       </section>
       <Modal children={<FileLoader />} management={useAddImageModalStore} />

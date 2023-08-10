@@ -2,26 +2,50 @@ import React, { ChangeEvent, FC, useState } from 'react';
 
 interface EditInputProps {
   value: string;
-  fieldName: string;
-  type?: 'text';
+  name: string;
+  label: string;
+  submitHandler: (data: string) => Promise<void>;
+  error: string;
+  type?: 'text' | 'email';
 }
 
-const EditInput: FC<EditInputProps> = ({ value, fieldName, type }) => {
-  const [currentText, setCurrentText] = useState<string>(value);
+const EditInput: FC<EditInputProps> = ({
+  value,
+  label,
+  name,
+  type,
+  submitHandler,
+  error,
+}) => {
+  const [currentValue, setCurrentValue] = useState<string>(value);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setCurrentText(event.target.value);
+    setCurrentValue(event.target.value);
+  };
+
+  const onSubmitHandler = () => {
+    submitHandler(currentValue);
   };
 
   return (
-    <div className='flex'>
-      <label className=''>{fieldName}</label>
-      <input type={type} value={currentText} onChange={onChangeHandler} />
-      <div>
-        <button>ok</button>
-        <button>del</button>
+    <>
+      <div className="flex">
+        <label className="">{label}</label>
+        <input
+          name={name}
+          type={type}
+          value={currentValue}
+          onChange={onChangeHandler}
+        />
+        <div>
+          <button type="button" onClick={onSubmitHandler}>
+            ok
+          </button>
+          <button type="button">del</button>
+        </div>
       </div>
-    </div>
+      {error.length > 0 && <p className="text-red">{error}</p>}
+    </>
   );
 };
 
