@@ -8,12 +8,17 @@ import useAddImageModalStore from '@/src/5_shared/modal/addImageModal/state';
 import Modal from '@/src/5_shared/modal/common/Modal';
 import Image from 'next/image';
 import { FC } from 'react';
-import { DEFAULT_NAME_AVATAR } from '@/src/5_shared/types/constant';
+import {
+  DEFAULT_NAME_AVATAR,
+  DEFAULT_USER_NAME,
+} from '@/src/5_shared/types/constant';
 import DeleteButtonIcon from '@/src/5_shared/buttons/DeleteButtonIcon';
+import EditInput from '@/src/3_features/input/editInput/EditInput';
 
 const Account: FC<Partial<User>> = ({ name, email, image }) => {
   const { openModal } = useAddImageModalStore();
   const imageUrl = (image && image) || DEFAULT_NAME_AVATAR;
+  const currentUserName = (name && name) || DEFAULT_USER_NAME;
 
   return (
     <>
@@ -40,6 +45,7 @@ const Account: FC<Partial<User>> = ({ name, email, image }) => {
           <div className="mt-10 py-10 border text-center">
             <p>{name}</p>
             <p>{email}</p>
+            <EditInput fieldName="Name" value={currentUserName} />
             <p className="break-normal">{}</p>
           </div>
         </div>
