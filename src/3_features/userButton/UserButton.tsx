@@ -24,7 +24,7 @@ const UserButton = ({ user }: { user: User }) => {
       className="flex items-center justify-around cursor-pointer border-t"
     >
       <div className="p-2 inline-flex items-center hover:shadow-sm">
-        <Image priority alt="user" width={48} height={48} src={userImage} />
+        <Image priority alt="user" width={48} height={48} src={userImage} className='w-[48px] h-[48px] object-fill' />
         <p className="ml-2 text-sm">
           <span>{name}</span>
         </p>
