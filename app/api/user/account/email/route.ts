@@ -19,4 +19,4 @@ export const updateEmail = async (req: NextRequest) => {
   }
 };
 
-export { updateEmail as PATCH };
+export { updateEmail as POST };
