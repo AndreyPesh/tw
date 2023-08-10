@@ -9,7 +9,8 @@ export const updateEmail = async (req: NextRequest) => {
     const isEmailUpdated = await new UserDB().updateEmail(email, newEmail);
 
     if (isEmailUpdated) return NextResponse.json({ status: STATUS_CODE.OK });
-    throw new Error('Cant update email');
+    // throw new Error('Cant update email');
+    return NextResponse.json({ status: STATUS_CODE.INTERNAL });
   } catch (error) {
     return NextResponse.json({
       status: STATUS_CODE.INTERNAL,
