@@ -2,7 +2,7 @@ import { UserDB } from '@/src/5_shared/api/helpers/db/user/User';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const updateName = async (req: NextRequest) => {
+const updateName = async (req: NextRequest) => {
   try {
     const { email, name }: { email: string; name: string } = await req.json();
     const isNameUpdated = await new UserDB().updateName(email, name);
