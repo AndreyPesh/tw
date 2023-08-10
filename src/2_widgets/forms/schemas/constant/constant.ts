@@ -1,4 +1,5 @@
 export const MIN_LENGTH_NAME_USER = 5;
+export const MAX_LENGTH_NAME_USER = 10;
 export const MIN_LENGTH_PASSWORD = 6;
 export const MAX_LENGTH_PASSWORD = 32;
 export const REG_EXP_EMAIL =

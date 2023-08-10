@@ -2,6 +2,32 @@ import axios from 'axios';
 import { LIST_ROUTES, STATUS_CODE } from './types/enums';
 
 export class UserAPI {
+  updateName = async (email: string, name: string) => {
+    try {
+      const { status } = await axios.patch(
+        LIST_ROUTES.USERNAME,
+        { email, name },
+        { headers: { 'Content-type': 'application/json' } }
+      );
+      return status;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  };
+
+  updateEmail = async (email: string, newEmail: string) => {
+    try {
+      const { status } = await axios.patch(
+        LIST_ROUTES.EMAIL,
+        { email, newEmail },
+        { headers: { 'Content-type': 'application/json' } }
+      );
+      return status;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  };
+
   updateAvatar = async (formData: FormData) => {
     try {
       const { status, data: response } = await axios.post(

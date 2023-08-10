@@ -2,6 +2,7 @@ import { CookiesOptions } from 'next-auth';
 import { EnumLinkPage, EnumTypeAuth } from './enum';
 
 export const DEFAULT_NAME_AVATAR = './avatar.svg';
+export const DEFAULT_USER_NAME = `user_${Date.now()}`;
 export const ADD_FILE_TEMPLATE = './add-icon.svg';
 
 export const TYPE_AUTH_PARAM = 'type_auth';

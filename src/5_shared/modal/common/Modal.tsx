@@ -31,7 +31,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({ children, management }) => {
   return (
     <div
       className={classNames(
-        `fixed top-0 left-0 w-full h-full bg-slate-900/75`,
+        `fixed top-0 left-0 w-full h-full bg-slate-900/75 z-20`,
         { hidden: !isModalAppear },
         { 'animate-appear': isShow },
         { 'animate-disappear': !isShow }

@@ -6,4 +6,6 @@ export const enum STATUS_CODE {
 
 export const enum LIST_ROUTES {
   AVATAR = '/api/user/account/avatar',
+  USERNAME = './api/user/account/name',
+  EMAIL = './api/user/account/email',
 }
