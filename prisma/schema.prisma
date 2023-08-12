@@ -58,3 +58,65 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verificationTokens")
 }
+
+model Category {
+  id     String               @id @default(uuid())
+  name   String
+  slug   String
+  phones CategoriesOnPhones[]
+}
+
+model CategoriesOnPhones {
+  id         String   @id @default(uuid())
+  phone      Phones   @relation(fields: [phoneId], references: [id])
+  phoneId    String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+}
+
+model Phones {
+  id             String               @id @default(uuid())
+  categoryId     String               @map("category_id")
+  slug           String
+  price          Int
+  rating         Int
+  quantity       Int
+  category       CategoriesOnPhones[]
+  images         PhoneImages[]
+  BrandsOnPhones BrandsOnPhones[]
+  details        PhoneDetails?
+}
+
+model PhoneImages {
+  id      String @id @default(uuid())
+  url     String
+  phoneId String @map("phone_id")
+  phone   Phones @relation(fields: [phoneId], references: [id])
+
+  @@map("phone_images")
+}
+
+model BrandsOnPhones {
+  id      String      @id @default(uuid())
+  phone   Phones      @relation(fields: [phoneId], references: [id])
+  phoneId String
+  brand   PhoneBrands @relation(fields: [brandId], references: [id])
+  brandId String
+}
+
+model PhoneBrands {
+  id             String           @id @default(uuid())
+  brand          String
+  BrandsOnPhones BrandsOnPhones[]
+}
+
+model PhoneDetails {
+  id      String  @id @default(uuid())
+  memory  Int
+  os      String
+  display String
+  nfc     Boolean
+  charge  String
+  phone   Phones  @relation(fields: [phoneId], references: [id])
+  phoneId String  @unique
+}
