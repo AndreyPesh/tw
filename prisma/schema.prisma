@@ -68,10 +68,10 @@ model Category {
 
 model CategoriesOnPhones {
   id         String   @id @default(uuid())
-  phone      Phones   @relation(fields: [phoneId], references: [id])
   phoneId    String
-  category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  phone      Phones   @relation(fields: [phoneId], references: [id])
 }
 
 model Phones {
@@ -81,10 +81,10 @@ model Phones {
   price          Int
   rating         Int
   quantity       Int
-  category       CategoriesOnPhones[]
-  images         PhoneImages[]
   BrandsOnPhones BrandsOnPhones[]
+  category       CategoriesOnPhones[]
   details        PhoneDetails?
+  images         PhoneImages[]
 }
 
 model PhoneImages {
@@ -98,10 +98,10 @@ model PhoneImages {
 
 model BrandsOnPhones {
   id      String      @id @default(uuid())
-  phone   Phones      @relation(fields: [phoneId], references: [id])
   phoneId String
-  brand   PhoneBrands @relation(fields: [brandId], references: [id])
   brandId String
+  brand   PhoneBrands @relation(fields: [brandId], references: [id])
+  phone   Phones      @relation(fields: [phoneId], references: [id])
 }
 
 model PhoneBrands {
@@ -117,6 +117,6 @@ model PhoneDetails {
   display String
   nfc     Boolean
   charge  String
-  phone   Phones  @relation(fields: [phoneId], references: [id])
   phoneId String  @unique
+  phone   Phones  @relation(fields: [phoneId], references: [id])
 }
