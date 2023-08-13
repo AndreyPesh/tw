@@ -18,7 +18,7 @@ export class PhoneDb {
       return listPhones;
     } catch(error) {
       console.log('Error ',error)
-      throw new Error('Cant get list phones');
+      throw new Error((error as Error).message);
     }
   };
 }
