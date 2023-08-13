@@ -59,32 +59,17 @@ model VerificationToken {
   @@map("verificationTokens")
 }
 
-model Category {
-  id     String               @id @default(uuid())
-  name   String
-  slug   String
-  phones CategoriesOnPhones[]
-}
-
-model CategoriesOnPhones {
-  id         String   @id @default(uuid())
-  phoneId    String
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
-  phone      Phones   @relation(fields: [phoneId], references: [id])
-}
-
 model Phones {
-  id             String               @id @default(uuid())
-  categoryId     String               @map("category_id")
+  id             String           @id @default(uuid())
   slug           String
   price          Int
   rating         Int
   quantity       Int
-  BrandsOnPhones BrandsOnPhones[]
-  category       CategoriesOnPhones[]
+  BrandsOnPhones PhonesOnBrands[]
   details        PhoneDetails?
   images         PhoneImages[]
+
+  @@map("phones")
 }
 
 model PhoneImages {
@@ -96,18 +81,22 @@ model PhoneImages {
   @@map("phone_images")
 }
 
-model BrandsOnPhones {
+model PhonesOnBrands {
   id      String      @id @default(uuid())
   phoneId String
   brandId String
   brand   PhoneBrands @relation(fields: [brandId], references: [id])
   phone   Phones      @relation(fields: [phoneId], references: [id])
+
+  @@map("phones_on_brand")
 }
 
 model PhoneBrands {
   id             String           @id @default(uuid())
   brand          String
-  BrandsOnPhones BrandsOnPhones[]
+  BrandsOnPhones PhonesOnBrands[]
+
+  @@map("phones_brands")
 }
 
 model PhoneDetails {
@@ -119,4 +108,6 @@ model PhoneDetails {
   charge  String
   phoneId String  @unique
   phone   Phones  @relation(fields: [phoneId], references: [id])
+
+  @@map("phones_details")
 }
