@@ -58,3 +58,57 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verificationTokens")
 }
+
+model Phones {
+  id       String           @id @default(uuid())
+  model    String
+  slug     String
+  price    Int
+  rating   Float
+  quantity Int
+  brand    PhonesOnBrands[]
+  details  PhoneDetails?
+  images   PhoneImages[]
+
+  @@map("phones")
+}
+
+model PhoneImages {
+  id      String @id @default(uuid())
+  url     String
+  phoneId String @map("phone_id")
+  phone   Phones @relation(fields: [phoneId], references: [id])
+
+  @@map("phone_images")
+}
+
+model PhonesOnBrands {
+  id      String      @id @default(uuid())
+  phoneId String
+  brandId String
+  list    PhoneBrands @relation(fields: [brandId], references: [id])
+  phone   Phones      @relation(fields: [phoneId], references: [id])
+
+  @@map("phones_on_brand")
+}
+
+model PhoneBrands {
+  id             String           @id @default(uuid())
+  name           String
+  BrandsOnPhones PhonesOnBrands[]
+
+  @@map("phones_brands")
+}
+
+model PhoneDetails {
+  id      String  @id @default(uuid())
+  memory  Int
+  os      String
+  display String
+  nfc     Boolean
+  charge  String
+  phoneId String  @unique
+  phone   Phones  @relation(fields: [phoneId], references: [id])
+
+  @@map("phones_details")
+}
