@@ -61,9 +61,10 @@ model VerificationToken {
 
 model Phones {
   id             String           @id @default(uuid())
+  model          String
   slug           String
   price          Int
-  rating         Int
+  rating         Float
   quantity       Int
   BrandsOnPhones PhonesOnBrands[]
   details        PhoneDetails?
