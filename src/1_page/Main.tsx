@@ -2,7 +2,7 @@
 
 const Main = () => {
   const add = () => {
-    fetch('/api/phone')
+    fetch('/api/phone/all')
       .then((res) => res.json())
       .then((response) => console.log(response))
       .catch((error) => console.log(error));

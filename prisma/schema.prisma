@@ -60,15 +60,15 @@ model VerificationToken {
 }
 
 model Phones {
-  id             String           @id @default(uuid())
-  model          String
-  slug           String
-  price          Int
-  rating         Float
-  quantity       Int
-  BrandsOnPhones PhonesOnBrands[]
-  details        PhoneDetails?
-  images         PhoneImages[]
+  id       String           @id @default(uuid())
+  model    String
+  slug     String
+  price    Int
+  rating   Float
+  quantity Int
+  brand    PhonesOnBrands[]
+  details  PhoneDetails?
+  images   PhoneImages[]
 
   @@map("phones")
 }
@@ -86,7 +86,7 @@ model PhonesOnBrands {
   id      String      @id @default(uuid())
   phoneId String
   brandId String
-  brand   PhoneBrands @relation(fields: [brandId], references: [id])
+  list    PhoneBrands @relation(fields: [brandId], references: [id])
   phone   Phones      @relation(fields: [phoneId], references: [id])
 
   @@map("phones_on_brand")
@@ -94,7 +94,7 @@ model PhonesOnBrands {
 
 model PhoneBrands {
   id             String           @id @default(uuid())
-  brand          String
+  name           String
   BrandsOnPhones PhonesOnBrands[]
 
   @@map("phones_brands")

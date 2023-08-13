@@ -16,12 +16,11 @@ const phoneBrands = [
 ];
 
 const createBrands = async () => {
-  const brands = phoneBrands.map(async (brand) => {
-    return await prisma.phoneBrands.create({
-      data: { brand },
+  phoneBrands.map(async (name) => {
+    await prisma.phoneBrands.create({
+      data: { name },
     });
   });
-  const resultBrands = await Promise.all(brands);
 };
 
 const listUrlImages = [
@@ -109,7 +108,7 @@ const createSmartphone = async () => {
         price: getRandomNumberInt(100, 500),
         rating: Number((Math.random() * (5 - 0) + 0).toFixed(1)),
         quantity: getRandomNumberInt(3, 50),
-        BrandsOnPhones: {
+        brand: {
           create: {
             brandId: idBrand,
           },
