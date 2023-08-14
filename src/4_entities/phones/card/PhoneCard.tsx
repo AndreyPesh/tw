@@ -6,7 +6,7 @@ import Rating from '@/src/5_shared/UI/rating/Rating';
 import AddToCartButton from '@/src/5_shared/UI/buttons/AddToCartButton';
 
 const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
-  const { model, images, rating } = data;
+  const { model, images, rating, price } = data;
   const previewImageSrc = images[0].url;
   const brandName = data.brand[0].list.name
     ? data.brand[0].list.name
@@ -27,7 +27,8 @@ const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
       <div>
         <Rating rating={rating} />
       </div>
-      <span className='p-2 w-full inline-flex justify-end'>
+      <span className="p-2 w-full inline-flex justify-between items-center">
+        <h3 className='font-bold text-base'>Price: {price} &#36;</h3>
         <AddToCartButton />
       </span>
     </div>
