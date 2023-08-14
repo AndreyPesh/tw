@@ -25,8 +25,8 @@ const ItemButton: FC<{ pageNumber: number }> = ({ pageNumber }) => {
         className={classNames(
           'mx-1 w-8 h-8 inline-flex justify-center items-center text-sm border box-border rounded cursor-pointer transform active:scale-90 transition select-none',
           { 'bg-primary text-white': pageNumber === currentPage },
-          { hidden: pageNumber < currentPage - 2 },
-          { hidden: pageNumber > currentPage + 2 }
+          { hidden: pageNumber < currentPage },
+          { hidden: pageNumber > currentPage + 3}
         )}
         onClick={() => setCurrentPage(pageNumber)}
       >
