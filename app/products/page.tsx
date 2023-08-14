@@ -14,12 +14,13 @@ const ProductPage = async () => {
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <div className="container">Products</div>
-        {responsePhoneData ? (
-          <PhonesPage data={responsePhoneData.data} />
-        ) : (
-          <Empty />
-        )}
+        <div className="container">
+          {responsePhoneData ? (
+            <PhonesPage data={responsePhoneData.data} />
+          ) : (
+            <Empty />
+          )}
+        </div>
       </Suspense>
     </>
   );
