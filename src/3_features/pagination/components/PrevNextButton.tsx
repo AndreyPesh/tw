@@ -3,6 +3,7 @@ import { IoMdArrowRoundBack, IoMdArrowRoundForward } from 'react-icons/io';
 import { TypeButtonPagination } from '../types/enums';
 import usePaginationStore from '../state/statePagination';
 import classNames from 'classnames';
+import { MIN_PAGE } from '../types/constants';
 
 interface PrevNextButtonProps {
   type: TypeButtonPagination;
@@ -12,8 +13,6 @@ interface PrevNextButtonProps {
 const PrevNextButton: FC<PrevNextButtonProps> = ({ type, maxPage }) => {
   const { currentPage, increasePage, decreasePage } = usePaginationStore();
 
-  const MIN_PAGE = 1;
-  
   const isPrevButtonDisabled =
     type === TypeButtonPagination.PREV && currentPage === MIN_PAGE;
 
