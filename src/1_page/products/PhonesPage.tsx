@@ -1,14 +1,13 @@
 'use client';
-import { PhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
+import PhoneCard from '@/src/4_entities/phones/card/PhoneCard';
+import { ListPhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 
-const PhonesPage = ({ data }: { data: PhoneData }) => {
-  console.log(data);
-
+const PhonesPage = ({ data }: { data: ListPhoneData }) => {
   return (
     <div>
-      {data.map((phone) => {
-        return <h1 key={phone.id}>{phone.brand[0].list.name}</h1>;
-      })}
+      {data.map((phone) => (
+        <PhoneCard key={phone.id} data={phone} />
+      ))}
     </div>
   );
 };
