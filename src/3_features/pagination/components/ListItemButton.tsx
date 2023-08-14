@@ -2,10 +2,10 @@ import { FC } from 'react';
 import ItemButton from './ItemButton';
 
 interface ListItemButtonProps {
-  numberPages: number
+  numberPages: number;
 }
 
-const ListItemButton: FC<ListItemButtonProps> = ({numberPages}) => {
+const ListItemButton: FC<ListItemButtonProps> = ({ numberPages }) => {
   const list = new Array(numberPages).fill('');
   return (
     <>
