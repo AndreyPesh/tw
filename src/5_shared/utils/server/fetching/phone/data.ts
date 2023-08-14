@@ -5,12 +5,12 @@ import { PhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 export const getPhoneData = async () => {
   try {
     // const domain = getDomain();
-    const domain = 'https://tw-next.vercel.app';
+    const domain = 'https://tw-3q71r6luq-andreypesh.vercel.app';
     const response = await fetch(`${domain}${PHONE_ROUTES.GET_ALL}`, {
       headers: { 'Content-type': 'application/json' },
       cache: 'no-cache',
     });
-    // console.log('response',  response);
+    console.log('response',  response.status);
     
     if (response.ok) {
       console.log(domain);
@@ -20,7 +20,7 @@ export const getPhoneData = async () => {
       
       return data;
     }
-    throw new Error('Cant get data phone ');
+    // throw new Error('Cant get data phone ');
   } catch (error) {
     console.error((error as Error).message);
     return null;
