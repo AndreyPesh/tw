@@ -1,7 +1,10 @@
 'use client';
 
+import { main } from '@/prisma/seed';
+
 const Main = () => {
-  const add = () => {
+  const add = async () => {
+    await main();
     fetch('/api/phone/all')
       .then((res) => res.json())
       .then((response) => console.log(response))
