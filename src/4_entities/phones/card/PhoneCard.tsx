@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { UNKNOWN_BRAND_NAME } from '../constants';
 import { PhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import Rating from '@/src/5_shared/UI/rating/Rating';
+import AddToCartButton from '@/src/5_shared/UI/buttons/AddToCartButton';
 
 const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
   const { model, images, rating } = data;
@@ -26,6 +27,9 @@ const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
       <div>
         <Rating rating={rating} />
       </div>
+      <span className='p-2 w-full inline-flex justify-end'>
+        <AddToCartButton />
+      </span>
     </div>
   );
 };
