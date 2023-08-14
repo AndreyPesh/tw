@@ -1,4 +1,3 @@
-'use client';
 import PhoneCard from '@/src/4_entities/phones/card/PhoneCard';
 import { ListPhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 
