@@ -1,14 +1,15 @@
 import { Suspense } from 'react';
 import Loading from './loading';
-import Main from '@/src/1_page/Main';
-
+import Pagination from '@/src/3_features/pagination/Pagination';
 
 const Home = async () => {
   return (
     <>
       <Suspense fallback={<Loading />}>
         <main className="container">main</main>
-        <Main />
+        <div className="p-5">
+          <Pagination></Pagination>
+        </div>
       </Suspense>
     </>
   );
