@@ -4,8 +4,8 @@ import { PhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 
 export const getPhoneData = async () => {
   try {
-    // const domain = getDomain();
-    const domain = 'https://tw-3q71r6luq-andreypesh.vercel.app';
+    const domain = getDomain();
+    // const domain = 'https://tw-pofuig5w0-andreypesh.vercel.app';
     const response = await fetch(`${domain}${PHONE_ROUTES.GET_ALL}`, {
       headers: { 'Content-type': 'application/json' },
       cache: 'no-cache',
