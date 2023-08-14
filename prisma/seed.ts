@@ -120,10 +120,10 @@ const createSmartphone = async () => {
 
 const prisma = new PrismaClient();
 
-const main = async () => {
-  // await createBrands();
-  // await createSmartphone();
-  // await createImages();
+export const main = async () => {
+  await createBrands();
+  await createSmartphone();
+  await createImages();
 };
 
 main()

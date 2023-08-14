@@ -1,7 +1,7 @@
 'use client';
 
 const Main = () => {
-  const add = () => {
+  const add = async () => {
     fetch('/api/phone/all')
       .then((res) => res.json())
       .then((response) => console.log(response))
