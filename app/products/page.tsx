@@ -15,7 +15,7 @@ const ProductPage = async () => {
     <>
       <Suspense fallback={<Loading />}>
         <div className="container">
-          {responsePhoneData ? (
+          {responsePhoneData && responsePhoneData.data.length > 0 ? (
             <PhonesPage data={responsePhoneData.data} />
           ) : (
             <Empty />
