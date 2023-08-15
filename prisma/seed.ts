@@ -17,7 +17,7 @@ const phoneBrands = [
 
 const createBrands = async () => {
   const numberBrand = await prisma.phoneBrands.findMany();
-  if(numberBrand.length >= phoneBrands.length) {
+  if (numberBrand.length >= phoneBrands.length) {
     return;
   }
 
@@ -52,10 +52,10 @@ const listUrlImages = [
 const createImages = async () => {
   const phones = await prisma.phones.findMany();
   const numberImages = await prisma.phoneImages.findMany();
-  if(numberImages.length >= listUrlImages.length) {
+  if (numberImages.length >= listUrlImages.length) {
     return;
   }
-  
+
   phones.map(async (phone) => {
     for (let i = 0; i <= 5; i++) {
       await prisma.phoneImages.create({
@@ -105,7 +105,7 @@ const createSmartphone = async () => {
   const brands = await prisma.phoneBrands.findMany();
 
   const numberPhones = await prisma.phones.findMany();
-  if(numberPhones.length >= 20) {
+  if (numberPhones.length >= 20) {
     return;
   }
 
@@ -135,6 +135,9 @@ const createSmartphone = async () => {
 const prisma = new PrismaClient();
 
 export const main = async () => {
+  await prisma.phoneImages.deleteMany();
+  await prisma.phonesOnBrands.deleteMany();
+  await prisma.phones.deleteMany();
   await createBrands();
   await createSmartphone();
   await createImages();

@@ -8,12 +8,15 @@ import {
 export const getPhoneData = async () => {
   try {
     const domain = getDomain();
-    console.log('DOMAIN ', domain);
-    
-    const response = await fetch(`${domain}${PHONE_ROUTES.GET_ALL}`, {
-      headers: { 'Content-type': 'application/json' },
-      cache: 'no-cache',
-    });
+    // console.log('DOMAIN ', domain);
+
+    const response = await fetch(
+      `${'https://tw-next.vercel.app/'}${PHONE_ROUTES.GET_ALL}`,
+      {
+        headers: { 'Content-type': 'application/json' },
+        cache: 'no-cache',
+      }
+    );
 
     if (response.ok) {
       const data: { data: ListPhoneData } = await response.json();
