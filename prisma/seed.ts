@@ -52,18 +52,22 @@ const listUrlImages = [
 const createImages = async () => {
   const phones = await prisma.phones.findMany();
   const numberImages = await prisma.phoneImages.findMany();
-  if (numberImages.length >= listUrlImages.length) {
-    return;
-  }
+  // if (numberImages.length >= listUrlImages.length) {
+  //   return;
+  // }
 
   phones.map(async (phone) => {
     for (let i = 0; i <= 5; i++) {
-      await prisma.phoneImages.create({
+      const img = await prisma.phoneImages.create({
         data: {
           url: listUrlImages[getRandomNumberInt(0, listUrlImages.length - 1)],
-          phoneId: phone.id,
+          phone: {
+            connect: { id: phone.id },
+          },
         },
       });
+      // console.log(img.phoneId === '7cb3923d-9814-42b5-9233-fe7d67c40157');
+      
     }
   });
 };
@@ -136,11 +140,23 @@ const prisma = new PrismaClient();
 
 export const main = async () => {
   await prisma.phoneImages.deleteMany();
+  console.log('Delete images');
+
   await prisma.phonesOnBrands.deleteMany();
+
+  console.log('Delete brands');
+
   await prisma.phones.deleteMany();
-  await createBrands();
-  await createSmartphone();
-  await createImages();
+  console.log('Delete phones');
+
+  // await createBrands();
+  // console.log('Create brands');
+
+  // await createSmartphone();
+  // console.log('Create phones');
+
+  // await createImages();
+  // console.log('CReate images');
 };
 
 main()

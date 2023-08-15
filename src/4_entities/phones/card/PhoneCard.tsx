@@ -12,7 +12,7 @@ const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
   const router = useRouter();
   const { model, images, rating, price, id } = data;
   const previewImageSrc = images && images.length > 0 ? images[0].url : '/public/avatar.svg';
-  console.log(images, '  ', images[0]);
+  // console.log(images, '  ', images[0]);
 
   const brandName = data.brand[0].list.name
     ? data.brand[0].list.name
