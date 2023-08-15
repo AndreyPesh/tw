@@ -143,20 +143,20 @@ export const main = async () => {
   // console.log('Delete images');
   await prisma.phoneBrands.deleteMany()
 
-  await prisma.phonesOnBrands.deleteMany();
+  // await prisma.phonesOnBrands.deleteMany();
 
-  console.log('Delete brands');
+  // console.log('Delete brands');
 
   await prisma.phones.deleteMany();
   // console.log('Delete phones');
 
-  await createBrands();
+  // await createBrands();
   // console.log('Create brands');
 
-  await createSmartphone();
+  // await createSmartphone();
   // console.log('Create phones');
 
-  await createImages();
+  // await createImages();
   // console.log('CReate images');
 };
 
