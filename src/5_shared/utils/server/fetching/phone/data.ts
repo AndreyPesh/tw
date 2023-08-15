@@ -14,10 +14,10 @@ export const getPhoneData = async () => {
       `${'https://tw-next.vercel.app/'}${PHONE_ROUTES.GET_ALL}`,
       {
         headers: { 'Content-type': 'application/json' },
-        cache: 'no-cache',
+        // cache: 'no-cache',
       }
     );
-
+      
     if (response.ok) {
       const data: { data: ListPhoneData } = await response.json();
       return data;
