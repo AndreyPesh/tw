@@ -11,9 +11,9 @@ import AddToCartButton from '@/src/5_shared/UI/buttons/AddToCartButton';
 const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
   const router = useRouter();
   const { model, images, rating, price, id } = data;
-  // const previewImageSrc = images[0].url;
+  const previewImageSrc = images[0].url;
   console.log(images, '  ', images[0]);
-  
+
   const brandName = data.brand[0].list.name
     ? data.brand[0].list.name
     : UNKNOWN_BRAND_NAME;
@@ -27,12 +27,12 @@ const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
       className="p-5 w-full sm:max-w-xs box-border text-sm border rounded-lg cursor-pointer hover:shadow-lg"
       onClick={routeToDetailsHandler}
     >
-      {/* <Image
+      <Image
         src={previewImageSrc}
         width={500}
         height={500}
         alt={`Phone ${brandName} ${model}`}
-      /> */}
+      />
       <h3>
         <b>{brandName}</b>
       </h3>
