@@ -11,6 +11,8 @@ export const metadata = {
 
 const ProductPage = async () => {
   const responsePhoneData = await getPhoneData();
+  console.log('Data from DB:', responsePhoneData);
+
   return (
     <>
       <Suspense fallback={<Loading />}>
