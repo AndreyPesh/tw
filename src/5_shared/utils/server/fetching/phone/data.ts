@@ -34,7 +34,7 @@ export const getPhoneDataById = async (id: string) => {
     const domain = getDomain();
     const response = await fetch(`${domain}${PHONE_ROUTES.GET_BY_ID}${id}`, {
       headers: { 'Content-type': 'application/json' },
-      // cache: 'force-cache',
+      cache: 'force-cache',
     });
 
     if (response.ok) {
