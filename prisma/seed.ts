@@ -139,15 +139,15 @@ const createSmartphone = async () => {
 const prisma = new PrismaClient();
 
 export const main = async () => {
-  await prisma.phoneImages.deleteMany();
-  console.log('Delete images');
+  // await prisma.phoneImages.deleteMany();
+  // console.log('Delete images');
 
   await prisma.phonesOnBrands.deleteMany();
 
   console.log('Delete brands');
 
-  await prisma.phones.deleteMany();
-  console.log('Delete phones');
+  // await prisma.phones.deleteMany();
+  // console.log('Delete phones');
 
   // await createBrands();
   // console.log('Create brands');
