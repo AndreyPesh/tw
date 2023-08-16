@@ -1,14 +1,173 @@
-version: '3'
-services:
-  postgres:
-    image: postgres:alpine
-    container_name: next-shop
-    ports:
-      - '6500:5432'
-    volumes:
-      - progresDB:/var/lib/postgresql/data
-    env_file:
-      - ./.env
+# version: '3'
+# services:
+#   postgres:
+#     image: postgres:alpine
+#     container_name: next-shop
+#     ports:
+#       - '6500:5432'
+#     volumes:
+#       - progresDB:/var/lib/postgresql/data
+#     env_file:
+#       - ./.env
+#   pgbouncer:
+#     image: 'bitnami/pgbouncer:latest'
+#     environment:
+#           - POSTGRESQL_HOST=localhost
+#           - POSTGRESQL_USERNAME=admin
+#           - POSTGRESQL_PASSWORD=123
+#           - POSTGRESQL_DATABASE=admin
+#           - PGBOUNCER_POOL_MODE=transaction
+#           - PGBOUNCER_PORT=6432
+#           - PGBOUNCER_BIND_ADDRESS=localhost
+#           - PGBOUNCER_DATABASE=admin
+#       #  - POSTGRESQL_USERNAME=admin
+#       #  - POSTGRESQL_PASSWORD=123
+#       #  - POSTGRESQL_DATABASE=admin
+#       #  - POSTGRESQL_HOST=localhost
+#       #  - POSTGRESQL_PORT=6500
+#       #  - POOL_MODE=transaction
+#     ports:
+#       - '6432:6432'
+#     volumes:
+#       - /path/to/pgbouncer-persistence/conf/:/bitnami/pgbouncer/conf/
 
-volumes:
-  progresDB:
+# volumes:
+#   progresDB:
+
+# version: '3'
+# services:
+
+#   postgres:
+#     image: postgres:alpine
+#     volumes:
+#       - pg_data2:/var/lib/postgresql/data
+#     ports:
+#       - '5432:5432'
+#     env_file:
+#       - ./.env.local
+
+#   pgbouncer:
+#     image: edoburu/pgbouncer
+#     environment:
+#        - DB_USER=admin
+#        - DB_PASSWORD=123
+#        - DB_HOST=localhost
+#        - DB_NAME=admin
+#        - DB_PORT=5432
+#        - POOL_MODE=transaction
+#        - ADMIN_USERS=postgres,admin
+#     ports:
+#        - 6500:6500
+#     depends_on:
+#        - postgres
+
+# volumes:
+#   pg_data2:
+
+# version: '3.1'
+
+# services:
+#   # pgadmin4 for pgbouncer.
+#   pgadmin4-master:
+#     image: fenglc/pgadmin4
+#     ports:
+#       - 5050:5050
+#     links:
+#       - postgres:postgres
+#     environment:
+#       DEFAULT_USER: pgbouncer_database
+#       DEFAULT_PASSWORD: 12345678
+#   # Postgres database.
+#   postgres:
+#     image: postgres:9.6.5 
+#     environment:
+#       POSTGRES_USER: postgres     # define credentials
+#       POSTGRES_PASSWORD: postgres # define credentials
+#       POSTGRES_DB: postgres       # define database
+#     ports:
+#       - 5432:5432                 # Postgres port
+#   # Postgres database.
+#   pgbouncer:
+#     image: brainsam/pgbouncer:1.7.2
+#     environment:
+#       DB_HOST: postgres
+#       DB_USER: postgres           # define credentials
+#       DB_PASSWORD: postgres       # define credentials
+#       DB_port: 5432               # define database
+#     links:
+#       - postgres:postgres
+#     ports:
+#       - 6432:6432                 # PgBouncer port
+
+# version: '3.1'
+
+# services:
+  # pgadmin4 for pgbouncer.
+  # pgadmin4-master:
+  #   image: fenglc/pgadmin4
+  #   ports:
+  #     - 5050:5050
+  #   links:
+  #     - postgres:postgres
+  #   environment:
+  #     DEFAULT_USER: pgbouncer_database
+  #     DEFAULT_PASSWORD: 12345678
+  # Postgres database.
+  # postgres:
+  #   image: postgres:alpine 
+  #   environment:
+  #     POSTGRES_USER: postgres     # define credentials
+  #     POSTGRES_PASSWORD: postgres # define credentials
+  #     POSTGRES_DB: postgres       # define database
+  #     POSTGRES_HOST: 'localhost'
+  #   ports:
+  #     - 5432:5432                 # Postgres port
+  # Postgres database.
+  # pgbouncer:
+  #   image: brainsam/pgbouncer:1.7.2
+  #   environment:
+  #     DB_HOST: postgres
+  #     DB_USER: postgres           # define credentials
+  #     DB_PASSWORD: postgres       # define credentials
+  #     DB_port: 5432               # define database
+  #   links:
+  #     - postgres:postgres
+  #   ports:
+  #     - 6432:6432                 # PgBouncer port
+
+version: "3.1"
+
+services:
+  # pgadmin4 for pgbouncer.
+  pgadmin4-master:
+    image: fenglc/pgadmin4
+    ports:
+      - 5050:5050
+    links:
+      - postgres:postgres
+    environment:
+      DEFAULT_USER: pgbouncer_database
+      DEFAULT_PASSWORD: 12345678
+  # Postgres database.
+  postgres:
+    image: postgres:9.6.24
+    environment:
+      POSTGRES_USER: postgres # define credentials
+      POSTGRES_PASSWORD: postgres # define credentials
+      POSTGRES_DB: postgres # define database
+    ports:
+      - 5433:5432 # Postgres port
+  # Postgres database.
+  pgbouncer:
+    image: brainsam/pgbouncer:1.12.0
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres # define credentials
+      DB_PASSWORD: postgres # define credentials
+      DB_port: 5433 # define database
+      POOL_MODE: "transaction"
+      MAX_CLIENT_CONN: "1000"
+    links:
+      - postgres:postgres
+    ports:
+      - 6433:6432 # PgBouncer port

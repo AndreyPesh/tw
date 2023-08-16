@@ -52,9 +52,9 @@ const listUrlImages = [
 const createImages = async () => {
   const phones = await prisma.phones.findMany();
   const numberImages = await prisma.phoneImages.findMany();
-  // if (numberImages.length >= listUrlImages.length) {
-  //   return;
-  // }
+  if (numberImages.length >= listUrlImages.length) {
+    return;
+  }
 
   phones.map(async (phone) => {
     for (let i = 0; i <= 5; i++) {
@@ -67,7 +67,6 @@ const createImages = async () => {
         },
       });
       // console.log(img.phoneId === '7cb3923d-9814-42b5-9233-fe7d67c40157');
-      
     }
   });
 };
@@ -107,19 +106,18 @@ function slugify(str: string) {
 
 const createSmartphone = async () => {
   const brands = await prisma.phoneBrands.findMany();
-
   const numberPhones = await prisma.phones.findMany();
   if (numberPhones.length >= 20) {
     return;
   }
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 5; i++) {
     const model =
       listModelPhones[getRandomNumberInt(0, listModelPhones.length - 1)];
 
     const idBrand = brands[getRandomNumberInt(0, brands.length - 1)].id;
 
-    await prisma.phones.create({
+    const phone = await prisma.phones.create({
       data: {
         model,
         slug: slugify(model),
@@ -139,15 +137,13 @@ const createSmartphone = async () => {
 const prisma = new PrismaClient();
 
 export const main = async () => {
-  // await prisma.phoneImages.deleteMany();
-  // console.log('Delete images');
-  // await prisma.phoneBrands.deleteMany()
-
-  // await prisma.phonesOnBrands.deleteMany();
+  await prisma.phoneImages.deleteMany();
+  await prisma.phonesOnBrands.deleteMany();
+  await prisma.phoneBrands.deleteMany()
 
   // console.log('Delete brands');
 
-  // await prisma.phones.deleteMany();
+  await prisma.phones.deleteMany();
   // console.log('Delete phones');
 
   await createBrands();
@@ -157,7 +153,6 @@ export const main = async () => {
   // console.log('Create phones');
 
   await createImages();
-  // console.log('CReate images');
 };
 
 main()
