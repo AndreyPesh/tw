@@ -18,6 +18,8 @@ export class PhoneDb {
           },
         },
       });
+      // console.log('List phones ',listPhones);
+      
       return listPhones;
     } catch (error) {
       console.log('Error ', error);

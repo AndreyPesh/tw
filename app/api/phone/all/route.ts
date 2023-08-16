@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 const getAllPhones = async () => {
   try {
     const phones = await new PhoneDb().getAllPhones();
-
+     
     return NextResponse.json({ status: STATUS_CODE.OK, data: phones });
   } catch (error) {
     return NextResponse.json({
