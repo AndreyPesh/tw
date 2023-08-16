@@ -145,13 +145,13 @@ export const main = async () => {
   await prisma.phones.deleteMany();
   // console.log('Delete phones');
 
-  await createBrands();
+  // await createBrands();
   // console.log('Create brands');
 
-  await createSmartphone();
+  // await createSmartphone();
   // console.log('Create phones');
 
-  await createImages();
+  // await createImages();
 };
 
 main()
