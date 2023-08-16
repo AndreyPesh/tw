@@ -8,9 +8,9 @@ import axios from 'axios';
 
 export const getPhoneData = async () => {
   try {
-    // const domain = getDomain();
-    const DOMAIN = 'https://tw-next.vercel.app/';
-    // console.log('DOMAIN ', domain);
+    const domain = getDomain();
+    // const DOMAIN = 'https://localhost:3000/';
+    console.log('DOMAIN ', domain);
 
     // const response = await fetch(
     //   `${'https://tw-next.vercel.app/'}${PHONE_ROUTES.GET_ALL}`,
@@ -19,7 +19,7 @@ export const getPhoneData = async () => {
     //     cache: 'no-cache',
     //   }
     // );
-    const response = await axios.get(`${DOMAIN}${PHONE_ROUTES.GET_ALL}`, {
+    const response = await axios.get(`${domain}${PHONE_ROUTES.GET_ALL}`, {
       headers: { 'Content-type': 'application/json' },
     });
 
