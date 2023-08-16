@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 
 const seedHandler = async () => {
   try {
-    await main()
+    // await main()
     return NextResponse.json('data added')
   } catch(error) {
     return NextResponse.json({error})
