@@ -66,7 +66,6 @@ const createImages = async () => {
           },
         },
       });
-      // console.log(img.phoneId === '7cb3923d-9814-42b5-9233-fe7d67c40157');
     }
   });
 };
@@ -111,7 +110,7 @@ const createSmartphone = async () => {
     return;
   }
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 20; i++) {
     const model =
       listModelPhones[getRandomNumberInt(0, listModelPhones.length - 1)];
 
