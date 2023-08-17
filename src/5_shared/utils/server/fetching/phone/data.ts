@@ -5,12 +5,12 @@ import {
   PhoneData,
 } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 
-export const getPhoneListData = async () => {
+export const getPhoneListData = async (pageNumber: number) => {
   try {
     const domain = getDomain();
 
     const response = await fetch(
-      `${domain}${PHONE_ROUTES.GET_ALL}`,
+      `${domain}${PHONE_ROUTES.GET_ALL}?page_number=${pageNumber}`,
       {
         headers: { 'Content-type': 'application/json' },
         cache: 'no-store',

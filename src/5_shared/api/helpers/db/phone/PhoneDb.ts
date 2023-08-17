@@ -6,9 +6,13 @@ export type PhoneData = NonNullable<
 >;
 
 export class PhoneDb {
-  getAllPhones = async () => {
+  getAllPhones = async (numberPage: number) => {
     try {
+      const SKIP = (numberPage - 1) * 4;
+      const TAKE = 4;
       const listPhones = await prisma.phones.findMany({
+        take: TAKE,
+        skip: SKIP,
         include: {
           images: true,
           brand: {

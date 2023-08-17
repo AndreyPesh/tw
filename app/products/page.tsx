@@ -3,6 +3,7 @@ import Loading from './loading';
 import Empty from '@/src/1_page/Empty';
 import PhonesPage from '@/src/1_page/products/PhonesPage';
 import { getPhoneListData } from '@/src/5_shared/utils/server/fetching/phone/data';
+import { FIRST_PAGE_NUMBER } from '@/src/5_shared/types/constant';
 
 export const metadata = {
   title: 'Products',
@@ -10,8 +11,7 @@ export const metadata = {
 };
 
 const ProductPage = async () => {
-  const responsePhoneData = await getPhoneListData();
-  // console.log('Data from DB:', responsePhoneData);
+  const responsePhoneData = await getPhoneListData(FIRST_PAGE_NUMBER);
 
   return (
     <>
