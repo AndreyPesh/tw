@@ -4,31 +4,23 @@ import {
   ListPhoneData,
   PhoneData,
 } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
-import axios from 'axios';
 
-export const getPhoneData = async () => {
+export const getPhoneListData = async () => {
   try {
     const domain = getDomain();
-    // const DOMAIN = 'https://localhost:3000/';
-    console.log('DOMAIN ', domain);
 
-    // const response = await fetch(
-    //   `${'https://tw-next.vercel.app/'}${PHONE_ROUTES.GET_ALL}`,
-    //   {
-    //     headers: { 'Content-type': 'application/json' },
-    //     cache: 'no-cache',
-    //   }
-    // );
-    const response = await axios.get(`${domain}${PHONE_ROUTES.GET_ALL}`, {
-      headers: { 'Content-type': 'application/json' },
-    });
+    const response = await fetch(
+      `${domain}${PHONE_ROUTES.GET_ALL}`,
+      {
+        headers: { 'Content-type': 'application/json' },
+        cache: 'no-store',
+      }
+    );
 
-    return response.data;
-    // if (response.ok) {
-    //   const data: { data: ListPhoneData } = await response.json();
-    //   console.log('Data ', data);
-    //   return data;
-    // }
+    if (response.ok) {
+      const data: { data: ListPhoneData } = await response.json();
+      return data;
+    }
     throw new Error('Cant get data phone ');
   } catch (error) {
     console.error((error as Error).message);
