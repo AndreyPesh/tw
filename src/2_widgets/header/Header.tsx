@@ -25,7 +25,7 @@ const Header = ({ user }: { user: User | null }) => {
             priority
             width={160}
             height={40}
-            src={'./logo.svg'}
+            src={'/logo.svg'}
             alt="Logo"
           />
         </Link>
