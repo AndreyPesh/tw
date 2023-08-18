@@ -1,6 +1,6 @@
 export const enum EnumLinkPage {
   HOME = '/',
-  PRODUCTS = '/products',
+  PRODUCTS = '/products/phones/page/1',
   CONTACTS = '/contacts',
   AUTH = '/auth',
   USER = '/user'

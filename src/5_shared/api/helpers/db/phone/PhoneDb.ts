@@ -6,10 +6,39 @@ export type PhoneData = NonNullable<
 >;
 
 export class PhoneDb {
-  getAllPhones = async (numberPage: number) => {
+  getCountListPhones = async () => {
     try {
-      const SKIP = (numberPage - 1) * 4;
-      const TAKE = 4;
+      const count = await prisma.phones.count();
+      return count;
+    } catch (error) {
+      console.log('Error ', error);
+      throw new Error((error as Error).message);
+    }
+  };
+
+  getAllPhones = async () => {
+    try {
+      const listPhones = await prisma.phones.findMany({
+        include: {
+          images: true,
+          brand: {
+            include: {
+              list: true,
+            },
+          },
+        },
+      });
+      return listPhones;
+    } catch (error) {
+      console.log('Error ', error);
+      throw new Error((error as Error).message);
+    }
+  };
+
+  getPagePhones = async (page: number, perPage: number) => {
+    try {
+      const SKIP = (page - 1) * perPage;
+      const TAKE = perPage;
       const listPhones = await prisma.phones.findMany({
         take: TAKE,
         skip: SKIP,

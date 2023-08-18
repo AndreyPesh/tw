@@ -5,15 +5,53 @@ import {
   PhoneData,
 } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 
-export const getPhoneListData = async (pageNumber: number) => {
+export const fetchCountListPhone = async () => {
+  try {
+    const domain = getDomain();
+    const response = await fetch(`${domain}${PHONE_ROUTES.GET_ALL}`, {
+      headers: { 'Content-type': 'application/json' },
+      cache: 'no-store',
+    });
+
+    if (response.ok) {
+      const data: { count: number } = await response.json();
+      return data;
+    }
+    throw new Error('Cant get count phone list');
+  } catch (error) {
+    console.error((error as Error).message);
+    return null;
+  }
+};
+
+export const fetchAllPhones = async () => {
+  try {
+    const domain = getDomain();
+    const response = await fetch(`${domain}${PHONE_ROUTES.GET_ALL}`, {
+      headers: { 'Content-type': 'application/json' },
+      cache: 'no-store',
+    });
+
+    if (response.ok) {
+      const data: { data: ListPhoneData } = await response.json();
+      return data;
+    }
+    throw new Error('Cant get data phone ');
+  } catch (error) {
+    console.error((error as Error).message);
+    return null;
+  }
+};
+
+export const fetchPhonePage = async (pageNumber: number) => {
   try {
     const domain = getDomain();
 
     const response = await fetch(
-      `${domain}${PHONE_ROUTES.GET_ALL}?page_number=${pageNumber}`,
+      `${domain}${PHONE_ROUTES.GET_PHONE_PAGE}${pageNumber}`,
       {
         headers: { 'Content-type': 'application/json' },
-        cache: 'no-store',
+        // cache: 'force-cache',
       }
     );
 
