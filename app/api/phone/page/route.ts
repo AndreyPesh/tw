@@ -3,6 +3,8 @@ import { PhoneDb } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 import { FIRST_PAGE_NUMBER } from '@/src/5_shared/types/constant';
 
+export const dynamic = 'force-dynamic';
+
 const getPhonePage = async (req: NextRequest) => {
   try {
     const { searchParams } = new URL(req.url);
