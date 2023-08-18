@@ -51,7 +51,7 @@ export const fetchPhonePage = async (pageNumber: number) => {
       `${domain}${PHONE_ROUTES.GET_PHONE_PAGE}${pageNumber}`,
       {
         headers: { 'Content-type': 'application/json' },
-        // cache: 'force-cache',
+        cache: 'no-store',
       }
     );
 

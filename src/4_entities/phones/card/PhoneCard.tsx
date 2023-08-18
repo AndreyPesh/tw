@@ -11,14 +11,15 @@ import AddToCartButton from '@/src/5_shared/UI/buttons/AddToCartButton';
 const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
   const router = useRouter();
   const { model, images, rating, price, id } = data;
-  const previewImageSrc = images && images.length > 0 ? images[0].url : '/public/avatar.svg';
+  const previewImageSrc =
+    images && images.length > 0 ? images[0].url : '/avatar.svg';
 
   const brandName = data.brand[0].list.name
     ? data.brand[0].list.name
     : UNKNOWN_BRAND_NAME;
 
   const routeToDetailsHandler = () => {
-    router.push(`products/phones/details/${id}`);
+    router.push(`/products/phones/details/${id}`);
   };
 
   return (

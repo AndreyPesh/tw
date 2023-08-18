@@ -7,6 +7,8 @@ import PhonesPage from '@/src/1_page/products/PhonesPage';
 import Pagination from '@/src/3_features/pagination/Pagination';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
 
+export const dynamic = 'force-dynamic'
+
 const PhonePage = async ({ params }: { params: { number: string } }) => {
   const page = params.number;
   const countListPhone = await fetchCountListPhone();

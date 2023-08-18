@@ -28,7 +28,6 @@ const Pagination: FC<PaginationProps> = ({
 
   return (
     <>
-      <h1>Current page: {currentPage}</h1>
       <ul className="flex justify-center">
         <PrevNextButton type={TypeButtonPagination.PREV} linkPage={linkPage} />
         <ListItemButton numberPages={MAX_PAGE} linkPage={linkPage} />
