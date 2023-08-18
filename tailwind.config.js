@@ -37,11 +37,19 @@ module.exports = {
         '0%': { opacity: '1' },
         '100%': { opacity: '0' }
       },
+      flicker: {
+        '0%': { opacity: '1' },
+        // '25%': { opacity: '0.5' },
+        '50%': { opacity: '0.5' },
+        '100%': { opacity: '1' }
+      }
     },
     animation: {
       'appear': 'fade_in 0.3s linear',
-      'disappear': 'fade_out 0.3s linear forwards'
-    }
+      'disappear': 'fade_out 0.3s linear forwards',
+      'flickering': 'flicker 1s linear infinite'
+    },
+
   },
   plugins: [],
 }

@@ -3,7 +3,7 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { UNKNOWN_BRAND_NAME } from '../constants';
+import { UNKNOWN_BRAND_NAME } from '../../constants';
 import { PhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import Rating from '@/src/5_shared/UI/rating/Rating';
 import AddToCartButton from '@/src/5_shared/UI/buttons/AddToCartButton';

@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import StarRating from './StarRating';
+import classNames from 'classnames';
 
-const Rating: FC<{ rating: number }> = ({ rating }) => {
+const Rating: FC<{ rating: number; empty?: boolean }> = ({ rating, empty }) => {
   return (
     <div className="flex items-center space-x-1">
       <StarRating rating={rating} />
-      <b>{rating}</b>
+      <b className={classNames({ hidden: empty })}>{rating}</b>
     </div>
   );
 };

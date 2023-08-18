@@ -37,7 +37,7 @@ export class PhoneDb {
 
   getPagePhones = async (page: number, perPage: number) => {
     try {
-      const SKIP = (page - 1) * perPage;
+      const SKIP = Math.abs(page - 1) * perPage;
       const TAKE = perPage;
       const listPhones = await prisma.phones.findMany({
         take: TAKE,
