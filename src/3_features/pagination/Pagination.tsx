@@ -1,22 +1,42 @@
 'use client';
 
-import { data } from './JSON';
+import { FC, useEffect } from 'react';
 import PrevNextButton from './components/PrevNextButton';
 import { TypeButtonPagination } from './types/enums';
 import ListItemButton from './components/ListItemButton';
 import usePaginationStore from './state/statePagination';
 
-const Pagination = () => {
-  const { currentPage } = usePaginationStore();
-  const MAX_PAGE = 10;
+interface PaginationProps {
+  initPage: number;
+  itemsCount: number;
+  perPage: number;
+  linkPage: string;
+}
+
+const Pagination: FC<PaginationProps> = ({
+  initPage,
+  itemsCount,
+  perPage,
+  linkPage,
+}) => {
+  const { currentPage, setCurrentPage } = usePaginationStore();
+  const MAX_PAGE = Math.ceil(itemsCount / perPage);
+
+  useEffect(() => {
+    setCurrentPage(initPage);
+  }, []);
 
   return (
     <>
       <h1>Current page: {currentPage}</h1>
       <ul className="flex justify-center">
-        <PrevNextButton type={TypeButtonPagination.PREV} />
-        <ListItemButton numberPages={MAX_PAGE} />
-        <PrevNextButton type={TypeButtonPagination.NEXT} maxPage={MAX_PAGE} />
+        <PrevNextButton type={TypeButtonPagination.PREV} linkPage={linkPage} />
+        <ListItemButton numberPages={MAX_PAGE} linkPage={linkPage} />
+        <PrevNextButton
+          type={TypeButtonPagination.NEXT}
+          linkPage={linkPage}
+          maxPage={MAX_PAGE}
+        />
       </ul>
     </>
   );

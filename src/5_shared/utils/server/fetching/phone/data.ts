@@ -8,13 +8,13 @@ import {
 export const fetchCountListPhone = async () => {
   try {
     const domain = getDomain();
-    const response = await fetch(`${domain}${PHONE_ROUTES.GET_ALL}`, {
+    const response = await fetch(`${domain}${PHONE_ROUTES.GET_COUNT}`, {
       headers: { 'Content-type': 'application/json' },
       cache: 'no-store',
     });
 
     if (response.ok) {
-      const data: { count: number } = await response.json();
+      const { data }: { data: number } = await response.json();
       return data;
     }
     throw new Error('Cant get count phone list');
