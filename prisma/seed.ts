@@ -17,9 +17,9 @@ const phoneBrands = [
 
 const createBrands = async () => {
   const numberBrand = await prisma.phoneBrands.findMany();
-  // if (numberBrand.length >= phoneBrands.length) {
-  //   return;
-  // }
+  if (numberBrand.length >= phoneBrands.length) {
+    return;
+  }
 
   phoneBrands.map(async (name) => {
     await prisma.phoneBrands.create({
@@ -52,9 +52,9 @@ const listUrlImages = [
 const createImages = async () => {
   const phones = await prisma.phones.findMany();
   const numberImages = await prisma.phoneImages.findMany();
-  // if (numberImages.length >= listUrlImages.length) {
-  //   return;
-  // }
+  if (numberImages.length >= listUrlImages.length) {
+    return;
+  }
 
   phones.map(async (phone) => {
     for (let i = 0; i <= 5; i++) {
@@ -106,9 +106,9 @@ function slugify(str: string) {
 const createSmartphone = async () => {
   const brands = await prisma.phoneBrands.findMany();
   const numberPhones = await prisma.phones.findMany();
-  // if (numberPhones.length >= 20) {
-  //   return;
-  // }
+  if (numberPhones.length >= 20) {
+    return;
+  }
 
   for (let i = 0; i < 20; i++) {
     const model =

@@ -1,9 +1,10 @@
 export const enum EnumLinkPage {
   HOME = '/',
-  PRODUCTS = '/products',
+  PRODUCTS = '/products/phones/page/1',
+  PHONE_PAGE = '/products/phones/page/',
   CONTACTS = '/contacts',
   AUTH = '/auth',
-  USER = '/user'
+  USER = '/user',
 }
 
 export const enum EnumTypeAuth {

@@ -150,7 +150,7 @@ services:
       DEFAULT_PASSWORD: 12345678
   # Postgres database.
   postgres:
-    image: postgres:9.6.24
+    image: postgres:alpine
     environment:
       POSTGRES_USER: postgres # define credentials
       POSTGRES_PASSWORD: postgres # define credentials
@@ -167,6 +167,7 @@ services:
       DB_port: 5433 # define database
       POOL_MODE: "transaction"
       MAX_CLIENT_CONN: "1000"
+      IGNORE_STARTUP_PARAMETERS: search_path
     links:
       - postgres:postgres
     ports:

@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { MIN_PAGE } from '../types/constants';
 
 interface PaginationStore {
   currentPage: number;
@@ -9,7 +8,7 @@ interface PaginationStore {
 }
 
 const usePaginationStore = create<PaginationStore>((set) => ({
-  currentPage: MIN_PAGE,
+  currentPage: 0,
   increasePage: () => set((state) => ({ currentPage: state.currentPage + 1 })),
   decreasePage: () => set((state) => ({ currentPage: state.currentPage - 1 })),
   setCurrentPage: (page) => set(() => ({ currentPage: page })),

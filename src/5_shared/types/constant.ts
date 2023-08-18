@@ -7,6 +7,8 @@ export const ADD_FILE_TEMPLATE = './add-icon.svg';
 
 export const TYPE_AUTH_PARAM = 'type_auth';
 
+export const FIRST_PAGE_NUMBER = 1;
+
 export const URL_LOGIN_PAGE = `${EnumLinkPage.AUTH}?${TYPE_AUTH_PARAM}=${EnumTypeAuth.LOGIN}`;
 export const URL_SIGNUP_PAGE = `${EnumLinkPage.AUTH}?${TYPE_AUTH_PARAM}=${EnumTypeAuth.SIGNUP}`;
 
