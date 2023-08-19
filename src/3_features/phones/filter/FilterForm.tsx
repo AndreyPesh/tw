@@ -1,31 +1,30 @@
 'use client';
 
-import { useQuery } from 'react-query';
-import axios from 'axios';
-import { PhoneBrands } from '@prisma/client';
-import InputRange from './InputRange';
+import InputRange from './fields/InputRange';
+import { useForm } from 'react-hook-form';
+import SelectBrand from './fields/SelectBrand';
+
+const enum TypePriceSort {
+  descending = 'desc',
+  ascending = 'asc',
+}
+
+interface FilterFormState {
+  brandId: string | null;
+  // price: { min: number; max: number };
+  // rating: number;
+  // priceSort: TypePriceSort | null;
+}
 
 const FilterForm = () => {
-  const { data: responseBrandList } = useQuery('listBrandsPhone', async () => {
-    return await axios.get<{ brandList: PhoneBrands[] }>('/api/phone/brands');
-  });
+  const { register, handleSubmit } = useForm<FilterFormState>();
+  const onSubmitFilter = handleSubmit((data) => console.log(data));
 
   return (
     <div className="w-1/3">
       <h3>Filter form</h3>
-      <form action="">
-        <div>
-          <label>Name:</label>
-          <select name="phone_name">
-            {responseBrandList &&
-              responseBrandList.data.brandList.length > 0 &&
-              responseBrandList.data.brandList.map((brand) => (
-                <option key={brand.id} value={brand.id}>
-                  {brand.name}
-                </option>
-              ))}
-          </select>
-        </div>
+      <form onSubmit={onSubmitFilter}>
+        <SelectBrand register={register('brandId')} />
         <div className="p-2 border rounded">
           <label>Price:</label>
           <span>From</span>
@@ -53,7 +52,7 @@ const FilterForm = () => {
           />
           <label htmlFor="sortingPrice2">More expensive</label>
         </div>
-        <button type="button">Apply filter</button>
+        <button type="submit">Apply filter</button>
       </form>
     </div>
   );
