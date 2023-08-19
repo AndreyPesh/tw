@@ -4,22 +4,18 @@ import InputRange from './fields/InputRange';
 import { useForm } from 'react-hook-form';
 import SelectBrand from './fields/SelectBrand';
 import InputPrice from './fields/InputPrice';
-
-const enum TypePriceSort {
-  descending = 'desc',
-  ascending = 'asc',
-}
+import InputSortPrice, { TypePriceSort } from './fields/InputSortPrice';
 
 export interface FilterFormState {
-  brandId: string | null;
+  brandId: string;
   price_min: number;
   price_max: number;
   rating: number;
-  // priceSort: TypePriceSort | null;
+  priceSort: TypePriceSort | null;
 }
 
 const FilterForm = () => {
-  const { register, handleSubmit } = useForm<FilterFormState>();
+  const { register, resetField, handleSubmit } = useForm<FilterFormState>();
   const onSubmitFilter = handleSubmit((data) => console.log(data));
 
   return (
@@ -32,24 +28,10 @@ const FilterForm = () => {
           register_max={register('price_max')}
         />
         <InputRange register={register('rating')} />
-        <div>
-          <h3>Sorting</h3>
-          <input
-            type="radio"
-            id="sortingPrice1"
-            name="sorting_price"
-            value="cheaper"
-          />
-          <label htmlFor="sortingPrice1">Cheaper</label>
-
-          <input
-            type="radio"
-            id="sortingPrice2"
-            name="sorting_price"
-            value="expensive"
-          />
-          <label htmlFor="sortingPrice2">More expensive</label>
-        </div>
+        <InputSortPrice
+          register={register('priceSort')}
+          resetSorting={() => resetField('priceSort')}
+        />
         <button type="submit">Apply filter</button>
       </form>
     </div>
