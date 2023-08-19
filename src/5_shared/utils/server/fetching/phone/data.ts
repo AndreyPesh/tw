@@ -4,6 +4,7 @@ import {
   ListPhoneData,
   PhoneData,
 } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
+import { PhoneBrands } from '@prisma/client';
 
 export const fetchCountListPhone = async () => {
   try {
@@ -79,6 +80,24 @@ export const getPhoneDataById = async (id: string) => {
       return data;
     }
     throw new Error('Cant get phone data by ID');
+  } catch (error) {
+    console.error((error as Error).message);
+    return null;
+  }
+};
+
+export const fetchBrandListPhone = async () => {
+  try {
+    const domain = getDomain();
+    const response = await fetch(`${domain}${PHONE_ROUTES.GET_LIST_BRAND}`, {
+      headers: { 'Content-type': 'application/json' },
+    });
+
+    if (response.ok) {
+      const data: { data: PhoneBrands[] } = await response.json();
+      return data;
+    }
+    throw new Error('Cant get list brand phone');
   } catch (error) {
     console.error((error as Error).message);
     return null;

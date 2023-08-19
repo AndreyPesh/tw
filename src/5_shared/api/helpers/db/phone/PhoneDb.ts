@@ -78,4 +78,13 @@ export class PhoneDb {
       throw new Error((error as Error).message);
     }
   };
+
+  fetchListBrandPhone = async () => {
+    try {
+      const brandList = await prisma.phoneBrands.findMany();
+      return brandList;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  };
 }
