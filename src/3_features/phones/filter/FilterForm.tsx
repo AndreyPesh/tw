@@ -10,11 +10,11 @@ const enum TypePriceSort {
   ascending = 'asc',
 }
 
-interface FilterFormState {
+export interface FilterFormState {
   brandId: string | null;
   price_min: number;
   price_max: number;
-  // rating: number;
+  rating: number;
   // priceSort: TypePriceSort | null;
 }
 
@@ -31,7 +31,7 @@ const FilterForm = () => {
           register_min={register('price_min')}
           register_max={register('price_max')}
         />
-        <InputRange />
+        <InputRange register={register('rating')} />
         <div>
           <h3>Sorting</h3>
           <input
