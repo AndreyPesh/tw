@@ -14,12 +14,14 @@ const InputPrice = ({
       <input
         className="w-20 border rounded"
         type="number"
+        min={1}
         {...register_min}
       ></input>
       <span>To</span>
       <input
         className="w-20 border rounded"
         type="number"
+        min={1}
         {...register_max}
       ></input>
       <span>&#36;</span>
