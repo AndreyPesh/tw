@@ -3,6 +3,7 @@
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import { PhoneBrands } from '@prisma/client';
+import InputRange from './InputRange';
 
 const FilterForm = () => {
   const { data: responseBrandList } = useQuery('listBrandsPhone', async () => {
@@ -33,8 +34,24 @@ const FilterForm = () => {
           <input className="w-20 border rounded" type="number"></input>
           <span>&#36;</span>
         </div>
+        <InputRange />
         <div>
-          <input type="range" step={1} max={5} />
+          <h3>Sorting</h3>
+          <input
+            type="radio"
+            id="sortingPrice1"
+            name="sorting_price"
+            value="cheaper"
+          />
+          <label htmlFor="sortingPrice1">Cheaper</label>
+
+          <input
+            type="radio"
+            id="sortingPrice2"
+            name="sorting_price"
+            value="expensive"
+          />
+          <label htmlFor="sortingPrice2">More expensive</label>
         </div>
         <button type="button">Apply filter</button>
       </form>
