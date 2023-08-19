@@ -1,18 +1,24 @@
-import { fetchBrandListPhone } from '@/src/5_shared/utils/server/fetching/phone/data';
+'use client';
 
-const FilterForm = async () => {
-  const responseListBrandPhone = await fetchBrandListPhone();
+import { useQuery } from 'react-query';
+import axios from 'axios';
+import { PhoneBrands } from '@prisma/client';
+
+const FilterForm = () => {
+  const { data: responseBrandList } = useQuery('listBrandsPhone', async () => {
+    return await axios.get<{ brandList: PhoneBrands[] }>('/api/phone/brands');
+  });
 
   return (
     <div className="w-1/3">
-      Filter form
+      <h3>Filter form</h3>
       <form action="">
         <div>
           <label>Name:</label>
           <select name="phone_name">
-            {responseListBrandPhone &&
-              responseListBrandPhone.data.length > 0 &&
-              responseListBrandPhone.data.map((brand) => (
+            {responseBrandList &&
+              responseBrandList.data.brandList.length > 0 &&
+              responseBrandList.data.brandList.map((brand) => (
                 <option key={brand.id} value={brand.id}>
                   {brand.name}
                 </option>
@@ -30,6 +36,7 @@ const FilterForm = async () => {
         <div>
           <input type="range" step={1} max={5} />
         </div>
+        <button type="button">Apply filter</button>
       </form>
     </div>
   );
