@@ -10,12 +10,17 @@ interface PrevNextButtonProps {
   type: TypeButtonPagination;
   linkPage: string;
   maxPage?: number;
+  filterOptions?: {
+    isFilterApplied: boolean;
+    queryParamsFilter: string;
+  };
 }
 
 const PrevNextButton: FC<PrevNextButtonProps> = ({
   type,
   maxPage,
   linkPage,
+  filterOptions,
 }) => {
   const router = useRouter();
   const { currentPage, increasePage, decreasePage } = usePaginationStore();
@@ -28,13 +33,21 @@ const PrevNextButton: FC<PrevNextButtonProps> = ({
 
   const increasePageHandler = () => {
     if (currentPage === maxPage) return;
-    router.push(`${linkPage}/${currentPage + 1}`);
+    let currentLinkPage = `${linkPage}/${currentPage + 1}`;
+    if (filterOptions?.isFilterApplied) {
+      currentLinkPage += filterOptions.queryParamsFilter;
+    }
+    router.push(`${currentLinkPage}`);
     increasePage();
   };
 
   const decreasePageHandler = () => {
     if (currentPage === MIN_PAGE) return;
-    router.push(`${linkPage}/${currentPage - 1}`);
+    let currentLinkPage = `${linkPage}/${currentPage - 1}`;
+    if (filterOptions?.isFilterApplied) {
+      currentLinkPage += filterOptions.queryParamsFilter;
+    }
+    router.push(`${currentLinkPage}`);
     decreasePage();
   };
 
