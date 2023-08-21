@@ -1,10 +1,10 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
+import { useRouter } from 'next/navigation';
+import classNames from 'classnames';
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from 'react-icons/io';
 import { TypeButtonPagination } from '../types/enums';
 import usePaginationStore from '../state/statePagination';
-import classNames from 'classnames';
 import { MIN_PAGE } from '../types/constants';
-import { useRouter } from 'next/navigation';
 
 interface PrevNextButtonProps {
   type: TypeButtonPagination;
@@ -28,17 +28,15 @@ const PrevNextButton: FC<PrevNextButtonProps> = ({
 
   const increasePageHandler = () => {
     if (currentPage === maxPage) return;
+    router.push(`${linkPage}/${currentPage + 1}`);
     increasePage();
   };
 
   const decreasePageHandler = () => {
     if (currentPage === MIN_PAGE) return;
+    router.push(`${linkPage}/${currentPage - 1}`);
     decreasePage();
   };
-
-  useEffect(() => {
-    router.push(`${linkPage}/${currentPage}`);
-  }, [currentPage]);
 
   return (
     <li

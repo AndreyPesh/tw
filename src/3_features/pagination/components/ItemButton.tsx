@@ -1,7 +1,7 @@
-import { FC, useEffect } from 'react';
-import usePaginationStore from '../state/statePagination';
+import { FC } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
+import usePaginationStore from '../state/statePagination';
 
 const ItemButton: FC<{ pageNumber: number; linkPage: string }> = ({
   pageNumber,
@@ -9,10 +9,6 @@ const ItemButton: FC<{ pageNumber: number; linkPage: string }> = ({
 }) => {
   const router = useRouter();
   const { currentPage, setCurrentPage } = usePaginationStore();
-
-  useEffect(() => {
-    router.push(`${linkPage}/${currentPage}`);
-  }, [currentPage]);
 
   return (
     <>
@@ -23,6 +19,7 @@ const ItemButton: FC<{ pageNumber: number; linkPage: string }> = ({
         )}
         onClick={() => {
           setCurrentPage(pageNumber);
+          router.push(`${linkPage}/${pageNumber}`);
         }}
       >
         {pageNumber}
