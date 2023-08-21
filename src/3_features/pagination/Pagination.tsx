@@ -39,7 +39,14 @@ const Pagination: FC<PaginationProps> = ({
             queryParamsFilter: currentQueryParamsFilter,
           }}
         />
-        <ListItemButton numberPages={MAX_PAGE} linkPage={linkPage} />
+        <ListItemButton
+          numberPages={MAX_PAGE}
+          linkPage={linkPage}
+          filterOptions={{
+            isFilterApplied,
+            queryParamsFilter: currentQueryParamsFilter,
+          }}
+        />
         <PrevNextButton
           type={TypeButtonPagination.NEXT}
           linkPage={linkPage}
