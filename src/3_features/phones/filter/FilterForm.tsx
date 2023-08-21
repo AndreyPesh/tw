@@ -8,9 +8,13 @@ import InputPrice from './fields/InputPrice';
 import InputSortPrice from './fields/InputSortPrice';
 import { FilterFormState } from './types/interfaces';
 import { createFilterQueryParamsFromFormData } from './helpers/createFilterUrlFromFormData';
+import usePhoneFilterState from './stateFilter/state';
+import { EnumLinkPage } from '@/src/5_shared/types/enum';
 
 const FilterForm = () => {
+  const { applyPhoneFilter, resetPhoneFilter } = usePhoneFilterState();
   const router = useRouter();
+
   const { register, watch, resetField, reset, handleSubmit } =
     useForm<FilterFormState>({
       defaultValues: {
@@ -22,16 +26,15 @@ const FilterForm = () => {
       },
     });
   const onSubmitFilter = handleSubmit((data) => {
-
-    const url = createFilterQueryParamsFromFormData(data);
-    console.log(url);
-
-    router.push(url);
-
+    const listQueryParams = createFilterQueryParamsFromFormData(data);
+    applyPhoneFilter(listQueryParams);
+    router.push(listQueryParams);
   });
 
   const onResetHandler = () => {
+    resetPhoneFilter();
     reset();
+    router.push(EnumLinkPage.PRODUCTS);
   };
 
   return (

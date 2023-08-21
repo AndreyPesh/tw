@@ -12,5 +12,5 @@ export const createFilterQueryParamsFromFormData = (data: FilterFormState) => {
   const optionsUrl = listOptionsFilterArray.map(
     ([key, value]) => `${key}=${value}`
   );
-  return '?' + optionsUrl.join('&')
+  return '?' + optionsUrl.join('&');
 };
