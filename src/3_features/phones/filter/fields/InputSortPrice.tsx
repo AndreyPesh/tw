@@ -10,7 +10,7 @@ const InputSortPrice = ({
   register,
   resetSorting,
 }: {
-  register: UseFormRegisterReturn<'priceSort'>;
+  register: UseFormRegisterReturn<'price_sort'>;
   resetSorting: () => void;
 }) => {
   return (

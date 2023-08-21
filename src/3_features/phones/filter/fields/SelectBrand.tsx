@@ -8,7 +8,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 const SelectBrand = ({
   register,
 }: {
-  register: UseFormRegisterReturn<'brandId'>;
+  register: UseFormRegisterReturn<'brand_id'>;
 }) => {
   const { data: responseBrandList } = useQuery(
     'listBrandsPhone',

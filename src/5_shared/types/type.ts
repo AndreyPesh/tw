@@ -11,5 +11,10 @@ export type SignupFormData = LoginFormData & {
 };
 
 export type RegisterLoginFormData = ReturnType<UseFormRegister<LoginFormData>>;
-export type RegisterSignupFormData = ReturnType<UseFormRegister<SignupFormData>>;
+export type RegisterSignupFormData = ReturnType<
+  UseFormRegister<SignupFormData>
+>;
 
+export type EntriesObjectType<T> = {
+  [K in keyof T]: [K, T[K]];
+}[keyof T][];
