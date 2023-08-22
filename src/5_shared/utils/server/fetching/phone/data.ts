@@ -42,7 +42,8 @@ export const fetchListPhoneWithFilter = async (
     );
 
     if (response.ok) {
-      const data: { data: ListPhoneData } = await response.json();
+      const data: { data: { listPhone: ListPhoneData; count: number } } =
+        await response.json();
       return data;
     }
     throw new Error('Cant get count phone list');
@@ -84,7 +85,8 @@ export const fetchPhonePage = async (pageNumber: number) => {
     );
 
     if (response.ok) {
-      const data: { data: ListPhoneData } = await response.json();
+      const data: { data: { listPhone: ListPhoneData } } =
+        await response.json();
       return data;
     }
     throw new Error('Cant get data phone ');

@@ -28,7 +28,7 @@ const FilterForm = () => {
   const onSubmitFilter = handleSubmit((data) => {
     const listQueryParams = createFilterQueryParamsFromFormData(data);
     applyPhoneFilter(listQueryParams);
-    router.push(listQueryParams);
+    router.push(`${EnumLinkPage.PRODUCTS}${listQueryParams}`);
   });
 
   const onResetHandler = () => {

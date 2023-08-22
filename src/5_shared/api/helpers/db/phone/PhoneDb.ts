@@ -54,7 +54,7 @@ export class PhoneDb {
           },
         },
       });
-      return listPhone;
+      return { listPhone, count: listPhone.length };
     } catch (error) {
       console.log('Error ', error);
       throw new Error((error as Error).message);

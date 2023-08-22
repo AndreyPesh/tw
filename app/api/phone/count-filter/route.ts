@@ -18,11 +18,14 @@ const getListPhoneWithFilter = async (req: NextRequest) => {
         appliedFilterOptions[option] = optionValue;
       }
     });
-    const listPhone = await new PhoneDb().getListPhonesWithFilter(
+    const { listPhone, count } = await new PhoneDb().getListPhonesWithFilter(
       appliedFilterOptions
     );
 
-    return NextResponse.json({ status: STATUS_CODE.OK, data: listPhone });
+    return NextResponse.json({
+      status: STATUS_CODE.OK,
+      data: { listPhone, count },
+    });
   } catch (error) {
     return NextResponse.json({
       status: STATUS_CODE.INTERNAL,
