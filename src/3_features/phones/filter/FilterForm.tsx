@@ -42,7 +42,7 @@ const FilterForm = () => {
   return (
     <div className="w-1/3">
       <h3>Filter form</h3>
-      <form onSubmit={onSubmitFilter}>
+      <form onSubmit={onSubmitFilter} className="">
         <SelectBrand register={register('brand_id')} />
         <InputPrice
           register_min={register('price_min')}
@@ -53,16 +53,18 @@ const FilterForm = () => {
           register={register('price_sort')}
           resetSorting={() => resetField('price_sort')}
         />
-        <Button variant={EnumTypeButton.APPLY} type="submit">
-          Apply filter
-        </Button>
-        <Button
-          variant={EnumTypeButton.DANGER}
-          type="button"
-          handler={onResetHandler}
-        >
-          Reset filters
-        </Button>
+        <div className='p-4 flex justify-around'>
+          <Button variant={EnumTypeButton.APPLY} type="submit">
+            Apply filter
+          </Button>
+          <Button
+            variant={EnumTypeButton.DANGER}
+            type="button"
+            handler={onResetHandler}
+          >
+            Reset filters
+          </Button>
+        </div>
       </form>
     </div>
   );

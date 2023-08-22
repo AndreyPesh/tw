@@ -1,3 +1,5 @@
+import SmallButton from '@/src/5_shared/UI/buttons/SmallButton';
+import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 import React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
@@ -14,24 +16,33 @@ const InputSortPrice = ({
   resetSorting: () => void;
 }) => {
   return (
-    <div>
-      <h3>Sorting</h3>
-      <input
-        type="radio"
-        id="sortingPrice1"
-        value={TypePriceSort.ascending}
-        {...register}
-      />
-      <label htmlFor="sortingPrice1">Cheaper</label>
-
-      <input
-        type="radio"
-        id="sortingPrice2"
-        value={TypePriceSort.descending}
-        {...register}
-      />
-      <label htmlFor="sortingPrice2">More expensive</label>
-      <button type='button' onClick={resetSorting}>Reset sorting</button>
+    <div className="p-4 border rounded shadow-sm">
+      <h3 className="font-bold">Sort by price</h3>
+      <div className="w-full inline-flex items-center">
+        <input
+          type="radio"
+          id="sortingPrice1"
+          value={TypePriceSort.ascending}
+          {...register}
+        />
+        <label htmlFor="sortingPrice1" className="ml-3">
+          Cheaper
+        </label>
+      </div>
+      <div className="w-full inline-flex items-center">
+        <input
+          type="radio"
+          id="sortingPrice2"
+          value={TypePriceSort.descending}
+          {...register}
+        />
+        <label htmlFor="sortingPrice2" className="ml-3">
+          More expensive
+        </label>
+      </div>
+      <SmallButton variant={EnumTypeButton.DANGER} handler={resetSorting}>
+        Reset sorting
+      </SmallButton>
     </div>
   );
 };
