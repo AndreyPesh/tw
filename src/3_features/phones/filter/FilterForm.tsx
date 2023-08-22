@@ -10,6 +10,8 @@ import { FilterPhoneQueryParams } from './types/interfaces';
 import { createFilterQueryParamsFromFormData } from './helpers/createFilterUrlFromFormData';
 import usePhoneFilterState from './stateFilter/state';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
+import Button from '@/src/5_shared/buttons/Button';
+import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 
 const FilterForm = () => {
   const { applyPhoneFilter, resetPhoneFilter } = usePhoneFilterState();
@@ -51,10 +53,16 @@ const FilterForm = () => {
           register={register('price_sort')}
           resetSorting={() => resetField('price_sort')}
         />
-        <button type="submit">Apply filter</button>
-        <button type="button" onClick={onResetHandler}>
-          Reset all filters
-        </button>
+        <Button variant={EnumTypeButton.APPLY} type="submit">
+          Apply filter
+        </Button>
+        <Button
+          variant={EnumTypeButton.DANGER}
+          type="button"
+          handler={onResetHandler}
+        >
+          Reset filters
+        </Button>
       </form>
     </div>
   );

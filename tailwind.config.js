@@ -11,7 +11,8 @@ module.exports = {
         primary: '#437EF7',
         light: '#EAEBF0',
         red: '#F04438',
-        success: '#0f766e'
+        success: '#0f766e',
+        herbal: '#15803d'
       },
       backgroundImage: {
         logout: "url('/logout.svg')",
@@ -39,7 +40,6 @@ module.exports = {
       },
       flicker: {
         '0%': { opacity: '1' },
-        // '25%': { opacity: '0.5' },
         '50%': { opacity: '0.5' },
         '100%': { opacity: '1' }
       }

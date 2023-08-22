@@ -25,7 +25,7 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
       disabled={isLoading}
       onClick={handler}
       className={classnames(
-        'px-5 py-3 min-w-[140px] bg-primary font-semibold text-sm rounded-md hover:shadow-md hover:opacity-90 border ',
+        'px-5 py-3 min-w-[140px] bg-primary font-semibold text-sm rounded-md hover:shadow-md hover:opacity-90 border active:scale-90 transition-all',
         {
           'bg-transparent text-primary hover:border-primary':
             variant === EnumTypeButton.TRANSPARENT,
@@ -43,6 +43,10 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
         {
           'bg-transparent text-red border-red':
             variant === EnumTypeButton.DANGER,
+        },
+        {
+          'bg-herbal text-white':
+            variant === EnumTypeButton.APPLY,
         },
         { [styles]: styles }
       )}
