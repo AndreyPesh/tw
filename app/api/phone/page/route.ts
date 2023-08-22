@@ -22,7 +22,7 @@ const getPhonePage = async (req: NextRequest) => {
       }
     });
 
-    const phones = await new PhoneDb().getPagePhones(
+    const listPhone = await new PhoneDb().getPagePhones(
       currentPage,
       PER_PAGE,
       appliedFilterOptions
@@ -30,7 +30,7 @@ const getPhonePage = async (req: NextRequest) => {
 
     return NextResponse.json({
       status: STATUS_CODE.OK,
-      data: { listPhone: phones },
+      data: listPhone,
     });
   } catch (error) {
     return NextResponse.json({

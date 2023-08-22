@@ -13,7 +13,7 @@ interface PhonesPageProps {
 const PhonesPage = async ({ page, searchParams }: PhonesPageProps) => {
   let listPhone: ListPhoneData | null;
   const response = await fetchPhonePage(page, searchParams);
-  listPhone = response?.data.listPhone ?? null;
+  listPhone = response?.data ?? null;
 
   return (
     <Suspense fallback={<h1>Loading phone</h1>}>

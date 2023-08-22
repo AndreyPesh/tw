@@ -71,8 +71,7 @@ export const fetchPhonePage = async (
     );
 
     if (response.ok) {
-      const data: { data: { listPhone: ListPhoneData } } =
-        await response.json();
+      const data: { data: ListPhoneData } = await response.json();
       return data;
     }
     throw new Error('Cant get data phone ');
