@@ -1,7 +1,6 @@
 import prisma from '@/global.d';
-import { TypePriceSort } from '@/src/3_features/phones/filter/fields/InputSortPrice';
-import { FIELD_NOT_SPECIFIED } from '@/src/3_features/phones/filter/types/constants';
-import { FilterPhoneQueryParams } from '@/src/3_features/phones/filter/types/interfaces';
+import { getConditionForFilterPhone } from './helpers/getConditionForFilterPhone';
+import { ListAppliedFilterOptions } from '@/src/3_features/phones/filter/types/types';
 
 export type ListPhoneData = Awaited<ReturnType<PhoneDb['getAllPhones']>>;
 export type PhoneData = NonNullable<
@@ -9,58 +8,13 @@ export type PhoneData = NonNullable<
 >;
 
 export class PhoneDb {
-  getCountListPhones = async () => {
+  getCountListPhones = async (optionsFilter: ListAppliedFilterOptions) => {
     try {
-      const count = await prisma.phones.count();
-      return count;
-    } catch (error) {
-      console.log('Error ', error);
-      throw new Error((error as Error).message);
-    }
-  };
-
-  getListPhonesWithFilter = async (
-    options: Partial<Record<keyof FilterPhoneQueryParams, string>>,
-    page: number,
-    perPage: number
-  ) => {
-    try {
-      const SKIP = Math.abs(page - 1) * perPage;
-      const TAKE = perPage;
-      const listPhone = await prisma.phones.findMany({
-        take: TAKE,
-        skip: SKIP,
-        where: {
-          brand: {
-            some: {
-              brandId: options.brand_id,
-            },
-          },
-          price: {
-            lte: options.price_max
-              ? Number(options.price_max)
-              : FIELD_NOT_SPECIFIED,
-            gte: options.price_min
-              ? Number(options.price_min)
-              : FIELD_NOT_SPECIFIED,
-          },
-          rating: {
-            lte: Number(options.rating),
-          },
-        },
-        orderBy: {
-          price: options.price_sort as TypePriceSort | undefined,
-        },
-        include: {
-          images: true,
-          brand: {
-            include: {
-              list: true,
-            },
-          },
-        },
+      const conditionCount = getConditionForFilterPhone(optionsFilter);
+      const count = await prisma.phones.count({
+        ...conditionCount,
       });
-      return { listPhone, count: listPhone.length };
+      return count;
     } catch (error) {
       console.log('Error ', error);
       throw new Error((error as Error).message);
@@ -86,13 +40,19 @@ export class PhoneDb {
     }
   };
 
-  getPagePhones = async (page: number, perPage: number) => {
+  getPagePhones = async (
+    page: number,
+    perPage: number,
+    optionsFilter: ListAppliedFilterOptions
+  ) => {
     try {
       const SKIP = Math.abs(page - 1) * perPage;
       const TAKE = perPage;
+      const conditionFilter = getConditionForFilterPhone(optionsFilter);
       const listPhones = await prisma.phones.findMany({
         take: TAKE,
         skip: SKIP,
+        ...conditionFilter,
         include: {
           images: true,
           brand: {

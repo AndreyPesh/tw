@@ -8,36 +8,15 @@ import {
 } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import { createFilterQueryParamsFromFormData } from '@/src/3_features/phones/filter/helpers/createFilterUrlFromFormData';
 
-export const fetchCountListPhone = async () => {
-  try {
-    const domain = getDomain();
-    const response = await fetch(`${domain}${PHONE_ROUTES.GET_COUNT}`, {
-      headers: { 'Content-type': 'application/json' },
-      cache: 'no-store',
-    });
-
-    if (response.ok) {
-      const { data }: { data: number } = await response.json();
-      return data;
-    }
-    throw new Error('Cant get count phone list');
-  } catch (error) {
-    console.error((error as Error).message);
-    return null;
-  }
-};
-
-export const fetchListPhoneWithFilter = async (
-  page: number,
-  searchParams: FilterPhoneQueryParams
+export const fetchCountListPhone = async (
+  searchParams?: FilterPhoneQueryParams
 ) => {
   try {
-    const queryParams = createFilterQueryParamsFromFormData(searchParams);
+    const queryParams =
+      searchParams && createFilterQueryParamsFromFormData(searchParams);
     const domain = getDomain();
     const response = await fetch(
-      `${domain}${
-        PHONE_ROUTES.GET_COUNT_WITH_FILTER
-      }${page}${queryParams.replace('?', '&')}`,
+      `${domain}${PHONE_ROUTES.GET_COUNT}${queryParams}`,
       {
         headers: { 'Content-type': 'application/json' },
         cache: 'no-store',
@@ -45,8 +24,7 @@ export const fetchListPhoneWithFilter = async (
     );
 
     if (response.ok) {
-      const data: { data: { listPhone: ListPhoneData; count: number } } =
-        await response.json();
+      const { data }: { data: number } = await response.json();
       return data;
     }
     throw new Error('Cant get count phone list');
@@ -75,12 +53,17 @@ export const fetchAllPhones = async () => {
   }
 };
 
-export const fetchPhonePage = async (pageNumber: number) => {
+export const fetchPhonePage = async (
+  pageNumber: number,
+  searchParams: FilterPhoneQueryParams
+) => {
   try {
     const domain = getDomain();
-
+    const queryParams = createFilterQueryParamsFromFormData(searchParams);
     const response = await fetch(
-      `${domain}${PHONE_ROUTES.GET_PHONE_PAGE}${pageNumber}`,
+      `${domain}${
+        PHONE_ROUTES.GET_PHONE_PAGE
+      }${pageNumber}${queryParams.replace('?', '&')}`,
       {
         headers: { 'Content-type': 'application/json' },
         cache: 'no-store',

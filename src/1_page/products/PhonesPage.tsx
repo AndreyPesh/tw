@@ -1,30 +1,19 @@
 import { Suspense } from 'react';
 import PhoneCard from '@/src/4_entities/phones/card/phone/PhoneCard';
-import {
-  fetchListPhoneWithFilter,
-  fetchPhonePage,
-} from '@/src/5_shared/utils/server/fetching/phone/data';
+import { fetchPhonePage } from '@/src/5_shared/utils/server/fetching/phone/data';
 import Empty from '../Empty';
 import { FilterPhoneQueryParams } from '@/src/3_features/phones/filter/types/interfaces';
 import { ListPhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 
-const PhonesPage = async ({
-  page,
-  isFilterApplied,
-  search,
-}: {
+interface PhonesPageProps {
   page: number;
-  isFilterApplied?: boolean;
-  search: FilterPhoneQueryParams;
-}) => {
+  searchParams: FilterPhoneQueryParams;
+}
+
+const PhonesPage = async ({ page, searchParams }: PhonesPageProps) => {
   let listPhone: ListPhoneData | null;
-  if (isFilterApplied) {
-    const response = await fetchListPhoneWithFilter(page, search);
-    listPhone = response?.data.listPhone ?? null;
-  } else {
-    const response = await fetchPhonePage(page);
-    listPhone = response?.data.listPhone ?? null;
-  }
+  const response = await fetchPhonePage(page, searchParams);
+  listPhone = response?.data.listPhone ?? null;
 
   return (
     <Suspense fallback={<h1>Loading phone</h1>}>
