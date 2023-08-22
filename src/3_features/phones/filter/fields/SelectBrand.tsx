@@ -10,12 +10,9 @@ const SelectBrand = ({
 }: {
   register: UseFormRegisterReturn<'brand_id'>;
 }) => {
-  const { data: responseBrandList } = useQuery(
-    'listBrandsPhone',
-    async () => {
-      return await axios.get<{ brandList: PhoneBrands[] }>('/api/phone/brands');
-    }
-  );
+  const { data: responseBrandList } = useQuery('listBrandsPhone', async () => {
+    return await axios.get<{ brandList: PhoneBrands[] }>('/api/phone/brands');
+  });
   const listBrand =
     responseBrandList &&
     responseBrandList.data &&

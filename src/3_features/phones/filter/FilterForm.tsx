@@ -6,7 +6,7 @@ import InputRange, { DEFAULT_RATING_FILTER_VALUE } from './fields/InputRange';
 import SelectBrand from './fields/SelectBrand';
 import InputPrice from './fields/InputPrice';
 import InputSortPrice from './fields/InputSortPrice';
-import { FilterFormState } from './types/interfaces';
+import { FilterPhoneQueryParams } from './types/interfaces';
 import { createFilterQueryParamsFromFormData } from './helpers/createFilterUrlFromFormData';
 import usePhoneFilterState from './stateFilter/state';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
@@ -16,7 +16,7 @@ const FilterForm = () => {
   const router = useRouter();
 
   const { register, watch, resetField, reset, handleSubmit } =
-    useForm<FilterFormState>({
+    useForm<FilterPhoneQueryParams>({
       defaultValues: {
         brand_id: '',
         price_min: null,

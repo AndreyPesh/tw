@@ -11,7 +11,7 @@ const InputRange = ({
   watch,
 }: {
   register: UseFormRegisterReturn<'rating'>;
-  watch: number;
+  watch: number | null;
 }) => {
   const [range, setRange] = useState(DEFAULT_RATING_FILTER_VALUE);
 
@@ -21,7 +21,7 @@ const InputRange = ({
   };
 
   useEffect(() => {
-    if (watch !== range) {
+    if (watch !== range && watch) {
       setRange(watch);
     }
   }, [watch]);

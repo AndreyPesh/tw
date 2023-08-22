@@ -19,7 +19,7 @@ const InputSortPrice = ({
       <input
         type="radio"
         id="sortingPrice1"
-        value={TypePriceSort.descending}
+        value={TypePriceSort.ascending}
         {...register}
       />
       <label htmlFor="sortingPrice1">Cheaper</label>
@@ -27,7 +27,7 @@ const InputSortPrice = ({
       <input
         type="radio"
         id="sortingPrice2"
-        value={TypePriceSort.ascending}
+        value={TypePriceSort.descending}
         {...register}
       />
       <label htmlFor="sortingPrice2">More expensive</label>

@@ -1,10 +1,12 @@
+import { PhoneBrands } from '@prisma/client';
+import { FilterPhoneQueryParams } from '@/src/3_features/phones/filter/types/interfaces';
 import { PHONE_ROUTES } from '@/src/5_shared/api/phone/types/enum';
 import { getDomain } from '../../helpers/getDomain';
 import {
   ListPhoneData,
   PhoneData,
 } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
-import { PhoneBrands } from '@prisma/client';
+import { createFilterQueryParamsFromFormData } from '@/src/3_features/phones/filter/helpers/createFilterUrlFromFormData';
 
 export const fetchCountListPhone = async () => {
   try {
@@ -16,6 +18,31 @@ export const fetchCountListPhone = async () => {
 
     if (response.ok) {
       const { data }: { data: number } = await response.json();
+      return data;
+    }
+    throw new Error('Cant get count phone list');
+  } catch (error) {
+    console.error((error as Error).message);
+    return null;
+  }
+};
+
+export const fetchListPhoneWithFilter = async (
+  searchParams: FilterPhoneQueryParams
+) => {
+  try {
+    const queryParams = createFilterQueryParamsFromFormData(searchParams);
+    const domain = getDomain();
+    const response = await fetch(
+      `${domain}${PHONE_ROUTES.GET_COUNT_WITH_FILTER}${queryParams}`,
+      {
+        headers: { 'Content-type': 'application/json' },
+        cache: 'no-store',
+      }
+    );
+
+    if (response.ok) {
+      const data: { data: ListPhoneData } = await response.json();
       return data;
     }
     throw new Error('Cant get count phone list');
