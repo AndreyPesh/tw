@@ -19,7 +19,7 @@ const PhonesPage = async ({
 }) => {
   let listPhone: ListPhoneData | null;
   if (isFilterApplied) {
-    const response = await fetchListPhoneWithFilter(search);
+    const response = await fetchListPhoneWithFilter(page, search);
     listPhone = response?.data.listPhone ?? null;
   } else {
     const response = await fetchPhonePage(page);

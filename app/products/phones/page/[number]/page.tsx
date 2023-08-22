@@ -24,7 +24,7 @@ const PhonePage = async ({
   const isFilterPhoneApplied = isFilterApplied(searchParams);
 
   if (isFilterPhoneApplied) {
-    const response = await fetchListPhoneWithFilter(searchParams);
+    const response = await fetchListPhoneWithFilter(Number(page), searchParams);
     countListPhone = response?.data.count ?? null;
   } else {
     countListPhone = await fetchCountListPhone();

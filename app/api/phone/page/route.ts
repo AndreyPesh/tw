@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PhoneDb } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
-import { FIRST_PAGE_NUMBER } from '@/src/5_shared/types/constant';
+import { FIRST_PAGE_NUMBER, PER_PAGE } from '@/src/5_shared/types/constant';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,9 +11,12 @@ const getPhonePage = async (req: NextRequest) => {
     const page = searchParams.get('page');
     const currentPage = page ? Number(page) : FIRST_PAGE_NUMBER;
 
-    const phones = await new PhoneDb().getPagePhones(currentPage, 4);
+    const phones = await new PhoneDb().getPagePhones(currentPage, PER_PAGE);
 
-    return NextResponse.json({ status: STATUS_CODE.OK, data: phones });
+    return NextResponse.json({
+      status: STATUS_CODE.OK,
+      data: { listPhone: phones },
+    });
   } catch (error) {
     return NextResponse.json({
       status: STATUS_CODE.INTERNAL,

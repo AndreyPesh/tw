@@ -20,10 +20,16 @@ export class PhoneDb {
   };
 
   getListPhonesWithFilter = async (
-    options: Partial<Record<keyof FilterPhoneQueryParams, string>>
+    options: Partial<Record<keyof FilterPhoneQueryParams, string>>,
+    page: number,
+    perPage: number
   ) => {
     try {
+      const SKIP = Math.abs(page - 1) * perPage;
+      const TAKE = perPage;
       const listPhone = await prisma.phones.findMany({
+        take: TAKE,
+        skip: SKIP,
         where: {
           brand: {
             some: {

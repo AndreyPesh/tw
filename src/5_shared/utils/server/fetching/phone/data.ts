@@ -28,13 +28,16 @@ export const fetchCountListPhone = async () => {
 };
 
 export const fetchListPhoneWithFilter = async (
+  page: number,
   searchParams: FilterPhoneQueryParams
 ) => {
   try {
     const queryParams = createFilterQueryParamsFromFormData(searchParams);
     const domain = getDomain();
     const response = await fetch(
-      `${domain}${PHONE_ROUTES.GET_COUNT_WITH_FILTER}${queryParams}`,
+      `${domain}${
+        PHONE_ROUTES.GET_COUNT_WITH_FILTER
+      }${page}${queryParams.replace('?', '&')}`,
       {
         headers: { 'Content-type': 'application/json' },
         cache: 'no-store',
