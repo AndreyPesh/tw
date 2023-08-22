@@ -21,6 +21,7 @@ const InputSortPrice = ({
       <div className="w-full inline-flex items-center">
         <input
           type="radio"
+          className='focus:ring-0 focus:ring-offset-0'
           id="sortingPrice1"
           value={TypePriceSort.ascending}
           {...register}
@@ -32,6 +33,7 @@ const InputSortPrice = ({
       <div className="w-full inline-flex items-center">
         <input
           type="radio"
+          className='focus:ring-0 focus:ring-offset-0'
           id="sortingPrice2"
           value={TypePriceSort.descending}
           {...register}
