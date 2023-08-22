@@ -21,9 +21,9 @@ const SelectBrand = ({
       : [];
 
   return (
-    <div>
-      <label>Name:</label>
-      <select {...register}>
+    <div className='p-4 mb-2 border rounded shadow-md'>
+      <label className='font-bold mr-2'>Brand name:</label>
+      <select {...register} className='p-1 w-1/2 border rounded'>
         <option value={''}>All brands</option>
         {listBrand.map((brand) => (
           <option key={brand.id} value={brand.id}>

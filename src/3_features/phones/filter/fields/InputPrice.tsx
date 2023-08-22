@@ -8,18 +8,18 @@ const InputPrice = ({
   register_max: UseFormRegisterReturn<'price_max'>;
 }) => {
   return (
-    <div className="p-2 border rounded">
-      <label>Price:</label>
-      <span>From</span>
+    <div className="p-2 mb-2 border rounded shadow-md">
+      <label className='font-bold mr-2'>Price:</label>
       <input
-        className="w-20 border rounded"
+        className="p-1 border rounded w-20"
         type="number"
+        placeholder='From'
         min={1}
         {...register_min}
       ></input>
-      <span>To</span>
       <input
-        className="w-20 border rounded"
+        className="p-1 ml-3 mr-3 border rounded w-20"
+        placeholder='To'
         type="number"
         min={1}
         {...register_max}

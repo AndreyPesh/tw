@@ -40,9 +40,9 @@ const FilterForm = () => {
   };
 
   return (
-    <div className="w-1/3">
-      <h3>Filter form</h3>
-      <form onSubmit={onSubmitFilter} className="">
+    <div className="p-3 w-1/3">
+      <h3 className='font-bold'>Filter settings</h3>
+      <form onSubmit={onSubmitFilter} className="py-3">
         <SelectBrand register={register('brand_id')} />
         <InputPrice
           register_min={register('price_min')}

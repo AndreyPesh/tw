@@ -16,7 +16,7 @@ const InputSortPrice = ({
   resetSorting: () => void;
 }) => {
   return (
-    <div className="p-4 border rounded shadow-sm">
+    <div className="p-4 border rounded shadow-md">
       <h3 className="font-bold">Sort by price</h3>
       <div className="w-full inline-flex items-center">
         <input
