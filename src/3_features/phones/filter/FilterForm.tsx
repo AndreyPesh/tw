@@ -61,6 +61,7 @@ const FilterForm = () => {
         <InputSortPrice
           register={register('price_sort')}
           resetSorting={() => resetField('price_sort')}
+          setValue={setValue}
         />
         <div className="p-4 flex justify-around">
           <Button variant={EnumTypeButton.APPLY} type="submit">
