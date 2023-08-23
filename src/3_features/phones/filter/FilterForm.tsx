@@ -18,16 +18,23 @@ const FilterForm = () => {
   const { applyPhoneFilter, resetPhoneFilter } = usePhoneFilterState();
   const router = useRouter();
 
-  const { register, setValue, watch, resetField, reset, handleSubmit } =
-    useForm<FilterPhoneQueryParams>({
-      defaultValues: {
-        brand_id: '',
-        price_min: null,
-        price_max: null,
-        rating: DEFAULT_RATING_FILTER_VALUE,
-        price_sort: null,
-      },
-    });
+  const {
+    register,
+    setValue,
+    getValues,
+    watch,
+    resetField,
+    reset,
+    handleSubmit,
+  } = useForm<FilterPhoneQueryParams>({
+    defaultValues: {
+      brand_id: '',
+      price_min: null,
+      price_max: null,
+      rating: DEFAULT_RATING_FILTER_VALUE,
+      price_sort: null,
+    },
+  });
   const onSubmitFilter = handleSubmit((data) => {
     const listQueryParams = createFilterQueryParamsFromFormData(data);
     applyPhoneFilter(listQueryParams);
@@ -44,7 +51,7 @@ const FilterForm = () => {
     <div className="p-3 w-1/3">
       <div className="flex justify-between items-center">
         <h3 className="font-bold">Filters</h3>
-        <StateIconFilter />
+        <StateIconFilter getValues={getValues} />
       </div>
       <form onSubmit={onSubmitFilter} className="py-3">
         <SelectBrand register={register('brand_id')} setValue={setValue} />

@@ -23,7 +23,6 @@ const InputSortPrice = ({
 
   useEffect(() => {
     const sortQueryParam = searchParams.get('price_sort');
-    console.log(sortQueryParam);
     sortQueryParam && setValue('price_sort', sortQueryParam as TypePriceSort);
   }, []);
 
