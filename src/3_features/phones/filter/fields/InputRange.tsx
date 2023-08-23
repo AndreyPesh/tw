@@ -1,24 +1,34 @@
 'use client';
 
 import { ChangeEvent, useEffect, useState } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { useSearchParams } from 'next/navigation';
+import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import Rating from '@/src/5_shared/UI/rating/Rating';
+import { FilterPhoneQueryParams } from '../types/interfaces';
 
 export const DEFAULT_RATING_FILTER_VALUE = 5;
 
 const InputRange = ({
   register,
+  setValue,
   watch,
 }: {
   register: UseFormRegisterReturn<'rating'>;
+  setValue: UseFormSetValue<FilterPhoneQueryParams>;
   watch: number | null;
 }) => {
+  const searchParams = useSearchParams();
   const [range, setRange] = useState(DEFAULT_RATING_FILTER_VALUE);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setRange(() => Number(event.target.value));
     register.onChange(event);
   };
+
+  useEffect(() => {
+    const ratingQueryParam = searchParams.get('rating');
+    ratingQueryParam && setValue('rating', Number(ratingQueryParam));
+  }, []);
 
   useEffect(() => {
     if (watch !== range && watch) {

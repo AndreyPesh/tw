@@ -52,7 +52,7 @@ const FilterForm = () => {
           register_min={register('price_min')}
           register_max={register('price_max')}
         />
-        <InputRange register={register('rating')} watch={watch('rating')} />
+        <InputRange register={register('rating')} watch={watch('rating')} setValue={setValue} />
         <InputSortPrice
           register={register('price_sort')}
           resetSorting={() => resetField('price_sort')}
