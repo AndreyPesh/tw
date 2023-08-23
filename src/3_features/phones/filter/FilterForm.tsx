@@ -18,7 +18,7 @@ const FilterForm = () => {
   const { applyPhoneFilter, resetPhoneFilter } = usePhoneFilterState();
   const router = useRouter();
 
-  const { register, watch, resetField, reset, handleSubmit } =
+  const { register,setValue, watch, resetField, reset, handleSubmit } =
     useForm<FilterPhoneQueryParams>({
       defaultValues: {
         brand_id: '',
@@ -47,7 +47,7 @@ const FilterForm = () => {
         <StateIconFilter />
       </div>
       <form onSubmit={onSubmitFilter} className="py-3">
-        <SelectBrand register={register('brand_id')} />
+        <SelectBrand register={register('brand_id')} setValue={setValue} />
         <InputPrice
           register_min={register('price_min')}
           register_max={register('price_max')}
