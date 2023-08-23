@@ -12,6 +12,7 @@ import usePhoneFilterState from './stateFilter/state';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
+import StateIconFilter from './StateIconFilter';
 
 const FilterForm = () => {
   const { applyPhoneFilter, resetPhoneFilter } = usePhoneFilterState();
@@ -41,7 +42,10 @@ const FilterForm = () => {
 
   return (
     <div className="p-3 w-1/3">
-      <h3 className='font-bold'>Filter settings</h3>
+      <div className="flex justify-between items-center">
+        <h3 className="font-bold">Filters</h3>
+        <StateIconFilter />
+      </div>
       <form onSubmit={onSubmitFilter} className="py-3">
         <SelectBrand register={register('brand_id')} />
         <InputPrice
@@ -53,7 +57,7 @@ const FilterForm = () => {
           register={register('price_sort')}
           resetSorting={() => resetField('price_sort')}
         />
-        <div className='p-4 flex justify-around'>
+        <div className="p-4 flex justify-around">
           <Button variant={EnumTypeButton.APPLY} type="submit">
             Apply filter
           </Button>
