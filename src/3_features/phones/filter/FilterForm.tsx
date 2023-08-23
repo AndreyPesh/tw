@@ -18,7 +18,7 @@ const FilterForm = () => {
   const { applyPhoneFilter, resetPhoneFilter } = usePhoneFilterState();
   const router = useRouter();
 
-  const { register,setValue, watch, resetField, reset, handleSubmit } =
+  const { register, setValue, watch, resetField, reset, handleSubmit } =
     useForm<FilterPhoneQueryParams>({
       defaultValues: {
         brand_id: '',
@@ -51,8 +51,13 @@ const FilterForm = () => {
         <InputPrice
           register_min={register('price_min')}
           register_max={register('price_max')}
+          setValue={setValue}
         />
-        <InputRange register={register('rating')} watch={watch('rating')} setValue={setValue} />
+        <InputRange
+          register={register('rating')}
+          watch={watch('rating')}
+          setValue={setValue}
+        />
         <InputSortPrice
           register={register('price_sort')}
           resetSorting={() => resetField('price_sort')}
