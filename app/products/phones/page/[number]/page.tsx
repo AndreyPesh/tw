@@ -19,7 +19,7 @@ const PhonePage = async ({
   const countListPhone = await fetchCountListPhone(searchParams);
 
   return (
-    <div className="w-2/3">
+    <div className="w-full">
       <Suspense fallback={<PhoneCardPreload perPage={PER_PAGE} />}>
         <PhonesPage page={Number(page)} searchParams={searchParams} />
       </Suspense>
