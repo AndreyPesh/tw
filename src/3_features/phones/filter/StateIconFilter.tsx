@@ -2,30 +2,15 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { RiFilterLine, RiFilterFill } from 'react-icons/ri';
 import usePhoneFilterState from './stateFilter/state';
-import { UseFormGetValues } from 'react-hook-form';
-import { FilterPhoneQueryParams } from './types/interfaces';
-import { createFilterQueryParamsFromFormData } from './helpers/createFilterUrlFromFormData';
 
-const StateIconFilter = ({
-  getValues,
-}: {
-  getValues: UseFormGetValues<FilterPhoneQueryParams>;
-}) => {
+const StateIconFilter = () => {
   const searchParams = useSearchParams();
-  const { isFilterApplied } = usePhoneFilterState();
+  const { isFilterApplied, applyPhoneFilter } = usePhoneFilterState();
 
   useEffect(() => {
-    const queryParams: Record<string, unknown> = {}
-    const listKeyQueryParams = Object.keys(getValues())
-    listKeyQueryParams.map(queryParamKey => {
-      const value = searchParams.get(queryParamKey)
-      if(value) {
-        queryParams[queryParamKey] = value
-      }
-    })
-    // @ts-ignore
-    const request = createFilterQueryParamsFromFormData(queryParams)
-    console.log(request)
+    const currentListQueryParams = searchParams.toString();
+    currentListQueryParams.length > 0 &&
+      applyPhoneFilter(`?${currentListQueryParams}`);
   }, []);
 
   return (

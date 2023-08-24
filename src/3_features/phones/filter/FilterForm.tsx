@@ -21,7 +21,6 @@ const FilterForm = () => {
   const {
     register,
     setValue,
-    getValues,
     watch,
     resetField,
     reset,
@@ -51,7 +50,7 @@ const FilterForm = () => {
     <div className="p-3 w-1/3">
       <div className="flex justify-between items-center">
         <h3 className="font-bold">Filters</h3>
-        <StateIconFilter getValues={getValues} />
+        <StateIconFilter />
       </div>
       <form onSubmit={onSubmitFilter} className="py-3">
         <SelectBrand register={register('brand_id')} setValue={setValue} />
