@@ -48,7 +48,7 @@ const FilterForm = () => {
   };
 
   return (
-    <div className="p-3 mt-3 w-full overflow-y-hidden border rounded shadow-lg">
+    <div className="relative p-3 mt-3 w-full overflow-hidden border rounded shadow-lg">
       <div
         className="flex justify-between items-center"
         onClick={onShowHideHandler}
@@ -57,9 +57,16 @@ const FilterForm = () => {
         <StateIconFilter />
       </div>
       <div
-        className={classNames('transition-all',{ 'h-0': !isShow }, { 'h-auto': isShow })}
+        className={classNames(
+          'grid overflow-hidden transition-all',
+          { 'grid-rows-[0fr] pt-0': !isShow },
+          { 'grid-rows-[1fr] pt-3': isShow }
+        )}
       >
-        <form onSubmit={onSubmitFilter} className="py-3">
+        <form
+          onSubmit={onSubmitFilter}
+          className={classNames('min-h-0')}
+        >
           <SelectBrand register={register('brand_id')} setValue={setValue} />
           <InputPrice
             register_min={register('price_min')}
@@ -76,7 +83,7 @@ const FilterForm = () => {
             resetSorting={() => resetField('price_sort')}
             setValue={setValue}
           />
-          <div className="p-4 flex justify-around">
+          <div className="pt-2 flex justify-around">
             <Button variant={EnumTypeButton.APPLY} type="submit">
               Apply filter
             </Button>
