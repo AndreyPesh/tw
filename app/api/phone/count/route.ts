@@ -4,6 +4,8 @@ import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 import { LIST_QUERY_PARAMS_FILTER_PHONE } from '@/src/3_features/phones/filter/types/constants';
 import { ListAppliedFilterOptions } from '@/src/3_features/phones/filter/types/types';
 
+export const dynamic = 'force-dynamic';
+
 const getCountListPhone = async (req: NextRequest) => {
   try {
     const searchParams = new URL(req.url).searchParams;
