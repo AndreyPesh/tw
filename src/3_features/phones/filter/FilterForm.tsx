@@ -35,12 +35,14 @@ const FilterForm = () => {
     const listQueryParams = createFilterQueryParamsFromFormData(data);
     applyPhoneFilter(listQueryParams);
     router.push(`${EnumLinkPage.PRODUCTS}${listQueryParams}`);
+    setIsShow(false);
   });
 
   const onResetHandler = () => {
     resetPhoneFilter();
     reset();
     router.push(EnumLinkPage.PRODUCTS);
+    setIsShow(false);
   };
 
   const onShowHideHandler = () => {
@@ -54,7 +56,7 @@ const FilterForm = () => {
         onClick={onShowHideHandler}
       >
         <h3 className="font-bold">Filters</h3>
-        <StateIconFilter />
+        <StateIconFilter isShow={isShow} />
       </div>
       <div
         className={classNames(
@@ -63,10 +65,7 @@ const FilterForm = () => {
           { 'grid-rows-[1fr] pt-3': isShow }
         )}
       >
-        <form
-          onSubmit={onSubmitFilter}
-          className={classNames('min-h-0')}
-        >
+        <form onSubmit={onSubmitFilter} className="min-h-0 md:w-1/2">
           <SelectBrand register={register('brand_id')} setValue={setValue} />
           <InputPrice
             register_min={register('price_min')}
