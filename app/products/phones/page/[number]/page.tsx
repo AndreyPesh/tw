@@ -25,7 +25,7 @@ const PhonePage = async ({
       </Suspense>
 
       <div className="p-5">
-        {countListPhone && (
+        {countListPhone != 0 && countListPhone && (
           <Pagination
             initPage={Number(page)}
             linkPage={EnumLinkPage.PHONE_PAGE}
