@@ -3,6 +3,7 @@ import '@/src/5_shared/styles/globals.css';
 import { ProviderRedux } from '@/src/5_shared/store/provider';
 import { NextAuthProvider } from '@/src/5_shared/providers/authProvider';
 import LayoutHeader from '@/src/1_page/LayoutHeader';
+import QueryProvider from '@/src/5_shared/providers/QueryProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={`${inter.className} h-[calc(100vh-67px)]`}>
         <ProviderRedux>
           <NextAuthProvider>
-            <LayoutHeader>{children}</LayoutHeader>
+            <QueryProvider>
+              <LayoutHeader>{children}</LayoutHeader>
+            </QueryProvider>
           </NextAuthProvider>
         </ProviderRedux>
       </body>

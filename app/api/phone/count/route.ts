@@ -1,10 +1,23 @@
+import { NextRequest, NextResponse } from 'next/server';
 import { PhoneDb } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
-import { NextResponse } from 'next/server';
+import { LIST_QUERY_PARAMS_FILTER_PHONE } from '@/src/3_features/phones/filter/types/constants';
+import { ListAppliedFilterOptions } from '@/src/3_features/phones/filter/types/types';
 
-const getCountListPhone = async () => {
+const getCountListPhone = async (req: NextRequest) => {
   try {
-    const count = await new PhoneDb().getCountListPhones();
+    const searchParams = new URL(req.url).searchParams;
+
+    const appliedFilterOptions: ListAppliedFilterOptions = {};
+
+    LIST_QUERY_PARAMS_FILTER_PHONE.map((option) => {
+      const optionValue = searchParams.get(option);
+      if (optionValue) {
+        appliedFilterOptions[option] = optionValue;
+      }
+    });
+
+    const count = await new PhoneDb().getCountListPhones(appliedFilterOptions);
 
     return NextResponse.json({ status: STATUS_CODE.OK, data: count });
   } catch (error) {

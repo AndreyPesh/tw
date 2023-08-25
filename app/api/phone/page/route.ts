@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PhoneDb } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
-import { FIRST_PAGE_NUMBER } from '@/src/5_shared/types/constant';
+import { FIRST_PAGE_NUMBER, PER_PAGE } from '@/src/5_shared/types/constant';
+import { LIST_QUERY_PARAMS_FILTER_PHONE } from '@/src/3_features/phones/filter/types/constants';
+import { ListAppliedFilterOptions } from '@/src/3_features/phones/filter/types/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,9 +13,25 @@ const getPhonePage = async (req: NextRequest) => {
     const page = searchParams.get('page');
     const currentPage = page ? Number(page) : FIRST_PAGE_NUMBER;
 
-    const phones = await new PhoneDb().getPagePhones(currentPage, 4);
+    const appliedFilterOptions: ListAppliedFilterOptions = {};
 
-    return NextResponse.json({ status: STATUS_CODE.OK, data: phones });
+    LIST_QUERY_PARAMS_FILTER_PHONE.map((option) => {
+      const optionValue = searchParams.get(option);
+      if (optionValue) {
+        appliedFilterOptions[option] = optionValue;
+      }
+    });
+
+    const listPhone = await new PhoneDb().getPagePhones(
+      currentPage,
+      PER_PAGE,
+      appliedFilterOptions
+    );
+
+    return NextResponse.json({
+      status: STATUS_CODE.OK,
+      data: listPhone,
+    });
   } catch (error) {
     return NextResponse.json({
       status: STATUS_CODE.INTERNAL,

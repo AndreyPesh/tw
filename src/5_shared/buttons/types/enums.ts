@@ -4,4 +4,5 @@ export const enum EnumTypeButton {
   OUTLINE = 'outline',
   SUCCESS = 'success',
   DANGER = 'danger',
+  APPLY = 'apply'
 }

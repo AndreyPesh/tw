@@ -1,21 +1,26 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
+import { useRouter } from 'next/navigation';
+import classNames from 'classnames';
 import { IoMdArrowRoundBack, IoMdArrowRoundForward } from 'react-icons/io';
 import { TypeButtonPagination } from '../types/enums';
 import usePaginationStore from '../state/statePagination';
-import classNames from 'classnames';
 import { MIN_PAGE } from '../types/constants';
-import { useRouter } from 'next/navigation';
 
 interface PrevNextButtonProps {
   type: TypeButtonPagination;
   linkPage: string;
   maxPage?: number;
+  filterOptions?: {
+    isFilterApplied: boolean;
+    queryParamsFilter: string;
+  };
 }
 
 const PrevNextButton: FC<PrevNextButtonProps> = ({
   type,
   maxPage,
   linkPage,
+  filterOptions,
 }) => {
   const router = useRouter();
   const { currentPage, increasePage, decreasePage } = usePaginationStore();
@@ -28,17 +33,23 @@ const PrevNextButton: FC<PrevNextButtonProps> = ({
 
   const increasePageHandler = () => {
     if (currentPage === maxPage) return;
+    let currentLinkPage = `${linkPage}/${currentPage + 1}`;
+    if (filterOptions?.isFilterApplied) {
+      currentLinkPage += filterOptions.queryParamsFilter;
+    }
+    router.push(`${currentLinkPage}`);
     increasePage();
   };
 
   const decreasePageHandler = () => {
     if (currentPage === MIN_PAGE) return;
+    let currentLinkPage = `${linkPage}/${currentPage - 1}`;
+    if (filterOptions?.isFilterApplied) {
+      currentLinkPage += filterOptions.queryParamsFilter;
+    }
+    router.push(`${currentLinkPage}`);
     decreasePage();
   };
-
-  useEffect(() => {
-    router.push(`${linkPage}/${currentPage}`);
-  }, [currentPage]);
 
   return (
     <li
