@@ -6,23 +6,25 @@ import classNames from 'classnames';
 import {
   NUMBER_FIRST_CLONE_SLIDE,
   NUMBER_FIRST_SLIDE,
-  SLIDE_CHANGE_STEP,
   STEP_TRANSLATE_SLIDE,
 } from './types/constants';
 import cloneFirstAndLastItemImageUrl from './helpers/cloneFirstAndLastItemImageUrl';
 import { CarouselProps } from './types/interfaces';
 import { SlideDirectionMove } from './types/enums';
+import useSlideSwitcher from './hooks/useSlideSwitcher';
 
 const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   const [isTransitionAvailable, setIsTransitionAvailable] =
     useState<boolean>(true);
-  const [numberSlide, setNumberSlide] = useState<number>(NUMBER_FIRST_SLIDE);
 
   const {
     listImageUrlWithCloneFirstAndLastItem,
     numberLastSlideNotConsideringClone,
     numberLastSlide,
   } = cloneFirstAndLastItemImageUrl(listUrlImage);
+
+  const { numberSlide, setNumberSlide, increaseSlide, decreaseSlide } =
+    useSlideSwitcher({ numberLastSlide });
 
   const onMoveSlide = (event: MouseEvent<HTMLSpanElement>) => {
     const button = event.target as HTMLElement;
@@ -35,20 +37,10 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
     }
 
     if (button.dataset.direction === SlideDirectionMove.PREV) {
-      if (numberSlide <= NUMBER_FIRST_CLONE_SLIDE) {
-        return;
-      }
-      setNumberSlide(
-        (currentNumberSlide) => currentNumberSlide - SLIDE_CHANGE_STEP
-      );
+      decreaseSlide();
     }
     if (button.dataset.direction === SlideDirectionMove.NEXT) {
-      if (numberSlide >= numberLastSlide) {
-        return;
-      }
-      setNumberSlide(
-        (currentNumberSlide) => currentNumberSlide + SLIDE_CHANGE_STEP
-      );
+      increaseSlide();
     }
   };
 
