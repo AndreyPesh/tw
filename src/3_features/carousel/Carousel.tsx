@@ -1,8 +1,9 @@
 'use client';
 
 import { FC, MouseEvent, useState } from 'react';
-import Slide from './Slide';
+import Slide from './UI/Slide';
 import classNames from 'classnames';
+import SlideManagement from './UI/SlideManagement';
 import {
   NUMBER_FIRST_CLONE_SLIDE,
   NUMBER_FIRST_SLIDE,
@@ -71,16 +72,7 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
           <Slide key={url + index} urlImage={url} />
         ))}
       </div>
-      <span
-        onClick={onMoveSlide}
-        data-direction={SlideDirectionMove.PREV}
-        className="absolute left-2 top-[calc(50%-40px)] w-10 h-10 inline-flex bg-gray-800 rounded-full cursor-pointer active:scale-90 transition-all"
-      ></span>
-      <span
-        onClick={onMoveSlide}
-        data-direction={SlideDirectionMove.NEXT}
-        className="absolute right-2 top-[calc(50%-40px)] w-10 h-10 inline-flex bg-gray-800 rounded-full cursor-pointer active:scale-90 transition-all"
-      ></span>
+      <SlideManagement onMoveSlideHandler={onMoveSlide} />
     </div>
   );
 };
