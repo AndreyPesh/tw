@@ -29,13 +29,8 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
 
   const onMoveSlide = (event: MouseEvent<HTMLSpanElement>) => {
     const button = event.target as HTMLElement;
-    if (
-      (numberSlide === numberLastSlideNotConsideringClone &&
-        !isTransitionAvailable) ||
-      (numberSlide === NUMBER_FIRST_SLIDE && !isTransitionAvailable)
-    ) {
-      setIsTransitionAvailable(() => true);
-    }
+
+    activateTransitionEffect();
 
     if (button.dataset.direction === SlideDirectionMove.PREV) {
       decreaseSlide();
@@ -45,7 +40,17 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
     }
   };
 
-  const onTransitionSlideHandler = () => {
+  const activateTransitionEffect = () => {
+    if (
+      (numberSlide === numberLastSlideNotConsideringClone &&
+        !isTransitionAvailable) ||
+      (numberSlide === NUMBER_FIRST_SLIDE && !isTransitionAvailable)
+    ) {
+      setIsTransitionAvailable(() => true);
+    }
+  };
+
+  const deactivateTransitionEffect = () => {
     if (numberSlide === NUMBER_FIRST_CLONE_SLIDE) {
       setIsTransitionAvailable(() => false);
       setNumberSlide(numberLastSlideNotConsideringClone);
@@ -54,6 +59,10 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
       setIsTransitionAvailable(() => false);
       setNumberSlide(NUMBER_FIRST_SLIDE);
     }
+  };
+
+  const onTransitionSlideHandler = () => {
+    deactivateTransitionEffect();
   };
 
   return (
