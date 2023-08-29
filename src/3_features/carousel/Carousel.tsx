@@ -3,19 +3,15 @@
 import { FC, MouseEvent, useState } from 'react';
 import Slide from './Slide';
 import classNames from 'classnames';
-import { STEP_TRANSLATE_SLIDE } from './types/constants';
+import {
+  NUMBER_FIRST_CLONE_SLIDE,
+  NUMBER_FIRST_SLIDE,
+  SLIDE_CHANGE_STEP,
+  STEP_TRANSLATE_SLIDE,
+} from './types/constants';
 import cloneFirstAndLastItemImageUrl from './helpers/cloneFirstAndLastItemImageUrl';
-
-const enum SlideDirectionMove {
-  PREV = 'prev',
-  NEXT = 'next',
-}
-
-const NUMBER_FIRST_SLIDE = 1;
-
-interface CarouselProps {
-  listUrlImage: Array<string>;
-}
+import { CarouselProps } from './types/interfaces';
+import { SlideDirectionMove } from './types/enums';
 
 const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   const [isTransitionAvailable, setIsTransitionAvailable] =
@@ -25,19 +21,45 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   const {
     listImageUrlWithCloneFirstAndLastItem,
     numberLastSlideNotConsideringClone,
+    numberLastSlide,
   } = cloneFirstAndLastItemImageUrl(listUrlImage);
 
   const onMoveSlide = (event: MouseEvent<HTMLSpanElement>) => {
     const button = event.target as HTMLElement;
+    if (
+      (numberSlide === numberLastSlideNotConsideringClone &&
+        !isTransitionAvailable) ||
+      (numberSlide === NUMBER_FIRST_SLIDE && !isTransitionAvailable)
+    ) {
+      setIsTransitionAvailable(() => true);
+    }
+
     if (button.dataset.direction === SlideDirectionMove.PREV) {
-      if (numberSlide == 0) {
-        setIsTransitionAvailable(false);
-        setNumberSlide(() => numberLastSlideNotConsideringClone);
+      if (numberSlide <= NUMBER_FIRST_CLONE_SLIDE) {
+        return;
       }
-      setNumberSlide((prev) => prev - 1);
+      setNumberSlide(
+        (currentNumberSlide) => currentNumberSlide - SLIDE_CHANGE_STEP
+      );
     }
     if (button.dataset.direction === SlideDirectionMove.NEXT) {
-      setNumberSlide((prev) => prev + 1);
+      if (numberSlide >= numberLastSlide) {
+        return;
+      }
+      setNumberSlide(
+        (currentNumberSlide) => currentNumberSlide + SLIDE_CHANGE_STEP
+      );
+    }
+  };
+
+  const onTransitionSlideHandler = () => {
+    if (numberSlide === NUMBER_FIRST_CLONE_SLIDE) {
+      setIsTransitionAvailable(() => false);
+      setNumberSlide(numberLastSlideNotConsideringClone);
+    }
+    if (numberSlide === numberLastSlide) {
+      setIsTransitionAvailable(() => false);
+      setNumberSlide(NUMBER_FIRST_SLIDE);
     }
   };
 
@@ -51,6 +73,7 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
         style={{
           transform: `translateX(${STEP_TRANSLATE_SLIDE * numberSlide}%)`,
         }}
+        onTransitionEnd={onTransitionSlideHandler}
       >
         {listImageUrlWithCloneFirstAndLastItem.map((url, index) => (
           <Slide key={url + index} urlImage={url} />

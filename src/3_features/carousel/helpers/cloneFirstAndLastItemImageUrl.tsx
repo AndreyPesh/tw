@@ -8,9 +8,11 @@ const cloneFirstAndLastItemImageUrl = (listImageUrl: string[]) => {
   ];
   const numberLastSlideNotConsideringClone =
     listImageUrlWithCloneFirstAndLastItem.length - 2;
+  const numberLastSlide = listImageUrlWithCloneFirstAndLastItem.length - 1;
   return {
     listImageUrlWithCloneFirstAndLastItem,
     numberLastSlideNotConsideringClone,
+    numberLastSlide,
   };
 };
 
