@@ -83,7 +83,7 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
         ))}
       </div>
       <SlideManagement onMoveSlideHandler={onMoveSlide} />
-      <ListPreviewImage listUrlImage={listUrlImage} activeSlide={numberSlide} />
+      <ListPreviewImage listUrlImage={listUrlImage} activeSlide={numberSlide} setNumberSlide={setNumberSlide} />
     </div>
   );
 };
