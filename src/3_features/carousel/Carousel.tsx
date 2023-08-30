@@ -13,6 +13,7 @@ import cloneFirstAndLastItemImageUrl from './helpers/cloneFirstAndLastItemImageU
 import { CarouselProps } from './types/interfaces';
 import { SlideDirectionMove } from './types/enums';
 import useSlideSwitcher from './hooks/useSlideSwitcher';
+import ListPreviewImage from './UI/ListPreviewImage';
 
 const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   const [isTransitionAvailable, setIsTransitionAvailable] =
@@ -82,6 +83,7 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
         ))}
       </div>
       <SlideManagement onMoveSlideHandler={onMoveSlide} />
+      <ListPreviewImage listUrlImage={listUrlImage} activeSlide={numberSlide} />
     </div>
   );
 };
