@@ -7,7 +7,6 @@ const Home = async () => {
     <>
       <Suspense fallback={<Loading />}>
         <main className="container">main
-        <InfinityCarousel />
         </main>
       </Suspense>
     </>
