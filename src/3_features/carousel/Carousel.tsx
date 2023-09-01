@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, MouseEvent, useState } from 'react';
+import { FC, MouseEvent, TouchEvent, useRef, useState } from 'react';
 import Slide from './UI/Slide';
 import classNames from 'classnames';
 import SlideManagement from './UI/SlideManagement';
@@ -66,10 +66,56 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
     deactivateTransitionEffect();
   };
 
+  // ---------------------------------------------------------------------
+  const refSlider = useRef<HTMLDivElement>(null);
+  const onTouchMoveSlide = (event: TouchEvent<HTMLDivElement>) => {
+    // console.log(event.touches[0].clientX);
+  };
+
+  let posInit = 0;
+  let posX1 = 0;
+  let posX2 = 0;
+  let slideTransform: number | null = 0;
+
+  const swipeStart = (event: TouchEvent<HTMLDivElement>) => {
+    // const slider = event.target as HTMLDivElement
+    posInit = ( event.touches[0].clientX / 400) * 100;
+    posX1 = ( event.touches[0].clientX / 400) * 100;
+
+    // refSlider.current && refSlider.current.style.setProperty('transform', '');
+    // console.log(refSlider.current && refSlider.current.style);
+  };
+
+  const swipeAction = (event: TouchEvent<HTMLDivElement>) => {
+    posX2 = posX1 - (( event.touches[0].clientX / 400) * 100);
+    posX1 = ( event.touches[0].clientX / 400) * 100;
+
+    console.log('posX1: ', posX1);
+    console.log('posX2: ', posX2);
+
+    const curTransform = refSlider.current && refSlider.current.style.transform;
+    const transformResultMatch = curTransform && curTransform.match(/[-0-9]+/);
+    slideTransform = transformResultMatch ? Number(transformResultMatch[0]) : 0;
+    // console.log(slideTransform - posX2 * 100);
+    refSlider.current && refSlider.current.style.setProperty('transform', `translateX(${(slideTransform - posX2)}%)`);
+  };
+
+  const swipeEnd = () => {
+      if (posInit < posX1) {
+        decreaseSlide();
+      // если мы тянули влево, то увеличиваем номер текущего слайда
+      } else if (posInit > posX1) {
+        increaseSlide();
+      }
+  };
+
+  // --------------------------------------------------------------------------
+
   return (
     <div className="relative overflow-hidden select-none border-4">
       <h1>Current transition: {numberSlide}</h1>
       <div
+        ref={refSlider}
         className={classNames('flex w-full', {
           'transition-all': isTransitionAvailable,
         })}
@@ -77,13 +123,22 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
           transform: `translateX(${STEP_TRANSLATE_SLIDE * numberSlide}%)`,
         }}
         onTransitionEnd={onTransitionSlideHandler}
+        // 
+        onTouchStart={swipeStart}
+        onTouchMove={swipeAction}
+        onTouchEnd={swipeEnd}
+        // 
       >
         {listImageUrlWithCloneFirstAndLastItem.map((url, index) => (
           <Slide key={url + index} urlImage={url} />
         ))}
       </div>
       <SlideManagement onMoveSlideHandler={onMoveSlide} />
-      <ListPreviewImage listUrlImage={listUrlImage} activeSlide={numberSlide} setNumberSlide={setNumberSlide} />
+      <ListPreviewImage
+        listUrlImage={listUrlImage}
+        activeSlide={numberSlide}
+        setNumberSlide={setNumberSlide}
+      />
     </div>
   );
 };
