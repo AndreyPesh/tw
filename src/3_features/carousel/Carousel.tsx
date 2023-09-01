@@ -14,6 +14,8 @@ import { CarouselProps } from './types/interfaces';
 import { SlideDirectionMove } from './types/enums';
 import useSlideSwitcher from './hooks/useSlideSwitcher';
 import ListPreviewImage from './UI/ListPreviewImage';
+import { conversionScreenWidthToPercent } from './helpers/conversionScreenWidthToPecent';
+import { getCurrentTranslateValue } from './helpers/getCurrentTranslateValue';
 
 const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   const [isTransitionAvailable, setIsTransitionAvailable] =
@@ -68,45 +70,52 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
 
   // ---------------------------------------------------------------------
   const refSlider = useRef<HTMLDivElement>(null);
-  const onTouchMoveSlide = (event: TouchEvent<HTMLDivElement>) => {
-    // console.log(event.touches[0].clientX);
-  };
+  // const onTouchMoveSlide = (event: TouchEvent<HTMLDivElement>) => {
+  //   // console.log(event.touches[0].clientX);
+  // };
 
   let posInit = 0;
   let posX1 = 0;
   let posX2 = 0;
-  let slideTransform: number | null = 0;
 
   const swipeStart = (event: TouchEvent<HTMLDivElement>) => {
-    // const slider = event.target as HTMLDivElement
-    posInit = ( event.touches[0].clientX / 400) * 100;
-    posX1 = ( event.touches[0].clientX / 400) * 100;
+    activateTransitionEffect()
+    const currentPositionX = conversionScreenWidthToPercent(
+      event.touches[0].clientX
+    );
+
+    posInit = currentPositionX;
+    posX1 = currentPositionX;
 
     // refSlider.current && refSlider.current.style.setProperty('transform', '');
     // console.log(refSlider.current && refSlider.current.style);
   };
 
   const swipeAction = (event: TouchEvent<HTMLDivElement>) => {
-    posX2 = posX1 - (( event.touches[0].clientX / 400) * 100);
-    posX1 = ( event.touches[0].clientX / 400) * 100;
+    const currentPositionX = conversionScreenWidthToPercent(
+      event.touches[0].clientX
+    );
 
-    console.log('posX1: ', posX1);
-    console.log('posX2: ', posX2);
+    posX2 = posX1 - currentPositionX;
+    posX1 = currentPositionX;
 
-    const curTransform = refSlider.current && refSlider.current.style.transform;
-    const transformResultMatch = curTransform && curTransform.match(/[-0-9]+/);
-    slideTransform = transformResultMatch ? Number(transformResultMatch[0]) : 0;
-    // console.log(slideTransform - posX2 * 100);
-    refSlider.current && refSlider.current.style.setProperty('transform', `translateX(${(slideTransform - posX2)}%)`);
+    const currentTranslateValue = getCurrentTranslateValue(refSlider);
+    console.log('value translate', currentTranslateValue);
+    
+
+    refSlider.current &&
+      refSlider.current.style.setProperty(
+        'transform',
+        `translateX(${currentTranslateValue - posX2}%)`
+      );
   };
 
   const swipeEnd = () => {
-      if (posInit < posX1) {
-        decreaseSlide();
-      // если мы тянули влево, то увеличиваем номер текущего слайда
-      } else if (posInit > posX1) {
-        increaseSlide();
-      }
+    if (posInit <= posX1) {
+      decreaseSlide();
+    } else if (posInit >= posX1) {
+      increaseSlide();
+    }
   };
 
   // --------------------------------------------------------------------------
@@ -114,6 +123,7 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   return (
     <div className="relative overflow-hidden select-none border-4">
       <h1>Current transition: {numberSlide}</h1>
+      <h1>Current translate: {STEP_TRANSLATE_SLIDE * numberSlide}</h1>
       <div
         ref={refSlider}
         className={classNames('flex w-full', {
@@ -123,11 +133,11 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
           transform: `translateX(${STEP_TRANSLATE_SLIDE * numberSlide}%)`,
         }}
         onTransitionEnd={onTransitionSlideHandler}
-        // 
+        //
         onTouchStart={swipeStart}
         onTouchMove={swipeAction}
         onTouchEnd={swipeEnd}
-        // 
+        //
       >
         {listImageUrlWithCloneFirstAndLastItem.map((url, index) => (
           <Slide key={url + index} urlImage={url} />
