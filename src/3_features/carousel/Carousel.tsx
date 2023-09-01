@@ -74,21 +74,22 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   //   // console.log(event.touches[0].clientX);
   // };
 
-  let posInit = 0;
+  // let posInit = 0;
   let posX1 = 0;
   let posX2 = 0;
+  const [posInit, setPosition] = useState(0);
 
   const swipeStart = (event: TouchEvent<HTMLDivElement>) => {
-    activateTransitionEffect()
+    activateTransitionEffect();
     const currentPositionX = conversionScreenWidthToPercent(
       event.touches[0].clientX
     );
 
-    posInit = currentPositionX;
+    setPosition(currentPositionX);
     posX1 = currentPositionX;
 
     // refSlider.current && refSlider.current.style.setProperty('transform', '');
-    // console.log(refSlider.current && refSlider.current.style);
+    console.log(getCurrentTranslateValue(refSlider));
   };
 
   const swipeAction = (event: TouchEvent<HTMLDivElement>) => {
@@ -100,8 +101,13 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
     posX1 = currentPositionX;
 
     const currentTranslateValue = getCurrentTranslateValue(refSlider);
-    console.log('value translate', currentTranslateValue);
-    
+    // console.log('posX1 ', posX1);
+    // console.log('posX2 ', posX2);
+    // console.log('current X ', currentPositionX);
+
+    // console.log('value translate', currentTranslateValue);
+    console.log('POSX2 ', posX2);
+    // if(posX2 > 0) posX2 = -posX2;
 
     refSlider.current &&
       refSlider.current.style.setProperty(
