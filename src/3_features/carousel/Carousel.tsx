@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, MouseEvent, useState } from 'react';
+import { FC, MouseEvent, useRef, useState } from 'react';
 import Slide from './UI/Slide';
 import classNames from 'classnames';
 import SlideManagement from './UI/SlideManagement';
@@ -13,6 +13,8 @@ import cloneFirstAndLastItemImageUrl from './helpers/cloneFirstAndLastItemImageU
 import { CarouselProps } from './types/interfaces';
 import { SlideDirectionMove } from './types/enums';
 import useSlideSwitcher from './hooks/useSlideSwitcher';
+import ListPreviewImage from './UI/ListPreviewImage';
+import useTouchSlideSwitcher from './hooks/useTouchSlideSwitcher';
 
 const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   const [isTransitionAvailable, setIsTransitionAvailable] =
@@ -65,10 +67,18 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
     deactivateTransitionEffect();
   };
 
+  const refSlider = useRef<HTMLDivElement>(null);
+  const { swipeStart, swipeAction, swipeEnd } = useTouchSlideSwitcher({
+    refSlider,
+    increaseSlide,
+    decreaseSlide,
+    activateTransitionEffect,
+  });
+
   return (
-    <div className="relative overflow-hidden select-none border-4">
-      <h1>Current transition: {numberSlide}</h1>
+    <div className="relative overflow-hidden select-none">
       <div
+        ref={refSlider}
         className={classNames('flex w-full', {
           'transition-all': isTransitionAvailable,
         })}
@@ -76,12 +86,21 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
           transform: `translateX(${STEP_TRANSLATE_SLIDE * numberSlide}%)`,
         }}
         onTransitionEnd={onTransitionSlideHandler}
+        onTouchStart={swipeStart}
+        onTouchMove={swipeAction}
+        onTouchEnd={swipeEnd}
       >
         {listImageUrlWithCloneFirstAndLastItem.map((url, index) => (
           <Slide key={url + index} urlImage={url} />
         ))}
       </div>
       <SlideManagement onMoveSlideHandler={onMoveSlide} />
+      <ListPreviewImage
+        activateTransitionEffect={activateTransitionEffect}
+        listUrlImage={listUrlImage}
+        activeSlide={numberSlide}
+        setNumberSlide={setNumberSlide}
+      />
     </div>
   );
 };
