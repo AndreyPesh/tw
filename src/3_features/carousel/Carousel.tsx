@@ -76,7 +76,7 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   });
 
   return (
-    <div className="relative overflow-hidden select-none border-4">
+    <div className="relative overflow-hidden select-none">
       <div
         ref={refSlider}
         className={classNames('flex w-full', {
@@ -96,6 +96,7 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
       </div>
       <SlideManagement onMoveSlideHandler={onMoveSlide} />
       <ListPreviewImage
+        activateTransitionEffect={activateTransitionEffect}
         listUrlImage={listUrlImage}
         activeSlide={numberSlide}
         setNumberSlide={setNumberSlide}
