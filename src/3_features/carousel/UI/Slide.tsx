@@ -14,6 +14,7 @@ const Slide: FC<SlideProps> = ({ urlImage }) => {
         height={500}
         alt={`Image ${urlImage}`}
         className='m-auto'
+        priority
       />
     </div>
   );
