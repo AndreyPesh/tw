@@ -28,9 +28,13 @@ const ListPreviewImage: FC<ListPreviewImageProps> = ({
         <div
           key={imageUrl + index}
           onClick={() => onChangeSlideHandler(index + SHIT_FROM_INDEX_ARRAY)}
-          className={classNames('border-2 cursor-pointer box-border', {
-            'border-2 border-cyan-950': index + 1 === activeSlide,
-          })}
+          className={classNames(
+            'border-2 border-r-transparent last:border-r-inherit cursor-pointer box-border',
+            {
+              'border-2 border-r-cyan-950 last:border-r-cyan-950 border-cyan-950':
+                index + 1 === activeSlide,
+            }
+          )}
         >
           <Image
             alt={imageUrl}
@@ -38,6 +42,7 @@ const ListPreviewImage: FC<ListPreviewImageProps> = ({
             height={100}
             src={imageUrl}
             priority
+            className={classNames({ 'scale-95 bg-transparent': index + 1 === activeSlide })}
           />
         </div>
       ))}
