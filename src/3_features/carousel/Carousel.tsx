@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, MouseEvent, TouchEvent, useRef, useState } from 'react';
+import { FC, MouseEvent, useRef, useState } from 'react';
 import Slide from './UI/Slide';
 import classNames from 'classnames';
 import SlideManagement from './UI/SlideManagement';
@@ -14,8 +14,7 @@ import { CarouselProps } from './types/interfaces';
 import { SlideDirectionMove } from './types/enums';
 import useSlideSwitcher from './hooks/useSlideSwitcher';
 import ListPreviewImage from './UI/ListPreviewImage';
-import { conversionScreenWidthToPercent } from './helpers/conversionScreenWidthToPecent';
-import { getCurrentTranslateValue } from './helpers/getCurrentTranslateValue';
+import useTouchSlideSwitcher from './hooks/useTouchSlideSwitcher';
 
 const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
   const [isTransitionAvailable, setIsTransitionAvailable] =
@@ -68,85 +67,16 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
     deactivateTransitionEffect();
   };
 
-  // ---------------------------------------------------------------------
   const refSlider = useRef<HTMLDivElement>(null);
-  // const onTouchMoveSlide = (event: TouchEvent<HTMLDivElement>) => {
-  //   // console.log(event.touches[0].clientX);
-  // };
-
-  // let posInit = 0;
-  let posX1 = 0;
-  let posX2 = 0;
-  const [posInit, setPosition] = useState(0);
-
-  const swipeStart = (event: TouchEvent<HTMLDivElement>) => {
-    activateTransitionEffect();
-    const currentPositionX = conversionScreenWidthToPercent(
-      event.touches[0].clientX
-    );
-
-    setPosition(currentPositionX);
-    posX1 = currentPositionX;
-    // console.log(`START POSX1 ${posX1}`);
-    
-    // refSlider.current && refSlider.current.style.setProperty('transform', '');
-    // console.log(getCurrentTranslateValue(refSlider));
-  };
-
-  const swipeAction = (event: TouchEvent<HTMLDivElement>) => {
-    const currentPositionX = conversionScreenWidthToPercent(
-      event.touches[0].clientX
-    );
-
-    posX2 = posX1 - currentPositionX;
-    posX1 = currentPositionX;
-    if(posX2 < -3) return;
-
-    const currentTranslateValue = getCurrentTranslateValue(refSlider);
-
-    // console.log('current translate ', currentTranslateValue);
-    // console.log('clientX ', posX1);
-    // console.log('posX2 ', posX2);
-
-    // let translate ;
-    // if(posX2 < 0) {
-    //   translate = currentTranslateValue - posX2
-    //   // console.log('NEGATIVE ', posX2, 'translate ', translate);
-      
-    // } else if (posX2 > 0) {
-      
-    //   translate = currentTranslateValue - posX2
-    // }
-    // console.log('translate ', `${currentTranslateValue} - ${posX2}`);
-    // console.log('TRANSLATE ', `translateX(${Math.round(translate)}%)`);
-    
-
-    refSlider.current &&
-      refSlider.current.style.setProperty(
-        'transform',
-        `translateX(${currentTranslateValue - posX2 }%)`
-      );
-    // console.log(refSlider.current?.style.getPropertyValue('transform'))
-
-  };
-
-  const swipeEnd = () => {
-    console.log('End ', posInit, posX1);
-    if(posInit === posX1 || posX1 === 0) return;
-    
-    if (posInit <= posX1) {
-      decreaseSlide();
-    } else if (posInit >= posX1) {
-      increaseSlide();
-    }
-  };
-
-  // --------------------------------------------------------------------------
+  const { swipeStart, swipeAction, swipeEnd } = useTouchSlideSwitcher({
+    refSlider,
+    increaseSlide,
+    decreaseSlide,
+    activateTransitionEffect,
+  });
 
   return (
     <div className="relative overflow-hidden select-none border-4">
-      <h1>Current transition: {numberSlide}</h1>
-      <h1>Current translate: {STEP_TRANSLATE_SLIDE * numberSlide}</h1>
       <div
         ref={refSlider}
         className={classNames('flex w-full', {
@@ -156,11 +86,9 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
           transform: `translateX(${STEP_TRANSLATE_SLIDE * numberSlide}%)`,
         }}
         onTransitionEnd={onTransitionSlideHandler}
-        //
         onTouchStart={swipeStart}
         onTouchMove={swipeAction}
         onTouchEnd={swipeEnd}
-        //
       >
         {listImageUrlWithCloneFirstAndLastItem.map((url, index) => (
           <Slide key={url + index} urlImage={url} />
