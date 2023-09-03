@@ -87,9 +87,10 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
 
     setPosition(currentPositionX);
     posX1 = currentPositionX;
-
+    // console.log(`START POSX1 ${posX1}`);
+    
     // refSlider.current && refSlider.current.style.setProperty('transform', '');
-    console.log(getCurrentTranslateValue(refSlider));
+    // console.log(getCurrentTranslateValue(refSlider));
   };
 
   const swipeAction = (event: TouchEvent<HTMLDivElement>) => {
@@ -99,24 +100,40 @@ const Carousel: FC<CarouselProps> = ({ listUrlImage }) => {
 
     posX2 = posX1 - currentPositionX;
     posX1 = currentPositionX;
+    if(posX2 < -3) return;
 
     const currentTranslateValue = getCurrentTranslateValue(refSlider);
-    // console.log('posX1 ', posX1);
-    // console.log('posX2 ', posX2);
-    // console.log('current X ', currentPositionX);
 
-    // console.log('value translate', currentTranslateValue);
-    console.log('POSX2 ', posX2);
-    // if(posX2 > 0) posX2 = -posX2;
+    // console.log('current translate ', currentTranslateValue);
+    // console.log('clientX ', posX1);
+    // console.log('posX2 ', posX2);
+
+    // let translate ;
+    // if(posX2 < 0) {
+    //   translate = currentTranslateValue - posX2
+    //   // console.log('NEGATIVE ', posX2, 'translate ', translate);
+      
+    // } else if (posX2 > 0) {
+      
+    //   translate = currentTranslateValue - posX2
+    // }
+    // console.log('translate ', `${currentTranslateValue} - ${posX2}`);
+    // console.log('TRANSLATE ', `translateX(${Math.round(translate)}%)`);
+    
 
     refSlider.current &&
       refSlider.current.style.setProperty(
         'transform',
-        `translateX(${currentTranslateValue - posX2}%)`
+        `translateX(${currentTranslateValue - posX2 }%)`
       );
+    // console.log(refSlider.current?.style.getPropertyValue('transform'))
+
   };
 
   const swipeEnd = () => {
+    console.log('End ', posInit, posX1);
+    if(posInit === posX1 || posX1 === 0) return;
+    
     if (posInit <= posX1) {
       decreaseSlide();
     } else if (posInit >= posX1) {
