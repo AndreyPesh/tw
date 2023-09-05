@@ -77,6 +77,7 @@ export class PhoneDb {
         },
         include: {
           images: true,
+          details: true,
           brand: {
             include: {
               list: true,
