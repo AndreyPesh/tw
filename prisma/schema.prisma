@@ -46,6 +46,7 @@ model User {
   password      String?
   accounts      Account[]
   sessions      Session[]
+  cart          Cart[]
 
   @@map("users")
 }
@@ -69,6 +70,7 @@ model Phones {
   brand    PhonesOnBrands[]
   details  PhoneDetails?
   images   PhoneImages[]
+  cartItem CartItem[]
 
   @@map("phones")
 }
@@ -111,4 +113,31 @@ model PhoneDetails {
   phone   Phones  @relation(fields: [phoneId], references: [id])
 
   @@map("phones_details")
+}
+
+model Cart {
+  id       String     @id @default(uuid())
+  userId   String     @unique @map("user_id")
+  user     User       @relation(fields: [userId], references: [id])
+  cartItem CartItem[]
+
+  created_at  DateTime
+  modified_at DateTime
+
+  @@map("cart")
+}
+
+model CartItem {
+  id       String @id @default(uuid())
+  quantity Int
+  cartId   String @unique @map("cart_id")
+  cart     Cart   @relation(fields: [cartId], references: [id])
+
+  phoneId String @unique @map("phone_id")
+  phone   Phones @relation(fields: [phoneId], references: [id])
+
+  created_at  DateTime
+  modified_at DateTime
+
+  @@map("cart_item")
 }
