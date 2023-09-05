@@ -133,25 +133,54 @@ const createSmartphone = async () => {
   }
 };
 
+const listOsPhones = [
+  'iOS',
+  'Android',
+  'Bada',
+  'Blackberry',
+  'Windows Mobile',
+  'Symbian',
+  'Palm',
+];
+
+const listDisplayTypePhones = ['LCD', 'IPS-LCD', 'OLED', 'AMOLED'];
+
+const addDetails = async () => {
+  const phones = await prisma.phones.findMany();
+  phones.map(async (phone) => {
+    await prisma.phoneDetails.create({
+      data: {
+        memory: getRandomNumberInt(8, 64),
+        os: listOsPhones[getRandomNumberInt(0, listOsPhones.length - 1)],
+        display:
+          listDisplayTypePhones[
+            getRandomNumberInt(0, listDisplayTypePhones.length - 1)
+          ],
+        nfc: Math.random() > 0.5 ? true : false,
+        charge: Math.random() > 0.5 ? 'MicroUSB' : 'Type-C',
+        phone: {
+          connect: { id: phone.id },
+        },
+      },
+    });
+  });
+};
+
 const prisma = new PrismaClient();
 
 export const main = async () => {
   // await prisma.phoneImages.deleteMany();
   // await prisma.phonesOnBrands.deleteMany();
   // await prisma.phoneBrands.deleteMany()
-
   // console.log('Delete brands');
-
   // await prisma.phones.deleteMany();
   // console.log('Delete phones');
-
-  await createBrands();
+  // await createBrands();
   // console.log('Create brands');
-
-  await createSmartphone();
+  // await createSmartphone();
   // console.log('Create phones');
-
-  await createImages();
+  // await createImages();
+  await addDetails()
 };
 
 main()
