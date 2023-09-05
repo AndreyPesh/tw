@@ -26,6 +26,7 @@ export class PhoneDb {
       const listPhones = await prisma.phones.findMany({
         include: {
           images: true,
+          details: true,
           brand: {
             include: {
               list: true,
@@ -77,6 +78,7 @@ export class PhoneDb {
         },
         include: {
           images: true,
+          details: true,
           brand: {
             include: {
               list: true,
