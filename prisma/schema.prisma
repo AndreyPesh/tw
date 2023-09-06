@@ -121,8 +121,8 @@ model Cart {
   user     User       @relation(fields: [userId], references: [id])
   cartItem CartItem[]
 
-  created_at  DateTime
-  modified_at DateTime
+  created_at  DateTime @default(now())
+  modified_at DateTime @updatedAt
 
   @@map("cart")
 }
@@ -136,8 +136,8 @@ model CartItem {
   phoneId String @unique @map("phone_id")
   phone   Phones @relation(fields: [phoneId], references: [id])
 
-  created_at  DateTime
-  modified_at DateTime
+  created_at  DateTime @default(now())
+  modified_at DateTime @updatedAt
 
   @@map("cart_item")
 }
