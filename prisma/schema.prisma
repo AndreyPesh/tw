@@ -131,7 +131,7 @@ model CartItem {
   quantity    Int
   cartId      String   @unique @map("cart_id")
   phoneId     String   @unique @map("phone_id")
-  created_at  DateTime
+  created_at  DateTime @default(now())
   modified_at DateTime @updatedAt
   cart        Cart     @relation(fields: [cartId], references: [id])
   phone       Phones   @relation(fields: [phoneId], references: [id])

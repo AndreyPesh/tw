@@ -1,9 +1,22 @@
 import { useState, MouseEvent } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { useMutation } from 'react-query';
 import classNames from 'classnames';
+import { addProductToCartFetch } from '../../utils/server/fetching/cart/cart';
+import { getSession, useSession } from 'next-auth/react';
+
+interface AddToCartButtonProps {
+  idProduct: string;
+}
 
 const AddToCartButton = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { mutateAsync, isLoading } = useMutation(
+    ({ idCart, idProduct }: { idCart: string; idProduct: string }) => {
+      return addProductToCartFetch(idCart, idProduct);
+    }
+  );
+
+  // const [isLoading, setIsLoading] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
 
   const addToCartHandler = async (event: MouseEvent<HTMLButtonElement>) => {
@@ -12,17 +25,25 @@ const AddToCartButton = () => {
     }
 
     try {
-      setIsLoading(true);
-      await new Promise((res) => {
-        setTimeout(() => {
-          res(null);
-        }, 1000);
+      const session = await getSession()
+      // setIsLoading(true);
+      // await new Promise((res) => {
+      //   setTimeout(() => {
+      //     res(null);
+      //   }, 1000);
+      // });
+      // await addProductToCartFetch('idCart', 'idProduct', 1)
+      console.log(session);
+      
+      await mutateAsync({
+        idCart: 'idCart',
+        idProduct: 'idProduct',
       });
       setIsInCart((prev) => !prev);
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 

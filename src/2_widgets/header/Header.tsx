@@ -16,7 +16,6 @@ import Cart from '@/src/3_features/cart/Cart';
 const Header = ({ user }: { user: UserData | null }) => {
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
-  console.log(user?.cart?.id);
 
   return (
     <header className="border-b border-b-light">
