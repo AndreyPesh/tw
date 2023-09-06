@@ -21,7 +21,7 @@ const UserButton = ({ user }: { user: UserData }) => {
   return (
     <div
       onClick={() => router.push(EnumLinkPage.USER)}
-      className="flex items-center justify-around cursor-pointer border-t"
+      className="flex items-center justify-around cursor-pointer border-t select-none"
     >
       <div className="p-2 inline-flex items-center hover:shadow-sm">
         <Image priority alt="user" width={48} height={48} src={userImage} className='w-[48px] h-[48px] object-fill' />

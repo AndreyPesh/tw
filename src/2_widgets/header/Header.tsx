@@ -11,11 +11,12 @@ import { useActions } from '@/src/5_shared/hooks/useActions';
 import { useAppSelector } from '@/src/5_shared/store/hooks/redux';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
 import { UserData } from '@/src/5_shared/utils/server/fetching/user/data';
+import Cart from '@/src/3_features/cart/Cart';
 
 const Header = ({ user }: { user: UserData | null }) => {
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
-  console.log(user);
+  console.log(user?.cart?.id);
 
   return (
     <header className="border-b border-b-light">
@@ -40,6 +41,7 @@ const Header = ({ user }: { user: UserData | null }) => {
           )}
         >
           <Navigation />
+          <Cart />
           {user ? <UserButton user={user} /> : <AuthButton />}
         </div>
         <BurgerButton />
