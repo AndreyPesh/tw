@@ -4,8 +4,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // seed
-  directUrl = env("POSTGRES_URL_NON_POOLING") //db push ---- migrate
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Account {
@@ -45,8 +45,8 @@ model User {
   image         String?
   password      String?
   accounts      Account[]
+  cart          Cart?
   sessions      Session[]
-  cart          Cart[]
 
   @@map("users")
 }
@@ -67,10 +67,10 @@ model Phones {
   price    Int
   rating   Float
   quantity Int
-  brand    PhonesOnBrands[]
-  details  PhoneDetails?
-  images   PhoneImages[]
   cartItem CartItem[]
+  images   PhoneImages[]
+  details  PhoneDetails?
+  brand    PhonesOnBrands[]
 
   @@map("phones")
 }
@@ -116,28 +116,25 @@ model PhoneDetails {
 }
 
 model Cart {
-  id       String     @id @default(uuid())
-  userId   String     @unique @map("user_id")
-  user     User       @relation(fields: [userId], references: [id])
-  cartItem CartItem[]
-
-  created_at  DateTime @default(now())
-  modified_at DateTime @updatedAt
+  id          String    @id @default(uuid())
+  userId      String    @unique @map("user_id")
+  created_at  DateTime  @default(now())
+  modified_at DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id])
+  cartItem    CartItem[]
 
   @@map("cart")
 }
 
 model CartItem {
-  id       String @id @default(uuid())
-  quantity Int
-  cartId   String @unique @map("cart_id")
-  cart     Cart   @relation(fields: [cartId], references: [id])
-
-  phoneId String @unique @map("phone_id")
-  phone   Phones @relation(fields: [phoneId], references: [id])
-
-  created_at  DateTime @default(now())
+  id          String   @id @default(uuid())
+  quantity    Int
+  cartId      String   @unique @map("cart_id")
+  phoneId     String   @unique @map("phone_id")
+  created_at  DateTime
   modified_at DateTime @updatedAt
+  cart        Cart     @relation(fields: [cartId], references: [id])
+  phone       Phones   @relation(fields: [phoneId], references: [id])
 
   @@map("cart_item")
 }

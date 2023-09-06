@@ -6,9 +6,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
 import { DEFAULT_NAME_AVATAR } from '@/src/5_shared/types/constant';
-import { User } from '@prisma/client';
+import { UserData } from '@/src/5_shared/utils/server/fetching/user/data';
 
-const UserButton = ({ user }: { user: User }) => {
+const UserButton = ({ user }: { user: UserData }) => {
   const router = useRouter();
   const { name, image } = user;
   const userImage: string = image ? image : DEFAULT_NAME_AVATAR;

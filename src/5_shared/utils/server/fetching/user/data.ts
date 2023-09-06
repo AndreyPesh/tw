@@ -1,18 +1,28 @@
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/src/5_shared/utils/server/auth';
 import prisma from '@/global.d';
-import { User } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
+import { authOptions } from '@/src/5_shared/utils/server/auth';
 
-export async function getUserData() {
+type UserWithCart = Prisma.UserGetPayload<{
+  include: { cart: true };
+}>;
+
+export type UserData = Omit<UserWithCart, 'password'>;
+
+export async function getUserData(): Promise<UserData | null> {
   const session = await getServerSession(authOptions);
   if (session && session.user && session.user.email) {
-    const user: User | null = await prisma.user.findUnique({
+    const user: UserWithCart | null = await prisma.user.findUnique({
       where: {
         email: session.user.email,
       },
+      include: {
+        cart: true,
+      },
     });
     if (user) {
-      return user;
+      const { password, ...userData } = user;
+      return userData;
     }
   }
   return null;
