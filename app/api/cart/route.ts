@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { CartData } from '@/src/3_features/cart/fetch/CartFetchApi';
 import CartDb from '@/src/5_shared/api/helpers/db/cart/CartDb';
+import { CartItem } from '@prisma/client';
 
 const getCartListRequest = async (request: NextRequest) => {
   const url = new URL(request.url);
   const idCart = url.searchParams.get('idCart');
   try {
+    let listCart: Array<CartItem> = [];
     if (idCart) {
-      const listCart = await new CartDb().getCartListById(idCart);
-      return NextResponse.json(listCart);
+      listCart = await new CartDb().getCartListById(idCart);
     }
-    return NextResponse.json([]);
+    return NextResponse.json(listCart);
   } catch (error) {
     return NextResponse.json('Cant get list cart');
   }
@@ -30,7 +31,7 @@ const removeProductFromCartRequest = async (request: NextRequest) => {
   const url = new URL(request.url);
   const idCart = url.searchParams.get('idCart');
   const idProduct = url.searchParams.get('idProduct');
-  
+
   try {
     if (idCart && idProduct) {
       const isProductRemoveFromCart = await new CartDb().removeProductFromCart({

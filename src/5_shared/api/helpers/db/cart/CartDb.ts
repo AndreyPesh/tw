@@ -13,13 +13,13 @@ export default class CartDb {
       });
       return cartList;
     } catch {
-      throw new Error("Can't get cart list");
+      return [];
     }
   };
 
   addProductToCart = async ({ idCart, idProduct }: CartData) => {
     try {
-      const cartItem = await prisma.cartItem.create({
+      await prisma.cartItem.create({
         data: {
           quantity: DEFAULT_QUANTITY,
           cart: {
@@ -30,15 +30,15 @@ export default class CartDb {
           },
         },
       });
-      return cartItem ? true : false;
-    } catch (error) {
-      throw new Error("Can't add product to database");
+      return true;
+    } catch {
+      return false;
     }
   };
 
   removeProductFromCart = async ({ idCart, idProduct }: CartData) => {
     try {
-      const cartItem = await prisma.cartItem.delete({
+      await prisma.cartItem.delete({
         where: {
           unique_item: {
             cartId: idCart,
@@ -46,9 +46,9 @@ export default class CartDb {
           },
         },
       });
-      return cartItem ? true : false;
-    } catch (error) {
-      throw new Error("Can't remove product from database");
+      return true;
+    } catch {
+      return false;
     }
   };
 }
