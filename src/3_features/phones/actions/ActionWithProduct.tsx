@@ -1,6 +1,6 @@
 'use client';
 
-import AddToCartButton from '@/src/5_shared/UI/buttons/AddToCartButton';
+import AddToCartButton from '@/src/3_features/cart/AddToCartButton';
 import BuyNowButton from '@/src/5_shared/UI/buttons/BuyNowButton';
 
 const ActionWithProduct = () => {
