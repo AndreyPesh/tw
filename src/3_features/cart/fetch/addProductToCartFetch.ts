@@ -10,7 +10,7 @@ export const addProductToCartFetch = async ({
   idCart,
   idProduct,
 }: CartData) => {
-  const response = await axios.post<boolean>(CART_ROUTE.ADD_PRODUCT, {
+  const response = await axios.post<boolean>(CART_ROUTE.CART_API, {
     idCart,
     idProduct,
   });

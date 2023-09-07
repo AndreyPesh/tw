@@ -1,15 +1,28 @@
-import { useState, MouseEvent, FC } from 'react';
-import { getSession } from 'next-auth/react';
+'use client';
+
+import { useState, MouseEvent, FC, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import classNames from 'classnames';
 import { CartData, addProductToCartFetch } from './fetch/addProductToCartFetch';
+import { getCartListFetch } from './fetch/getCartListFetch';
+import { QUERY_LIST_CART_KEY } from './types/constants';
 
 interface AddToCartButtonProps {
   idProduct: string;
 }
 
 const AddToCartButton: FC<AddToCartButtonProps> = ({ idProduct }) => {
+  const { data: session } = useSession();
+  const id = session?.user ? session.user.cart.id : '';
+  console.log(QUERY_LIST_CART_KEY, id);
+
+  const {
+    data: listCart,
+    isLoading: isLoadingCart,
+  } = useQuery([QUERY_LIST_CART_KEY, id], () => getCartListFetch(id));
+
   const { mutateAsync, isLoading } = useMutation(
     ({ idCart, idProduct }: CartData) => {
       return addProductToCartFetch({ idCart, idProduct });
@@ -24,7 +37,6 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ idProduct }) => {
     }
 
     try {
-      const session = await getSession();
       const idCart = session?.user.cart.id;
 
       if (idCart) {
@@ -40,6 +52,10 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ idProduct }) => {
     }
   };
 
+  useEffect(() => {
+    console.log('List cart', listCart);
+  }, [listCart]);
+
   return (
     <button
       className={classNames(
@@ -49,7 +65,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ idProduct }) => {
         { 'bg-green-700': isInCart }
       )}
       onClick={addToCartHandler}
-      disabled={isLoading}
+      disabled={isLoading || isLoadingCart}
       data-cart="cart-button"
     >
       {<AiOutlineShoppingCart size={20} />} {isInCart ? 'Remove' : 'Add'}
