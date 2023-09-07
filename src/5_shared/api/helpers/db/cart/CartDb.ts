@@ -1,5 +1,5 @@
 import prisma from '@/global.d';
-import { CartData } from '@/src/3_features/cart/fetch/addProductToCartFetch';
+import { CartData } from '@/src/3_features/cart/fetch/CartFetchApi';
 
 const DEFAULT_QUANTITY = 1;
 
@@ -33,6 +33,22 @@ export default class CartDb {
       return cartItem ? true : false;
     } catch (error) {
       throw new Error("Can't add product to database");
+    }
+  };
+
+  removeProductFromCart = async ({ idCart, idProduct }: CartData) => {
+    try {
+      const cartItem = await prisma.cartItem.delete({
+        where: {
+          unique_item: {
+            cartId: idCart,
+            phoneId: idProduct,
+          },
+        },
+      });
+      return cartItem ? true : false;
+    } catch (error) {
+      throw new Error("Can't remove product from database");
     }
   };
 }
