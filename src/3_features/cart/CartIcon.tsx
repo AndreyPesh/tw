@@ -11,7 +11,7 @@ const CartIcon = () => {
 
   useEffect(() => {
     const countItem = listCart?.length;
-    if (listCart && countItem) {
+    if (listCart && countItem || countItem === 0) {     
       setCountCartItem(countItem);
     }
   }, [listCart, listCart?.length]);
