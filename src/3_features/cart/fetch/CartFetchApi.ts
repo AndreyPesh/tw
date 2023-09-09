@@ -1,6 +1,6 @@
-import { CART_ROUTE } from '@/src/5_shared/api/cart/routes';
-import { CartItem } from '@prisma/client';
 import axios from 'axios';
+import { CART_ROUTE } from '@/src/5_shared/api/cart/routes';
+import { ListDataProductInCart } from '@/src/5_shared/api/helpers/db/cart/CartDb';
 
 export interface CartData {
   idCart: string;
@@ -8,8 +8,8 @@ export interface CartData {
 }
 
 class CartFetchApi {
-  getCartListFetch = async (idCart: string): Promise<Array<CartItem>> => {
-    const response = await axios.get<Array<CartItem>>(CART_ROUTE.CART_API, {
+  getCartListFetch = async (idCart: string): Promise<ListDataProductInCart> => {
+    const response = await axios.get<ListDataProductInCart>(CART_ROUTE.CART_API, {
       params: { idCart },
     });
     return response.data;

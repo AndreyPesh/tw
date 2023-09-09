@@ -3,12 +3,25 @@ import { CartData } from '@/src/3_features/cart/fetch/CartFetchApi';
 
 const DEFAULT_QUANTITY = 1;
 
+export type ListDataProductInCart = Awaited<
+  ReturnType<CartDb['getCartListById']>
+>;
+
+export type ItemProductInCartData = ListDataProductInCart[0]
+
 export default class CartDb {
   getCartListById = async (idCart: string) => {
     try {
       const cartList = await prisma.cartItem.findMany({
         where: {
           cartId: idCart,
+        },
+        include: {
+          phone: {
+            include: {
+              images: true,
+            },
+          },
         },
       });
       return cartList;
