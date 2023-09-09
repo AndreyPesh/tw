@@ -8,7 +8,7 @@ interface CartItemProps {
 const CartItem: FC<CartItemProps> = ({ cartItem }) => {
   const { phoneId, quantity } = cartItem;
   return (
-    <div>
+    <div className='my-2 p-4 border rounded-lg'>
       <h2>PhoneId: {phoneId}</h2>
       <h2>Quantity: {quantity}</h2>
     </div>
