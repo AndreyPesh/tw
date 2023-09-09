@@ -1,9 +1,10 @@
 import { useSession } from 'next-auth/react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { QUERY_LIST_CART_KEY } from '../types/constants';
 import CartFetchApi, { CartData } from '../fetch/CartFetchApi';
 
 export const useCartQuery = () => {
+  const queryClient = useQueryClient()
   const { data: session } = useSession();
   const id = session?.user ? session.user.cart.id : '';
 
@@ -12,11 +13,18 @@ export const useCartQuery = () => {
     () => CartFetchApi.getCartListFetch(id)
   );
 
+  const updateStateCart = () => {
+    queryClient.invalidateQueries([QUERY_LIST_CART_KEY, id])
+  }
+
   const { mutateAsync: addToCartFetch, isLoading: isLoadingAddToCart } =
     useMutation(
       [QUERY_LIST_CART_KEY, id],
       ({ idCart, idProduct }: CartData) => {
         return CartFetchApi.addProductToCartFetch({ idCart, idProduct });
+      },
+      {
+        onSuccess: updateStateCart
       }
     );
 
@@ -27,6 +35,8 @@ export const useCartQuery = () => {
     [QUERY_LIST_CART_KEY, id],
     ({ idCart, idProduct }: CartData) => {
       return CartFetchApi.removeProductProductCartFetch({ idCart, idProduct });
+    }, {
+      onSuccess: updateStateCart
     }
   );
 
