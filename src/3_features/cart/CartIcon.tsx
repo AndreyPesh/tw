@@ -1,23 +1,25 @@
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useCartQuery } from './hooks/useCartQuery';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-const Cart = () => {
+const CartIcon = () => {
   const [countCartItem, setCountCartItem] = useState(0);
   const { listCart } = useCartQuery();
+  const router = useRouter();
 
   useEffect(() => {
     const countItem = listCart?.length;
     if (listCart && countItem) {
       setCountCartItem(countItem);
     }
-    
   }, [listCart, listCart?.length]);
 
   return (
     <div
       onClick={(e) => {
         e.stopPropagation();
+        router.push('/cart')
       }}
       className="relative w-[30px] h-[65px] inline-flex items-center cursor-pointer active:scale-90 transition-all"
     >
@@ -29,4 +31,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartIcon;
