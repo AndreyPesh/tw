@@ -1,12 +1,12 @@
 import prisma from '@/global.d';
-import { AuthOptions } from 'next-auth';
+import { AuthOptions, Session } from 'next-auth';
 import { Adapter } from 'next-auth/adapters';
 import bcryptjs from 'bcryptjs';
-import { User } from '@prisma/client';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { COOKIES } from '@/src/5_shared/types/constant';
 import { validateLoginData } from '@/src/5_shared/utils/server/validate/validateFormData';
+import { UserData } from './fetching/user/data';
 
 export const authOptions: AuthOptions = {
   cookies: COOKIES,
@@ -22,7 +22,7 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: 'credentials',
       credentials: { email: { type: 'text' }, password: { type: 'password' } },
-      async authorize(credentials): Promise<User | null> {
+      async authorize(credentials): Promise<UserData | null> {
         if (!credentials?.email || !credentials.password) {
           return Promise.reject(new Error('Fill in the fields!'));
         }
@@ -38,6 +38,9 @@ export const authOptions: AuthOptions = {
 
           const user = await prisma.user.findUnique({
             where: { email: data.email },
+            include: {
+              cart: true,
+            },
           });
 
           if (!user) {
@@ -49,7 +52,8 @@ export const authOptions: AuthOptions = {
               user.password
             );
             if (isValidPassword) {
-              return user;
+              const { password, ...userData } = user;
+              return userData;
             } else {
               return Promise.reject(new Error('Invalid password!'));
             }
@@ -71,7 +75,7 @@ export const authOptions: AuthOptions = {
     },
 
     async session({ session, token }) {
-      session.user = token;
+      session.user = {...session.user,...token};
       return session;
     },
   },

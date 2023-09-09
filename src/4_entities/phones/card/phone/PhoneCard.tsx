@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { UNKNOWN_BRAND_NAME } from '../../constants';
 import { PhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import Rating from '@/src/5_shared/UI/rating/Rating';
-import AddToCartButton from '@/src/5_shared/UI/buttons/AddToCartButton';
+import AddToCartButton from '@/src/3_features/cart/AddToCartButton';
 
 const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
   const router = useRouter();
@@ -42,7 +42,7 @@ const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
       </div>
       <span className="p-2 w-full inline-flex justify-between items-center">
         <h3 className="font-bold text-base">Price: {price} &#36;</h3>
-        <AddToCartButton />
+        <AddToCartButton idProduct={data.id} />
       </span>
     </div>
   );

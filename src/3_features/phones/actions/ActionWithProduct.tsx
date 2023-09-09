@@ -1,13 +1,18 @@
 'use client';
 
-import AddToCartButton from '@/src/5_shared/UI/buttons/AddToCartButton';
+import AddToCartButton from '@/src/3_features/cart/AddToCartButton';
 import BuyNowButton from '@/src/5_shared/UI/buttons/BuyNowButton';
+import { FC } from 'react';
 
-const ActionWithProduct = () => {
+interface ActionWithProductProps {
+  idProduct: string;
+}
+
+const ActionWithProduct: FC<ActionWithProductProps> = ({ idProduct }) => {
   return (
     <div className="py-4 w-full md:w-[50%] inline-flex justify-around ">
       <BuyNowButton />
-      <AddToCartButton />
+      <AddToCartButton idProduct={idProduct} />
     </div>
   );
 };

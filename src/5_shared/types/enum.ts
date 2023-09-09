@@ -5,6 +5,7 @@ export const enum EnumLinkPage {
   CONTACTS = '/contacts',
   AUTH = '/auth',
   USER = '/user',
+  CART = '/cart'
 }
 
 export const enum EnumTypeAuth {

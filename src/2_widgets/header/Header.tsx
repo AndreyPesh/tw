@@ -2,18 +2,18 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { User } from '@prisma/client';
 import classNames from 'classnames';
 import AuthButton from '@/src/3_features/authButton/AuthButton';
 import BurgerButton from '@/src/3_features/burger/BurgerButton';
 import Navigation from '@/src/3_features/navigation/Navigation';
 import UserButton from '@/src/3_features/userButton/UserButton';
+import CartIcon from '@/src/3_features/cart/CartIcon';
 import { useActions } from '@/src/5_shared/hooks/useActions';
 import { useAppSelector } from '@/src/5_shared/store/hooks/redux';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
+import { UserData } from '@/src/5_shared/utils/server/fetching/user/data';
 
-const Header = ({ user }: { user: User | null }) => {
-
+const Header = ({ user }: { user: UserData | null }) => {
   const active = useAppSelector((state) => state.burger.active);
   const { toggle } = useActions();
 
@@ -40,6 +40,7 @@ const Header = ({ user }: { user: User | null }) => {
           )}
         >
           <Navigation />
+          <CartIcon />
           {user ? <UserButton user={user} /> : <AuthButton />}
         </div>
         <BurgerButton />

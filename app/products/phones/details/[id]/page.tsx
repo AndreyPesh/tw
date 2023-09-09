@@ -29,7 +29,7 @@ const PhoneDetailPage = async ({ params }: { params: { id: string } }) => {
                   Current price: {phoneData.data.price} &#36;
                 </h2>
               </div>
-              <ActionWithProduct />
+              <ActionWithProduct idProduct={phoneData.data.id} />
               <PhoneDetails listDetails={phoneData.data.details} />
             </div>
           </div>
