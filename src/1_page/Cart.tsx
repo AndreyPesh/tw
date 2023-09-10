@@ -13,6 +13,7 @@ const Cart = () => {
 
   return (
     <div className="container">
+      <h2 className='p-2 text-center font-bold text-lg'>Shopping cart</h2>
       {listCart ? (
         <div className="flex flex-col w-full">
           {listCart.map((cartItem) => (
