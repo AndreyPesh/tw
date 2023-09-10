@@ -7,6 +7,7 @@ import { UNKNOWN_BRAND_NAME } from '../../constants';
 import { PhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
 import Rating from '@/src/5_shared/UI/rating/Rating';
 import AddToCartButton from '@/src/3_features/cart/AddToCartButton';
+import { EnumLinkPage } from '@/src/5_shared/types/enum';
 
 const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
     : UNKNOWN_BRAND_NAME;
 
   const routeToDetailsHandler = () => {
-    router.push(`/products/phones/details/${id}`);
+    router.push(`${EnumLinkPage.DETAILS}${id}`);
   };
 
   return (

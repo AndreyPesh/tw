@@ -3,6 +3,7 @@
 import { useCartQuery } from '../3_features/cart/hooks/useCartQuery';
 import Loader from '../5_shared/loader/Loader';
 import CartProductItem from '../3_features/cart/CartProductItem';
+import EmptyCart from '../3_features/cart/EmptyCart';
 
 const Cart = () => {
   const { listCart, isLoading } = useCartQuery();
@@ -13,14 +14,14 @@ const Cart = () => {
 
   return (
     <div className="container">
-      {listCart ? (
+      <h2 className="p-2 text-center font-bold text-lg">Shopping cart</h2>
+      {listCart?.length === 0 && <EmptyCart />}
+      {listCart && (
         <div className="flex flex-col w-full">
           {listCart.map((cartItem) => (
-            <CartProductItem key={cartItem.id} cartItem={cartItem} />
+            <CartProductItem key={cartItem.id} cartItemData={cartItem} />
           ))}
         </div>
-      ) : (
-        <h2>Cart empty</h2>
       )}
     </div>
   );

@@ -7,7 +7,7 @@ export type ListDataProductInCart = Awaited<
   ReturnType<CartDb['getCartListById']>
 >;
 
-export type ItemProductInCartData = ListDataProductInCart[0]
+export type ItemProductInCartData = ListDataProductInCart[0];
 
 export default class CartDb {
   getCartListById = async (idCart: string) => {
@@ -20,6 +20,11 @@ export default class CartDb {
           phone: {
             include: {
               images: true,
+              brand: {
+                include: {
+                  list: true,
+                },
+              },
             },
           },
         },

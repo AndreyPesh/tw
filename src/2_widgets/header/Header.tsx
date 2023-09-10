@@ -40,9 +40,10 @@ const Header = ({ user }: { user: UserData | null }) => {
           )}
         >
           <Navigation />
-          <CartIcon />
+          <CartIcon styles='hidden md:inline-flex' />
           {user ? <UserButton user={user} /> : <AuthButton />}
         </div>
+        <CartIcon styles='md:hidden' />
         <BurgerButton />
       </div>
     </header>
