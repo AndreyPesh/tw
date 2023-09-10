@@ -25,19 +25,20 @@ const CartItem: FC<CartItemProps> = ({ cartItemData }) => {
 
   return (
     <div
-      className="my-2 p-4 flex flex-col md:flex-row items-center justify-between border rounded-lg hover:shadow-lg select-none"
+      className="my-2 p-4 flex flex-col md:flex-row items-center justify-between bg-slate-100 border rounded-lg hover:shadow-lg select-none"
       data-route_details
     >
       <div
         onClick={routeToDetailsHandler}
-        className="inline-flex items-center cursor-pointer"
+        className="flex items-center cursor-pointer"
       >
         <Image width={50} height={50} alt="image" src={imageSrc} />
         <h2 className="hover:underline">
           <b>{brand}</b> {phone.model}
         </h2>
       </div>
-      <div className="max-w-[500px] flex flex-col gap-2 md:flex-row md:flex-grow flex-wrap items-center justify-around">
+      <div className="max-w-[600px] flex flex-col gap-2 md:flex-row  flex-wrap items-center justify-around">
+        <h2 className='font-bold'>Price: {phone.price} &#36;</h2>
         <Counter count={quantity} setCount={setQuantity} minValue={1} />
         <BuyNowButton />
         <AddToCartButton idProduct={cartItemData.phoneId} />
