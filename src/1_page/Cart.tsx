@@ -16,7 +16,7 @@ const Cart = () => {
       {listCart ? (
         <div className="flex flex-col w-full">
           {listCart.map((cartItem) => (
-            <CartProductItem key={cartItem.id} cartItem={cartItem} />
+            <CartProductItem key={cartItem.id} cartItemData={cartItem} />
           ))}
         </div>
       ) : (
