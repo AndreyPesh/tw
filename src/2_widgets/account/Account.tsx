@@ -14,6 +14,7 @@ import {
 } from '@/src/5_shared/types/constant';
 import DeleteButtonIcon from '@/src/5_shared/buttons/DeleteButtonIcon';
 import UserDataForm from '../forms/UserDataForm';
+import AddressDelivery from '@/src/3_features/userData/address/AddressDelivery';
 
 const Account: FC<Partial<User>> = ({ name, email, image }) => {
   const { openModal } = useAddImageModalStore();
@@ -43,6 +44,7 @@ const Account: FC<Partial<User>> = ({ name, email, image }) => {
             </div>
           </div>
           <UserDataForm name={currentUserName} email={email as string} />
+          <AddressDelivery />
         </div>
       </section>
       <Modal children={<FileLoader />} management={useAddImageModalStore} />
