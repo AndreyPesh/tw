@@ -1,8 +1,8 @@
 'use client';
 
 import AddToCartButton from '@/src/3_features/cart/AddToCartButton';
-import BuyNowButton from '@/src/5_shared/UI/buttons/BuyNowButton';
 import { FC } from 'react';
+import PaymentOrder from '../../order/PaymentOrder';
 
 interface ActionWithProductProps {
   idProduct: string;
@@ -11,7 +11,7 @@ interface ActionWithProductProps {
 const ActionWithProduct: FC<ActionWithProductProps> = ({ idProduct }) => {
   return (
     <div className="py-4 w-full md:w-[50%] inline-flex justify-around ">
-      <BuyNowButton />
+      <PaymentOrder />
       <AddToCartButton idProduct={idProduct} />
     </div>
   );

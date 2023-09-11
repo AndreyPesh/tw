@@ -1,11 +1,11 @@
-import { FC, MouseEvent, useState } from 'react';
+import { FC, useState } from 'react';
 import Image from 'next/image';
 import { ItemProductInCartData } from '@/src/5_shared/api/helpers/db/cart/CartDb';
 import AddToCartButton from './AddToCartButton';
 import { useRouter } from 'next/navigation';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
 import Counter from '../counter/Counter';
-import BuyNowButton from '@/src/5_shared/UI/buttons/BuyNowButton';
+import PaymentOrder from '../order/PaymentOrder';
 
 interface CartItemProps {
   cartItemData: ItemProductInCartData;
@@ -40,7 +40,7 @@ const CartItem: FC<CartItemProps> = ({ cartItemData }) => {
       <div className="max-w-[600px] flex flex-col gap-2 md:flex-row  flex-wrap items-center justify-around">
         <h2 className='font-bold'>Price: {phone.price} &#36;</h2>
         <Counter count={quantity} setCount={setQuantity} minValue={1} />
-        <BuyNowButton />
+        <PaymentOrder />
         <AddToCartButton idProduct={cartItemData.phoneId} />
       </div>
     </div>
