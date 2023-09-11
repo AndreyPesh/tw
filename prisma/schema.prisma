@@ -47,8 +47,22 @@ model User {
   accounts      Account[]
   cart          Cart?
   sessions      Session[]
+  address       Address?
 
   @@map("users")
+}
+
+model Address {
+  id       String @id @default(uuid())
+  country  String
+  city     String
+  street   String
+  building String
+  postCode String @map("post_code")
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String @unique @map("user_id")
+
+  @@map("address")
 }
 
 model VerificationToken {
