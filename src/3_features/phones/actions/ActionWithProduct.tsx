@@ -1,7 +1,7 @@
 'use client';
 
-import AddToCartButton from '@/src/3_features/cart/AddToCartButton';
 import { FC } from 'react';
+import AddToCartButton from '@/src/3_features/cart/AddToCartButton';
 import PaymentOrder from '../../order/PaymentOrder';
 
 interface ActionWithProductProps {
