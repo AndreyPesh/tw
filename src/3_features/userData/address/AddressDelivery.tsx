@@ -6,6 +6,8 @@ import { useSession } from 'next-auth/react';
 import AddressData from './UI/Address';
 import AddressForm from './UI/form/AddressForm';
 import { filterAddress } from './helpers/filter';
+import Button from '@/src/5_shared/buttons/Button';
+import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 
 const AddressDelivery = () => {
   const [isShowEditAddressForm, setIsShowEditAddressForm] = useState(false);
@@ -32,12 +34,13 @@ const AddressDelivery = () => {
       >
         <div className="p-2 w-full min-w-[100%]">
           <h2 className="font-bold">Address delivery:</h2>
-          {userAddress && (
-            <AddressData
-              address={userAddress}
-              changeHandler={setIsShowEditAddressForm}
-            />
-          )}
+          {userAddress && <AddressData address={userAddress} />}
+          <Button
+            variant={EnumTypeButton.DANGER}
+            handler={() => setIsShowEditAddressForm(true)}
+          >
+            Change address
+          </Button>
         </div>
         <div className="p-2 w-full min-w-[100%]">
           <h2 className="font-bold">Edit address delivery:</h2>
