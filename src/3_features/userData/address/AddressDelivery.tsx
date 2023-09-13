@@ -34,12 +34,16 @@ const AddressDelivery = () => {
       >
         <div className="p-2 w-full min-w-[100%]">
           <h2 className="font-bold">Address delivery:</h2>
-          {userAddress && <AddressData address={userAddress} />}
+          {userAddress ? (
+            <AddressData address={userAddress} />
+          ) : (
+            <h2>Address is not specified</h2>
+          )}
           <Button
             variant={EnumTypeButton.DANGER}
             handler={() => setIsShowEditAddressForm(true)}
           >
-            Change address
+            {userAddress ? 'Change address' : 'Add address'}
           </Button>
         </div>
         <div className="p-2 w-full min-w-[100%]">

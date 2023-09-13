@@ -6,6 +6,9 @@ import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 import Input from './input/Input';
 import { initAddressData } from './types/constants';
 import { AddressData } from './types/types';
+import { useSession } from 'next-auth/react';
+import useAddressQuery from '../../hooks/useAddressQuery';
+import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 
 interface AddressFormProps {
   addressData: AddressData | null;
@@ -16,6 +19,11 @@ const AddressForm: FC<AddressFormProps> = ({
   addressData,
   hideFormHandler,
 }) => {
+  const { data: session } = useSession();
+  const userId = session?.user.id ?? '';
+
+  const { createAddressFetch, isLoading } = useAddressQuery();
+
   const defaultAddressValue = addressData ? addressData : initAddressData;
   const {
     register,
@@ -24,10 +32,17 @@ const AddressForm: FC<AddressFormProps> = ({
   } = useForm<AddressFormData>({ defaultValues: defaultAddressValue });
 
   const onSubmit: SubmitHandler<AddressFormData> = async (
-    data: AddressFormData
+    addressData: AddressFormData
   ) => {
-    console.log(data);
-    hideFormHandler(false);
+    try {
+      const response = await createAddressFetch({ userId, addressData });
+      console.log(response);
+      if (response.status === STATUS_CODE.OK) {
+        hideFormHandler(false);
+      }
+    } catch (error) {
+      console.log((error as Error).message);
+    }
   };
 
   return (
@@ -63,7 +78,11 @@ const AddressForm: FC<AddressFormProps> = ({
         error={errors.postCode}
       />
       <p className="py-2 font-bold">Enter your address data.</p>
-      <Button type="submit" variant={EnumTypeButton.APPLY}>
+      <Button
+        type="submit"
+        variant={EnumTypeButton.APPLY}
+        isLoading={isLoading}
+      >
         Save address
       </Button>
     </form>
