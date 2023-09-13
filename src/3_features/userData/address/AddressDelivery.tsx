@@ -1,25 +1,15 @@
 import { useState } from 'react';
 import classNames from 'classnames';
-import { useQuery } from 'react-query';
-import AddressAPI from './fetch/AddressAPI';
-import { useSession } from 'next-auth/react';
 import AddressData from './UI/Address';
 import AddressForm from './UI/form/AddressForm';
 import { filterAddress } from './helpers/filter';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
+import useAddressQuery from './hooks/useAddressQuery';
 
 const AddressDelivery = () => {
   const [isShowEditAddressForm, setIsShowEditAddressForm] = useState(false);
-  const session = useSession();
-  const userId = session.data?.user.id ?? '';
-
-  const { data: response, isLoading } = useQuery(
-    [userId],
-    async () => await AddressAPI.getAddress(userId)
-  );
-
-  const userAddress = response?.data.address ? response?.data.address : null;
+  const { userAddress, isLoading } = useAddressQuery();
 
   if (isLoading) {
     return <h2>Loading...</h2>;

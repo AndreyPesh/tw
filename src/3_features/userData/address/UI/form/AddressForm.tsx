@@ -6,7 +6,6 @@ import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 import Input from './input/Input';
 import { initAddressData } from './types/constants';
 import { AddressData } from './types/types';
-import { useSession } from 'next-auth/react';
 import useAddressQuery from '../../hooks/useAddressQuery';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
 
@@ -19,9 +18,6 @@ const AddressForm: FC<AddressFormProps> = ({
   addressData,
   hideFormHandler,
 }) => {
-  const { data: session } = useSession();
-  const userId = session?.user.id ?? '';
-
   const { createAddressFetch, isLoading } = useAddressQuery();
 
   const defaultAddressValue = addressData ? addressData : initAddressData;
@@ -35,8 +31,7 @@ const AddressForm: FC<AddressFormProps> = ({
     addressData: AddressFormData
   ) => {
     try {
-      const response = await createAddressFetch({ userId, addressData });
-      console.log(response);
+      const response = await createAddressFetch({ addressData });      
       if (response.status === STATUS_CODE.OK) {
         hideFormHandler(false);
       }

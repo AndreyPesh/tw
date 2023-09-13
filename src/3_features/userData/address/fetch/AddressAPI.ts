@@ -13,7 +13,7 @@ class AddressAPI {
     const response = await axios.get<ResponseUserAddress>(LIST_ROUTES.ADDRESS, {
       params: { userId },
     });
-    return response;
+    return response.data;
   };
   createAddress = async (userId: string, addressData: AddressData) => {
     const response = await axios.post<ResponseUserAddress>(
