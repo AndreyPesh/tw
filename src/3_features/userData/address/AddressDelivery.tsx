@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
 import { useQuery } from 'react-query';
 import AddressAPI from './fetch/AddressAPI';
 import { useSession } from 'next-auth/react';
 import AddressData from './UI/Address';
+import AddressForm from './UI/form/AddressForm';
 
 const AddressDelivery = () => {
   const [isShowEditAddressForm, setIsShowEditAddressForm] = useState(true);
@@ -39,8 +40,8 @@ const AddressDelivery = () => {
         </div>
         <div className="p-2 w-full min-w-[100%]">
           <h2 className="font-bold">Edit address delivery:</h2>
-          Edit form
-          <button onClick={() => setIsShowEditAddressForm(false)}>Data</button>
+          Edit form:
+          <AddressForm hideFormHandler={setIsShowEditAddressForm} />
         </div>
       </div>
     </div>
