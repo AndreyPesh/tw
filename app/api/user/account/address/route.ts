@@ -9,7 +9,7 @@ const getUserAddress = async (request: NextRequest) => {
 
     if (userId) {
       const address = await new AddressDB().getAddress(userId);
-      return NextResponse.json({ status: STATUS_CODE.OK, data: address });
+      return NextResponse.json({ status: STATUS_CODE.OK, address });
     }
     throw new Error('User id is not exist');
   } catch (error) {

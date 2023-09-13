@@ -8,4 +8,5 @@ export const enum LIST_ROUTES {
   AVATAR = '/api/user/account/avatar',
   USERNAME = './api/user/account/name',
   EMAIL = './api/user/account/email',
+  ADDRESS = '/api/user/account/address'
 }
