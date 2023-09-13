@@ -5,9 +5,10 @@ import AddressAPI from './fetch/AddressAPI';
 import { useSession } from 'next-auth/react';
 import AddressData from './UI/Address';
 import AddressForm from './UI/form/AddressForm';
+import { filterAddress } from './helpers/filter';
 
 const AddressDelivery = () => {
-  const [isShowEditAddressForm, setIsShowEditAddressForm] = useState(true);
+  const [isShowEditAddressForm, setIsShowEditAddressForm] = useState(false);
   const session = useSession();
   const userId = session.data?.user.id ?? '';
 
@@ -16,7 +17,7 @@ const AddressDelivery = () => {
     async () => await AddressAPI.getAddress(userId)
   );
 
-  const userAddress = response?.data.address;
+  const userAddress = response?.data.address ? response?.data.address : null;
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -40,8 +41,10 @@ const AddressDelivery = () => {
         </div>
         <div className="p-2 w-full min-w-[100%]">
           <h2 className="font-bold">Edit address delivery:</h2>
-          Edit form:
-          <AddressForm hideFormHandler={setIsShowEditAddressForm} />
+          <AddressForm
+            addressData={filterAddress(userAddress)}
+            hideFormHandler={setIsShowEditAddressForm}
+          />
         </div>
       </div>
     </div>

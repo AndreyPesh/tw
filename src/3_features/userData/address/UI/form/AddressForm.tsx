@@ -4,17 +4,24 @@ import { AddressFormData } from './types/interfaces';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 import Input from './input/Input';
+import { initAddressData } from './types/constants';
+import { AddressData } from './types/types';
 
 interface AddressFormProps {
+  addressData: AddressData | null;
   hideFormHandler: Dispatch<SetStateAction<boolean>>;
 }
 
-const AddressForm: FC<AddressFormProps> = ({ hideFormHandler }) => {
+const AddressForm: FC<AddressFormProps> = ({
+  addressData,
+  hideFormHandler,
+}) => {
+  const defaultAddressValue = addressData ? addressData : initAddressData;
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AddressFormData>();
+  } = useForm<AddressFormData>({ defaultValues: defaultAddressValue });
 
   const onSubmit: SubmitHandler<AddressFormData> = async (
     data: AddressFormData
@@ -55,6 +62,7 @@ const AddressForm: FC<AddressFormProps> = ({ hideFormHandler }) => {
         register={register('postCode', { required: true })}
         error={errors.postCode}
       />
+      <p className="py-2 font-bold">Enter your address data.</p>
       <Button type="submit" variant={EnumTypeButton.APPLY}>
         Save address
       </Button>
