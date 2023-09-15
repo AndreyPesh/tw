@@ -2,17 +2,20 @@
 
 import { FC } from 'react';
 import AddToCartButton from '@/src/3_features/cart/AddToCartButton';
-import PaymentOrder from '../../order/PaymentOrder';
+import { PhoneData } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
+import OrderButton from '@/src/5_shared/UI/buttons/OrderButton';
+
+const DEFAULT_QUANTITY = 1;
 
 interface ActionWithProductProps {
-  idProduct: string;
+  productData: PhoneData;
 }
 
-const ActionWithProduct: FC<ActionWithProductProps> = ({ idProduct }) => {
+const ActionWithProduct: FC<ActionWithProductProps> = ({ productData }) => {
   return (
     <div className="py-4 w-full md:w-[50%] inline-flex justify-around ">
-      <PaymentOrder />
-      <AddToCartButton idProduct={idProduct} />
+      <OrderButton productData={productData} quantity={DEFAULT_QUANTITY} />
+      <AddToCartButton idProduct={productData.id} />
     </div>
   );
 };

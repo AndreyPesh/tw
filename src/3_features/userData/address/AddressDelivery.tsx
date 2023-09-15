@@ -1,25 +1,15 @@
 import { useState } from 'react';
 import classNames from 'classnames';
-import { useQuery } from 'react-query';
-import AddressAPI from './fetch/AddressAPI';
-import { useSession } from 'next-auth/react';
 import AddressData from './UI/Address';
 import AddressForm from './UI/form/AddressForm';
 import { filterAddress } from './helpers/filter';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
+import useAddressQuery from './hooks/useAddressQuery';
 
 const AddressDelivery = () => {
   const [isShowEditAddressForm, setIsShowEditAddressForm] = useState(false);
-  const session = useSession();
-  const userId = session.data?.user.id ?? '';
-
-  const { data: response, isLoading } = useQuery(
-    [userId],
-    async () => await AddressAPI.getAddress(userId)
-  );
-
-  const userAddress = response?.data.address ? response?.data.address : null;
+  const { userAddress, isLoading } = useAddressQuery();
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -34,12 +24,16 @@ const AddressDelivery = () => {
       >
         <div className="p-2 w-full min-w-[100%]">
           <h2 className="font-bold">Address delivery:</h2>
-          {userAddress && <AddressData address={userAddress} />}
+          {userAddress ? (
+            <AddressData address={userAddress} />
+          ) : (
+            <h2>Address is not specified</h2>
+          )}
           <Button
             variant={EnumTypeButton.DANGER}
             handler={() => setIsShowEditAddressForm(true)}
           >
-            Change address
+            {userAddress ? 'Update address' : 'Add address'}
           </Button>
         </div>
         <div className="p-2 w-full min-w-[100%]">
