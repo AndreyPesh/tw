@@ -33,7 +33,7 @@ const AddressDelivery = () => {
             variant={EnumTypeButton.DANGER}
             handler={() => setIsShowEditAddressForm(true)}
           >
-            {userAddress ? 'Change address' : 'Add address'}
+            {userAddress ? 'Update address' : 'Add address'}
           </Button>
         </div>
         <div className="p-2 w-full min-w-[100%]">

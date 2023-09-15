@@ -30,10 +30,22 @@ const useAddressQuery = () => {
       }
     );
 
-  const isLoading = isLoadingCreateAddress || isLoadingAddress;
+  const { mutateAsync: updateAddressFetch, isLoading: isLoadingUpdateAddress } =
+    useMutation(
+      [ADDRESS_QUERY_KEY, userId],
+      ({ addressData }: { addressData: AddressData }) => {
+        return AddressAPI.updateAddress(userId, addressData);
+      },
+      {
+        onSuccess: updateStateAddress,
+      }
+    );
+
+  const isLoading =
+    isLoadingCreateAddress || isLoadingAddress || isLoadingUpdateAddress;
   const userAddress = responseAddress?.address ?? null;
 
-  return { userAddress, createAddressFetch, isLoading };
+  return { userAddress, createAddressFetch, updateAddressFetch, isLoading };
 };
 
 export default useAddressQuery;

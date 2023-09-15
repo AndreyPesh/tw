@@ -34,4 +34,17 @@ const createAddress = async (request: NextRequest) => {
   }
 };
 
-export { getUserAddress as GET, createAddress as POST };
+const updateAddress = async (request: NextRequest) => {
+  try {
+    const { userId, addressData }: CreateAddressData = await request.json();
+    const response = await new AddressDB().updateAddress(userId, addressData);
+    return NextResponse.json(response);
+  } catch {
+    return NextResponse.json({
+      status: STATUS_CODE.INTERNAL,
+      message: 'Cant update address',
+    });
+  }
+};
+
+export { getUserAddress as GET, createAddress as POST, updateAddress as PATCH };

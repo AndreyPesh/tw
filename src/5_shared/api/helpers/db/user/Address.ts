@@ -17,6 +17,16 @@ class AddressDB {
     });
     return address;
   };
+
+  updateAddress = async (userId: string, addressData: AddressData) => {
+    const address = await prisma.address.update({
+      where: {
+        userId,
+      },
+      data: { ...addressData },
+    });
+    return address;
+  };
 }
 
 export default AddressDB;

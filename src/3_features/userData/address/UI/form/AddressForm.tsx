@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AddressFormData } from './types/interfaces';
@@ -8,6 +9,7 @@ import { initAddressData } from './types/constants';
 import { AddressData } from './types/types';
 import useAddressQuery from '../../hooks/useAddressQuery';
 import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
+import { ResponseUserAddress } from '../../fetch/AddressAPI';
 
 interface AddressFormProps {
   addressData: AddressData | null;
@@ -18,7 +20,8 @@ const AddressForm: FC<AddressFormProps> = ({
   addressData,
   hideFormHandler,
 }) => {
-  const { createAddressFetch, isLoading } = useAddressQuery();
+  const { createAddressFetch, updateAddressFetch, isLoading } =
+    useAddressQuery();
 
   const defaultAddressValue = addressData ? addressData : initAddressData;
   const {
@@ -28,10 +31,19 @@ const AddressForm: FC<AddressFormProps> = ({
   } = useForm<AddressFormData>({ defaultValues: defaultAddressValue });
 
   const onSubmit: SubmitHandler<AddressFormData> = async (
-    addressData: AddressFormData
+    addressFormData: AddressFormData
   ) => {
     try {
-      const response = await createAddressFetch({ addressData });
+      let response: AxiosResponse<ResponseUserAddress>;
+      if (addressData) {
+        response = await updateAddressFetch({
+          addressData: addressFormData,
+        });
+      } else {
+        response = await createAddressFetch({
+          addressData: addressFormData,
+        });
+      }
       if (response.status === STATUS_CODE.OK) {
         hideFormHandler(false);
       }
@@ -73,7 +85,7 @@ const AddressForm: FC<AddressFormProps> = ({
         error={errors.postCode}
       />
       <p className="py-2 font-bold">Enter your address data.</p>
-      <div className='md:max-w-[300px] w-full inline-flex justify-around'>
+      <div className="md:max-w-[300px] w-full inline-flex justify-around">
         <Button
           type="button"
           variant={EnumTypeButton.DANGER}
