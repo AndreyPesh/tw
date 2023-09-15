@@ -1,18 +1,23 @@
 import { FC } from 'react';
 import { PiContactlessPaymentLight } from 'react-icons/pi';
-import useOrderModalStore from '@/src/3_features/order/utils/modal/state';
+import useOrderModalStore from '@/src/3_features/order/state/modal/state';
 import { OrderProductData } from '../../api/helpers/db/phone/PhoneDb';
+import useOrderStore from '@/src/3_features/order/state/state';
+import { createOrderDataFromProductData } from '@/src/3_features/order/helpers/createOrderDataFromProductData';
 
 interface OrderButtonProps {
   productData: OrderProductData;
+  quantity: number;
 }
 
-const OrderButton: FC<OrderButtonProps> = ({ productData }) => {
+const OrderButton: FC<OrderButtonProps> = ({ productData, quantity }) => {
+  const { createOrder } = useOrderStore();
   const { openModal } = useOrderModalStore();
 
   const orderHandler = () => {
+    const orderData = createOrderDataFromProductData(productData, quantity);
+    createOrder(orderData);
     openModal();
-    console.log(productData);
   };
 
   return (

@@ -40,7 +40,7 @@ const CartItem: FC<CartItemProps> = ({ cartItemData }) => {
       <div className="max-w-[600px] flex flex-col gap-2 md:flex-row  flex-wrap items-center justify-around">
         <h2 className="font-bold">Price: {phone.price} &#36;</h2>
         <Counter count={quantity} setCount={setQuantity} minValue={1} />
-        <OrderButton productData={phone} />
+        <OrderButton productData={phone} quantity={quantity} />
         <AddToCartButton idProduct={cartItemData.phoneId} />
       </div>
     </div>

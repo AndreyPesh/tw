@@ -1,6 +1,5 @@
 export interface OrderData {
-  idUser: string;
-  idProduct: string;
+  productId: string;
   name: string;
   imageUrl: string;
   price: number;

@@ -2,8 +2,7 @@ import { create } from 'zustand';
 import { OrderData, OrderState } from './types/interfaces';
 
 const initStateData: OrderData = {
-  idUser: '',
-  idProduct: '',
+  productId: '',
   name: '',
   imageUrl: '',
   price: 0,
@@ -11,10 +10,10 @@ const initStateData: OrderData = {
   total: 0,
 };
 
-const useOrderModalStore = create<OrderState>((set) => ({
+const useOrderStore = create<OrderState>((set) => ({
   ...initStateData,
   createOrder: (orderData: OrderData) => set(() => ({ ...orderData })),
   resetOrder: () => set(() => ({ ...initStateData })),
 }));
 
-export default useOrderModalStore;
+export default useOrderStore;
