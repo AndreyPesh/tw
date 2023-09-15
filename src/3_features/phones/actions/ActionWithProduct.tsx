@@ -11,12 +11,10 @@ interface ActionWithProductProps {
 
 const ActionWithProduct: FC<ActionWithProductProps> = ({ productData }) => {
   return (
-    <>
-      <div className="py-4 w-full md:w-[50%] inline-flex justify-around ">
-        <OrderButton productData={productData} />
-        <AddToCartButton idProduct={productData.id} />
-      </div>
-    </>
+    <div className="py-4 w-full md:w-[50%] inline-flex justify-around ">
+      <OrderButton productData={productData} />
+      <AddToCartButton idProduct={productData.id} />
+    </div>
   );
 };
 
