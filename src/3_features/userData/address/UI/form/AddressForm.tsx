@@ -31,7 +31,7 @@ const AddressForm: FC<AddressFormProps> = ({
     addressData: AddressFormData
   ) => {
     try {
-      const response = await createAddressFetch({ addressData });      
+      const response = await createAddressFetch({ addressData });
       if (response.status === STATUS_CODE.OK) {
         hideFormHandler(false);
       }
@@ -73,13 +73,22 @@ const AddressForm: FC<AddressFormProps> = ({
         error={errors.postCode}
       />
       <p className="py-2 font-bold">Enter your address data.</p>
-      <Button
-        type="submit"
-        variant={EnumTypeButton.APPLY}
-        isLoading={isLoading}
-      >
-        Save address
-      </Button>
+      <div className='md:max-w-[300px] w-full inline-flex justify-around'>
+        <Button
+          type="button"
+          variant={EnumTypeButton.DANGER}
+          handler={() => hideFormHandler(false)}
+        >
+          Cancel
+        </Button>
+        <Button
+          type="submit"
+          variant={EnumTypeButton.APPLY}
+          isLoading={isLoading}
+        >
+          Save address
+        </Button>
+      </div>
     </form>
   );
 };
