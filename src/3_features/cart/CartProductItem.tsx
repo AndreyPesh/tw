@@ -5,7 +5,7 @@ import AddToCartButton from './AddToCartButton';
 import { useRouter } from 'next/navigation';
 import { EnumLinkPage } from '@/src/5_shared/types/enum';
 import Counter from '../counter/Counter';
-import PaymentOrder from '../order/PaymentOrder';
+import OrderButton from '@/src/5_shared/UI/buttons/OrderButton';
 
 interface CartItemProps {
   cartItemData: ItemProductInCartData;
@@ -38,9 +38,9 @@ const CartItem: FC<CartItemProps> = ({ cartItemData }) => {
         </h2>
       </div>
       <div className="max-w-[600px] flex flex-col gap-2 md:flex-row  flex-wrap items-center justify-around">
-        <h2 className='font-bold'>Price: {phone.price} &#36;</h2>
+        <h2 className="font-bold">Price: {phone.price} &#36;</h2>
         <Counter count={quantity} setCount={setQuantity} minValue={1} />
-        <PaymentOrder />
+        <OrderButton productData={phone} />
         <AddToCartButton idProduct={cartItemData.phoneId} />
       </div>
     </div>

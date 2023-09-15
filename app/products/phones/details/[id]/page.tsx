@@ -1,5 +1,6 @@
 import Empty from '@/src/1_page/Empty';
 import Carousel from '@/src/3_features/carousel/Carousel';
+import OrderDescriptionModal from '@/src/3_features/order/ui/OrderDescriptionModal';
 import ActionWithProduct from '@/src/3_features/phones/actions/ActionWithProduct';
 import PhoneDetails from '@/src/3_features/phones/details/PhoneDetails';
 import { getPhoneDataById } from '@/src/5_shared/utils/server/fetching/phone/data';
@@ -29,10 +30,11 @@ const PhoneDetailPage = async ({ params }: { params: { id: string } }) => {
                   Current price: {phoneData.data.price} &#36;
                 </h2>
               </div>
-              <ActionWithProduct idProduct={phoneData.data.id} />
+              <ActionWithProduct productData={phoneData.data} />
               <PhoneDetails listDetails={phoneData.data.details} />
             </div>
           </div>
+          <OrderDescriptionModal />
         </div>
       ) : (
         <Empty />

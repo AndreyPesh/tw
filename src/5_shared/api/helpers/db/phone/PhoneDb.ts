@@ -7,6 +7,8 @@ export type PhoneData = NonNullable<
   Awaited<ReturnType<PhoneDb['getPhoneById']>>
 >;
 
+export type OrderProductData = Omit<PhoneData, 'details'>;
+
 export class PhoneDb {
   getCountListPhones = async (optionsFilter: ListAppliedFilterOptions) => {
     try {
