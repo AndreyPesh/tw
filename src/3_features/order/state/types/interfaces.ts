@@ -4,7 +4,6 @@ export interface OrderData {
   imageUrl: string;
   price: number;
   quantity: number;
-  total: number;
 }
 
 export interface OrderState extends OrderData {

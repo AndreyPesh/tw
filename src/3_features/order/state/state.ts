@@ -7,7 +7,6 @@ const initStateData: OrderData = {
   imageUrl: '',
   price: 0,
   quantity: 0,
-  total: 0,
 };
 
 const useOrderStore = create<OrderState>((set) => ({
