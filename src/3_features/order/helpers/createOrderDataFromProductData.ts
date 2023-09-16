@@ -14,6 +14,5 @@ export const createOrderDataFromProductData = (
     imageUrl: images[0].url,
     price,
     quantity,
-    total: quantity * price,
   };
 };
