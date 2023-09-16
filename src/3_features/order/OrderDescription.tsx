@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import useOrderStore from './state/state';
 import Counter from '../counter/Counter';
-import useAddressQuery from '../userData/address/hooks/useAddressQuery';
 import AddressDelivery from '../userData/address/AddressDelivery';
+import Button from '@/src/5_shared/buttons/Button';
+import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 
 const OrderDescription = () => {
-  const { userAddress } = useAddressQuery();
   const { name, price, quantity, imageUrl } = useOrderStore();
   const [count, setCount] = useState(quantity);
 
@@ -22,7 +22,7 @@ const OrderDescription = () => {
     <div className="select-none">
       <h2 className="font-bold text-center">Order product</h2>
       <div className="inline-flex items-center">
-        {imageUrl && <Image width={50} height={50} src={imageUrl} alt={name} />}
+        <Image width={50} height={50} src={imageUrl} alt={name} />
         <p>{name}</p>
       </div>
       <div className="flex items-center justify-between">
@@ -37,8 +37,13 @@ const OrderDescription = () => {
       <p>
         <b>Total:</b> {price * count} &#36;
       </p>
-      <div className='max-w-[100%]'>
+      <div className="max-w-[100%]">
         <AddressDelivery />
+      </div>
+      <div className="pt-2">
+        <Button type="button" variant={EnumTypeButton.APPLY}>
+          Pay
+        </Button>
       </div>
     </div>
   );
