@@ -53,55 +53,57 @@ const AddressForm: FC<AddressFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        label="Country"
-        placeholder="Enter country"
-        register={register('country', { required: true })}
-        error={errors.country}
-      />
-      <Input
-        label="City"
-        placeholder="Enter city"
-        register={register('city', { required: true })}
-        error={errors.city}
-      />
-      <Input
-        label="Street"
-        placeholder="Your street"
-        register={register('street', { required: true })}
-        error={errors.street}
-      />
-      <Input
-        label="Building"
-        placeholder="Enter building"
-        register={register('building', { required: true })}
-        error={errors.building}
-      />
-      <Input
-        label="Post code"
-        placeholder="Enter post code"
-        register={register('postCode', { required: true })}
-        error={errors.postCode}
-      />
-      <p className="py-2 font-bold">Enter your address data.</p>
-      <div className="md:max-w-[300px] w-full inline-flex justify-around">
-        <Button
-          type="button"
-          variant={EnumTypeButton.DANGER}
-          handler={() => hideFormHandler(false)}
-        >
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          variant={EnumTypeButton.APPLY}
-          isLoading={isLoading}
-        >
-          Save address
-        </Button>
-      </div>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          label="Country"
+          placeholder="Enter country"
+          register={register('country', { required: true })}
+          error={errors.country}
+        />
+        <Input
+          label="City"
+          placeholder="Enter city"
+          register={register('city', { required: true })}
+          error={errors.city}
+        />
+        <Input
+          label="Street"
+          placeholder="Your street"
+          register={register('street', { required: true })}
+          error={errors.street}
+        />
+        <Input
+          label="Building"
+          placeholder="Enter building"
+          register={register('building', { required: true })}
+          error={errors.building}
+        />
+        <Input
+          label="Post code"
+          placeholder="Enter post code"
+          register={register('postCode', { required: true })}
+          error={errors.postCode}
+        />
+        <p className="py-2 font-bold">Enter your address data.</p>
+        <div className="w-full md:max-w-[300px] flex flex-wrap justify-around">
+          <Button
+            type="button"
+            variant={EnumTypeButton.DANGER}
+            handler={() => hideFormHandler(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant={EnumTypeButton.APPLY}
+            isLoading={isLoading}
+          >
+            Save address
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 

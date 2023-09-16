@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import useOrderStore from './state/state';
 import Counter from '../counter/Counter';
+import useAddressQuery from '../userData/address/hooks/useAddressQuery';
+import AddressDelivery from '../userData/address/AddressDelivery';
 
 const OrderDescription = () => {
+  const { userAddress } = useAddressQuery();
   const { name, price, quantity, imageUrl } = useOrderStore();
   const [count, setCount] = useState(quantity);
 
@@ -22,7 +25,7 @@ const OrderDescription = () => {
         {imageUrl && <Image width={50} height={50} src={imageUrl} alt={name} />}
         <p>{name}</p>
       </div>
-      <div>
+      <div className="flex items-center justify-between">
         <p>
           <b>Quantity:</b> {count}{' '}
         </p>
@@ -34,6 +37,9 @@ const OrderDescription = () => {
       <p>
         <b>Total:</b> {price * count} &#36;
       </p>
+      <div className='max-w-[100%]'>
+        <AddressDelivery />
+      </div>
     </div>
   );
 };
