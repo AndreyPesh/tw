@@ -4,7 +4,7 @@ import { useCartQuery } from '../3_features/cart/hooks/useCartQuery';
 import Loader from '../5_shared/loader/Loader';
 import CartProductItem from '../3_features/cart/CartProductItem';
 import EmptyCart from '../3_features/cart/EmptyCart';
-import OrderDescriptionModal from '../3_features/order/ui/OrderDescriptionModal';
+import OrderDescriptionModal from '../3_features/order/ui/OrderModal';
 
 const Cart = () => {
   const { listCart, isLoading } = useCartQuery();
