@@ -27,8 +27,7 @@ const Order = () => {
           </div>
         </div>
         <div className="w-full">
-          <Payment />
-          <button onClick={() => setIsShowPayment(false)}>Back</button>
+          <Payment backButtonHandler={() => setIsShowPayment(false)} />
         </div>
       </div>
     </div>

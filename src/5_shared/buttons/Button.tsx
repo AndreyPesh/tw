@@ -47,6 +47,9 @@ const Button: FC<PropsWithChildren<ButtonProps>> = ({
         {
           'bg-herbal text-white': variant === EnumTypeButton.APPLY,
         },
+        {
+          'bg-red text-white': variant === EnumTypeButton.WARNING,
+        },
         { [styles]: styles }
       )}
     >

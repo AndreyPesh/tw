@@ -11,6 +11,7 @@ const initStateData: OrderData = {
 
 const useOrderStore = create<OrderState>((set) => ({
   ...initStateData,
+  setQuantity: (quantity: number) => set(() => ({quantity})),
   createOrder: (orderData: OrderData) => set(() => ({ ...orderData })),
   resetOrder: () => set(() => ({ ...initStateData })),
 }));

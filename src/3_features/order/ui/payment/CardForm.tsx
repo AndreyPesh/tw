@@ -1,23 +1,14 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
 import InputMask from 'react-input-mask';
-
-interface CardDataForm {
-  numberCard: string;
-  expiry: string;
-  cvv: string;
-}
+import useCardStore, { CardDataForm } from './state/state';
 
 const CardForm = () => {
-  const [formData, setFormData] = useState<CardDataForm>({
-    numberCard: '____-____-____-____',
-    expiry: '__ /__',
-    cvv: '___',
-  });
+  const { numberCard, expiry, cvv, addCardData } = useCardStore();
 
   const onChangeCardData = (event: ChangeEvent<HTMLInputElement>) => {
-    const nameField = event.target.name as keyof typeof formData;
+    const nameField = event.target.name as keyof CardDataForm;
     const value = event.target.value;
-    setFormData((prevState) => ({ ...prevState, [nameField]: value }));
+    addCardData({ [nameField]: value });
   };
 
   return (
@@ -27,7 +18,7 @@ const CardForm = () => {
           name="numberCard"
           type="text"
           className="px-2 w-[220px] h-[30px] font-bold text-size-4 bg-transparent border-white rounded focus:border-white focus:ring-0"
-          value={formData.numberCard}
+          value={numberCard}
           onChange={onChangeCardData}
           mask={'9999-9999-9999-9999'}
           maskChar={'_'}
@@ -41,7 +32,7 @@ const CardForm = () => {
             name="expiry"
             className="px-1 w-[65px] h-[23px] font-bold text-size-4 bg-transparent border border-white rounded focus:border-white focus:ring-0"
             type="text"
-            value={formData.expiry}
+            value={expiry}
             onChange={onChangeCardData}
             mask={'99 / 99'}
             maskChar={'_'}
@@ -53,7 +44,7 @@ const CardForm = () => {
             name="cvv"
             type="text"
             className="px-1 w-[45px] h-[23px] font-bold text-size-4 bg-transparent border border-white rounded focus:border-white focus:ring-0"
-            value={formData.cvv}
+            value={cvv}
             onChange={onChangeCardData}
             mask={'999'}
             maskChar={'_'}
