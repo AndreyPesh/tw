@@ -17,6 +17,8 @@ module.exports = {
       backgroundImage: {
         logout: "url('/logout.svg')",
         'logout-hover': "url('/logout-hover.svg')",
+        bank: "url('/icons/bank.svg')",
+        wifi: "url('/icons/wifi.svg')",
       }
     },
     container: {
