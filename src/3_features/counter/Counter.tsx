@@ -9,7 +9,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 interface CounterProps {
   count: number;
-  setCount: Dispatch<SetStateAction<number>>;
+  setCount: (count: number) => void;
   minValue: number;
 }
 

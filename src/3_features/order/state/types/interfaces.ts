@@ -7,6 +7,7 @@ export interface OrderData {
 }
 
 export interface OrderState extends OrderData {
+  setQuantity: (quantity: number) => void;
   createOrder: (orderData: OrderData) => void;
   resetOrder: () => void;
 }
