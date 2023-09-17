@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import useOrderStore from './state/state';
-import Counter from '../counter/Counter';
-import AddressDelivery from '../userData/address/AddressDelivery';
-import Button from '@/src/5_shared/buttons/Button';
-import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
+import useOrderStore from '../state/state';
+import Counter from '../../counter/Counter';
+import AddressDelivery from '../../userData/address/AddressDelivery';
 
 const OrderDescription = () => {
   const { name, price, quantity, imageUrl } = useOrderStore();
@@ -39,11 +37,6 @@ const OrderDescription = () => {
       </p>
       <div className="max-w-[100%]">
         <AddressDelivery />
-      </div>
-      <div className="pt-2">
-        <Button type="button" variant={EnumTypeButton.APPLY}>
-          Pay
-        </Button>
       </div>
     </div>
   );

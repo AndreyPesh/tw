@@ -1,6 +1,6 @@
 import Empty from '@/src/1_page/Empty';
 import Carousel from '@/src/3_features/carousel/Carousel';
-import OrderDescriptionModal from '@/src/3_features/order/ui/OrderDescriptionModal';
+import OrderDescriptionModal from '@/src/3_features/order/ui/OrderModal';
 import ActionWithProduct from '@/src/3_features/phones/actions/ActionWithProduct';
 import PhoneDetails from '@/src/3_features/phones/details/PhoneDetails';
 import { getPhoneDataById } from '@/src/5_shared/utils/server/fetching/phone/data';
