@@ -8,7 +8,7 @@ import classNames from 'classnames';
 const Order = () => {
   const [isShowPayment, setIsShowPayment] = useState(false);
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full max-w-[300px] overflow-hidden">
       <div
         className={classNames('w-full flex  transition-all', {
           'translate-x-[-100%]': isShowPayment,
@@ -26,7 +26,7 @@ const Order = () => {
             </Button>
           </div>
         </div>
-        <div className="w-full min-w-[100%]">
+        <div className="w-full">
           <Payment />
           <button onClick={() => setIsShowPayment(false)}>Back</button>
         </div>
