@@ -3,16 +3,28 @@ import useOrderStore from '../../state/state';
 import Button from '@/src/5_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
 import usePayOrder from './hook/usePayOrder';
+import { validateCardData } from './utils/validateCardData';
+import useCardStore from './card/state/state';
+import { useState } from 'react';
 
 interface PaymentProps {
   backButtonHandler: () => void;
 }
 
 const Payment = ({ backButtonHandler }: PaymentProps) => {
+  const [isCardDataIncorrect, setIsCardDataIncorrect] = useState(false);
   const { price, quantity } = useOrderStore();
-  const { isCardDataValid } = usePayOrder();
+  const { numberCard, expiry, cvv } = useCardStore();
+  // const { isCardDataValid } = usePayOrder();
 
   const onPayHandler = () => {
+    const isCardDataValid = validateCardData({ numberCard, expiry, cvv });
+
+    if (!isCardDataValid) {
+      setIsCardDataIncorrect(true);
+      return;
+    }
+    setIsCardDataIncorrect(false);
     console.log(`Card data is valid ${isCardDataValid}`);
   };
 
@@ -23,6 +35,13 @@ const Payment = ({ backButtonHandler }: PaymentProps) => {
       <div>
         <h2 className="py-4 font-bold">Total: {price * quantity} &#36;</h2>
       </div>
+      {isCardDataIncorrect && (
+        <div className="p-2 mb-2 bg-red bg-opacity-30 border-2 border-red rounded">
+          <p className="text-center text-red">
+            Card data is incorrect! Enter correct data! *
+          </p>
+        </div>
+      )}
       <div className="flex justify-between">
         <Button
           variant={EnumTypeButton.DANGER}
