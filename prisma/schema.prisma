@@ -45,6 +45,7 @@ model User {
   image         String?
   password      String?
   accounts      Account[]
+  orders        Orders[]
   cart          Cart?
   sessions      Session[]
   address       Address?
@@ -63,6 +64,21 @@ model Address {
   userId   String @unique @map("user_id")
 
   @@map("address")
+}
+
+model Orders {
+  id         String      @id @default(uuid())
+  quantity   Int
+  status     StatusOrder @default(HANDLING)
+  price      Int
+  createdAt  DateTime    @default(now()) @map("created_at")
+  modifiedAt DateTime    @updatedAt @map("modified_at")
+  product    Phones      @relation(fields: [productId], references: [id])
+  productId  String      @map("product_id")
+  user       User        @relation(fields: [userId], references: [id])
+  userId     String      @map("user_id")
+
+  @@map("orders")
 }
 
 model VerificationToken {
@@ -85,6 +101,7 @@ model Phones {
   images   PhoneImages[]
   details  PhoneDetails?
   brand    PhonesOnBrands[]
+  order    Orders[]
 
   @@map("phones")
 }
@@ -152,4 +169,10 @@ model CartItem {
 
   @@unique(fields: [cartId, phoneId], name: "unique_item")
   @@map("cart_item")
+}
+
+enum StatusOrder {
+  HANDLING
+  SHIPPING
+  COMPLETED
 }
