@@ -6,6 +6,7 @@ import usePayOrder from './hook/usePayOrder';
 import { validateCardData } from './utils/validateCardData';
 import useCardStore from './card/state/state';
 import { useState } from 'react';
+import useOrderModalStore from '../../state/modal/state';
 
 interface PaymentProps {
   backButtonHandler: () => void;
@@ -13,9 +14,10 @@ interface PaymentProps {
 
 const Payment = ({ backButtonHandler }: PaymentProps) => {
   const [isCardDataIncorrect, setIsCardDataIncorrect] = useState(false);
-  const { price, quantity } = useOrderStore();
+  const { price, quantity, resetOrder } = useOrderStore();
   const { numberCard, expiry, cvv } = useCardStore();
   const { createOrderFetch, isLoading } = usePayOrder();
+  const { closeModal } = useOrderModalStore();
 
   const onPayHandler = async () => {
     const isCardDataValid = validateCardData({ numberCard, expiry, cvv });
@@ -27,7 +29,10 @@ const Payment = ({ backButtonHandler }: PaymentProps) => {
       }
       setIsCardDataIncorrect(false);
       const { isOrderApplied } = await createOrderFetch({ price, quantity });
-      console.log(isOrderApplied);
+      if (isOrderApplied) {
+        resetOrder();
+        closeModal();
+      }
     } catch (error) {
       console.log((error as Error).message);
     }
