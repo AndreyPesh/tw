@@ -1,24 +1,31 @@
-import prisma from "@/global";
+import prisma from '@/global.d';
+import { CreateOrderData } from '@/src/3_features/order/ui/payment/hook/usePayOrder';
 
 class OrderDb {
-  addOrder = async () => {
+  addOrder = async ({
+    quantity,
+    price,
+    userId,
+    productId,
+  }: CreateOrderData) => {
     try {
-      // await prisma.orders.create({
-      //   data: {
-      //     quantity: DEFAULT_QUANTITY,
-      //     cart: {
-      //       connect: { id: idCart },
-      //     },
-      //     phone: {
-      //       connect: { id: idProduct },
-      //     },
-      //   },
-      // });
+      await prisma.orders.create({
+        data: {
+          quantity,
+          price,
+          user: {
+            connect: { id: userId },
+          },
+          product: {
+            connect: { id: productId },
+          },
+        },
+      });
       return true;
-    } catch {
+    } catch (error) {
       return false;
     }
   };
 }
 
-export default new OrderDb()
+export default new OrderDb();

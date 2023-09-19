@@ -26,7 +26,8 @@ const Payment = ({ backButtonHandler }: PaymentProps) => {
         return;
       }
       setIsCardDataIncorrect(false);
-      await createOrderFetch({ price, quantity });
+      const { isOrderApplied } = await createOrderFetch({ price, quantity });
+      console.log(isOrderApplied);
     } catch (error) {
       console.log((error as Error).message);
     }
@@ -58,7 +59,7 @@ const Payment = ({ backButtonHandler }: PaymentProps) => {
           handler={onPayHandler}
           isLoading={isLoading}
         >
-          Send order
+          Send
         </Button>
       </div>
     </div>

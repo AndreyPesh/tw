@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
+import OrderDb from '@/src/5_shared/api/helpers/db/order/OrderDb';
 
 const createOrder = async (request: NextRequest) => {
-  console.log(await request.json());
-  return NextResponse.json({});
+  const orderData = await request.json();
+  try {
+    const isOrderApplied = await OrderDb.addOrder(orderData);
+    return NextResponse.json({ isOrderApplied });
+  } catch (error) {
+    throw new Error('Cant create order');
+  }
 };
 
 export { createOrder as POST };
