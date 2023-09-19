@@ -15,17 +15,21 @@ const Payment = ({ backButtonHandler }: PaymentProps) => {
   const [isCardDataIncorrect, setIsCardDataIncorrect] = useState(false);
   const { price, quantity } = useOrderStore();
   const { numberCard, expiry, cvv } = useCardStore();
-  // const { isCardDataValid } = usePayOrder();
+  const { createOrderFetch, isLoading } = usePayOrder();
 
-  const onPayHandler = () => {
+  const onPayHandler = async () => {
     const isCardDataValid = validateCardData({ numberCard, expiry, cvv });
 
-    if (!isCardDataValid) {
-      setIsCardDataIncorrect(true);
-      return;
+    try {
+      if (!isCardDataValid) {
+        setIsCardDataIncorrect(true);
+        return;
+      }
+      setIsCardDataIncorrect(false);
+      await createOrderFetch({ price, quantity });
+    } catch (error) {
+      console.log((error as Error).message);
     }
-    setIsCardDataIncorrect(false);
-    console.log(`Card data is valid ${isCardDataValid}`);
   };
 
   return (
@@ -49,7 +53,11 @@ const Payment = ({ backButtonHandler }: PaymentProps) => {
         >
           Back
         </Button>
-        <Button variant={EnumTypeButton.WARNING} handler={onPayHandler}>
+        <Button
+          variant={EnumTypeButton.WARNING}
+          handler={onPayHandler}
+          isLoading={isLoading}
+        >
           Send order
         </Button>
       </div>
