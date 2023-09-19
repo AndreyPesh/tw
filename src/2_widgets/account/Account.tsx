@@ -15,6 +15,7 @@ import {
 import DeleteButtonIcon from '@/src/5_shared/buttons/DeleteButtonIcon';
 import UserDataForm from '../forms/UserDataForm';
 import AddressDelivery from '@/src/3_features/userData/address/AddressDelivery';
+import UserNavigation from '@/src/3_features/userData/navigation/UserNavigation';
 
 const Account: FC<Partial<User>> = ({ name, email, image }) => {
   const { openModal } = useAddImageModalStore();
@@ -25,6 +26,7 @@ const Account: FC<Partial<User>> = ({ name, email, image }) => {
     <>
       <section className="container">
         <div className="py-10 flex flex-col justify-between sm:flex-row sm:justify-evenly">
+          <UserNavigation />
           <div className="flex flex-col justify-center items-center">
             <Image
               alt="avatar"
@@ -43,8 +45,10 @@ const Account: FC<Partial<User>> = ({ name, email, image }) => {
               </Button>
             </div>
           </div>
-          <UserDataForm name={currentUserName} email={email as string} />
-          <AddressDelivery />
+          <div>
+            <UserDataForm name={currentUserName} email={email as string} />
+            <AddressDelivery />
+          </div>
         </div>
       </section>
       <Modal children={<FileLoader />} management={useAddImageModalStore} />
