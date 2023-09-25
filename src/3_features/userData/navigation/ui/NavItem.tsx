@@ -1,11 +1,12 @@
 import classNames from 'classnames';
 import { NavItemData } from '../types/interfaces';
+import Link from 'next/link';
 
 interface NavItemProps extends NavItemData {
   isActive: boolean;
 }
 
-const NavItem = ({ title, icon: Icon, isActive }: NavItemProps) => {
+const NavItem = ({ title, link, icon: Icon, isActive }: NavItemProps) => {
   return (
     <li
       className={classNames(
@@ -14,13 +15,12 @@ const NavItem = ({ title, icon: Icon, isActive }: NavItemProps) => {
       )}
       data-item={title}
     >
-      <span className="mr-2 pointer-events-none">
-        <Icon
-          size={25}
-          color={isActive ? 'black' : 'gray'}
-        />
-      </span>
-      {title}
+      <Link href={link}>
+        <span className="mr-2 pointer-events-none">
+          <Icon size={25} color={isActive ? 'black' : 'gray'} />
+        </span>
+        {title}
+      </Link>
     </li>
   );
 };

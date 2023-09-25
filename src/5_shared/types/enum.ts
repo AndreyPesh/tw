@@ -6,10 +6,17 @@ export const enum EnumLinkPage {
   CONTACTS = '/contacts',
   AUTH = '/auth',
   USER = '/user',
-  CART = '/cart'
+  CART = '/cart',
 }
 
 export const enum EnumTypeAuth {
   SIGNUP = 'signup',
   LOGIN = 'login',
+}
+
+export const enum EnumUserAccountLink {
+  PERSONAL = EnumLinkPage.USER + '/personal',
+  ORDERS = EnumLinkPage.USER + '/orders',
+  CART = EnumLinkPage.USER + '/cart',
+  COMMENTS = EnumLinkPage.USER + '/comments',
 }
