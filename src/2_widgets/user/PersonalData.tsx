@@ -22,8 +22,9 @@ const PersonalData: FC<UserData> = ({ name, email, image }) => {
   const currentUserName = (name && name) || DEFAULT_USER_NAME;
 
   return (
-    <>
-      <div className="py-10 flex flex-col justify-between sm:flex-row sm:justify-evenly">
+    <div className='w-full'>
+      <h2 className='p-2 text-center font-bold text-lg'>Personal data</h2>
+      <div className="py-10 w-full flex flex-col justify-between sm:flex-row sm:justify-around">
         <div className="flex flex-col justify-center items-center">
           <Image
             alt="avatar"
@@ -48,7 +49,7 @@ const PersonalData: FC<UserData> = ({ name, email, image }) => {
         </div>
       </div>
       <Modal children={<FileLoader />} management={useAddImageModalStore} />
-    </>
+    </div>
   );
 };
 

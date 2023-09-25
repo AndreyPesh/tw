@@ -19,7 +19,7 @@ const UserNavigation = () => {
 
   return (
     <nav onClick={navigateHandler}>
-      <ul>
+      <ul className='py-2'>
         {navigationList.map((navItemData) => (
           <NavItem
             key={navItemData.title}
