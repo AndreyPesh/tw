@@ -1,9 +1,9 @@
+import { useState } from 'react';
+import classNames from 'classnames';
 import Button from '@/src/5_shared/buttons/Button';
 import OrderDescription from './ui/OrderDescription';
 import { EnumTypeButton } from '@/src/5_shared/buttons/types/enums';
-import { useState } from 'react';
 import Payment from './ui/payment/Payment';
-import classNames from 'classnames';
 
 const Order = () => {
   const [isShowPayment, setIsShowPayment] = useState(false);
