@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, MouseEvent } from 'react';
 import NavItem from './ui/NavItem';
 import { navigationList } from './types/constants';

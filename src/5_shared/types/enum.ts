@@ -15,7 +15,7 @@ export const enum EnumTypeAuth {
 }
 
 export const enum EnumUserAccountLink {
-  PERSONAL = EnumLinkPage.USER + '/personal',
+  PERSONAL = EnumLinkPage.USER,
   ORDERS = EnumLinkPage.USER + '/orders',
   CART = EnumLinkPage.USER + '/cart',
   COMMENTS = EnumLinkPage.USER + '/comments',
