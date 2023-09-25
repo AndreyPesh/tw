@@ -20,6 +20,7 @@ const UserNavigation = () => {
       <ul>
         {navigationList.map((navItemData) => (
           <NavItem
+            key={navItemData.title}
             {...navItemData}
             isActive={activeItemDataset === navItemData.title}
           />
