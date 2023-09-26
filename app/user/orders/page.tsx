@@ -1,3 +1,4 @@
+import ListOrders from '@/src/3_features/userData/orders/ListOrders';
 import { fetchListUserOrders } from '@/src/5_shared/utils/server/fetching/orders/orders';
 import { getUserData } from '@/src/5_shared/utils/server/fetching/user/data';
 
@@ -10,11 +11,12 @@ const UserOrdersPage = async () => {
   const user = await getUserData();
   if (user) {
     const orders = await fetchListUserOrders(user.id);
-    return <div className='flex-col'>
-      {orders?.map((order) => <h1>{order.productId}</h1>)}
-    </div>
+    if (orders) {
+      return <ListOrders orders={orders} />;
+    }
+    return <div>List order is empty!</div>;
   }
-  return <div>List order is empty!</div>;
+  return <div>Not authorized!</div>;
 };
 
 export default UserOrdersPage;
