@@ -26,6 +26,15 @@ class OrderDb {
       return false;
     }
   };
+
+  getListOrdersByUserId = async (userId: string) => {
+    const orders = await prisma.orders.findMany({
+      where: {
+        userId,
+      },
+    });
+    return orders;
+  };
 }
 
 export default new OrderDb();
