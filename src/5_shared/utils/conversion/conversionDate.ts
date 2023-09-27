@@ -11,3 +11,13 @@ export function transformDate(date: Date) {
 export function formatWithZero(value: number) {
   return value <= 9 ? `0${value}` : value.toString();
 }
+
+export function transformTime(date: Date) {
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+  const resultTime = `${formatWithZero(hour)}:${formatWithZero(
+    minutes
+  )}:${seconds}`;
+  return resultTime;
+}
