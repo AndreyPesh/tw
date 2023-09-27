@@ -5,6 +5,7 @@ import {
   transformDate,
   transformTime,
 } from '@/src/5_shared/utils/conversion/conversionDate';
+import CurrentStatusOrder from '@/src/5_shared/UI/statusOrder/StatusOrder';
 
 interface OrderItemProps {
   order: OrderData;
@@ -13,6 +14,7 @@ interface OrderItemProps {
 const OrderItem: FC<OrderItemProps> = ({ order }) => {
   const brand = order.product.brand[0].list.name;
   const { model, images } = order.product;
+  const { createdAt, status } = order;
 
   return (
     <div className="p-4 mb-2 flex items-center border rounded-lg cursor-pointer hover:shadow-md">
@@ -25,11 +27,12 @@ const OrderItem: FC<OrderItemProps> = ({ order }) => {
       <h2 className="font-bold">
         {brand} {model}
       </h2>
-      <div className="self-end grow text-right">
-        <h3 className='text-[12px] text-gray-600'>
+      <div className="text-[12px] self-end grow text-right">
+        <CurrentStatusOrder currentStatus={status} />
+        <h3 className=" text-gray-600">
           Ordered:{' '}
-          <span className='font-bold'>
-            {transformDate(order.createdAt)} {transformTime(order.createdAt)}
+          <span className="font-bold">
+            {transformDate(createdAt)} {transformTime(createdAt)}
           </span>
         </h3>
       </div>
