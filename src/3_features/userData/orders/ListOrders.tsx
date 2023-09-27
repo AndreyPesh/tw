@@ -9,6 +9,7 @@ interface ListOrdersProps {
 const ListOrders: FC<ListOrdersProps> = ({ orders }) => {
   return (
     <div className="p-2 w-full flex-col">
+      <h2 className='p-4 font-bold text-center text-lg'>List order</h2>
       {orders.map((order) => (
         <OrderItem order={order} />
       ))}
