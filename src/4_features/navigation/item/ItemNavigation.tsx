@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { EnumLinkPage } from '@/src/6_shared/types/enum';
 import usePhoneFilterState from '../../phones/filter/stateFilter/state';
+import { EnumLinkPage } from '@/src/6_shared/constants/main_navigation/enums';
 
 interface ItemNavigationProps {
   name: string;

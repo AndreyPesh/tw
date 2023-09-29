@@ -1,4 +1,5 @@
-import { EnumLinkPage, EnumTypeAuth } from './enum';
+import { EnumTypeAuth } from './enum';
+import { EnumLinkPage } from '../constants/main_navigation/enums';
 
 export const DEFAULT_NAME_AVATAR = '/avatar.svg';
 export const DEFAULT_USER_NAME = `user_${Date.now()}`;

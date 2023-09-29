@@ -7,7 +7,8 @@ import { UNKNOWN_BRAND_NAME } from '../../constants';
 import { PhoneData } from '@/src/6_shared/api/helpers/db/phone/PhoneDb';
 import Rating from '@/src/6_shared/UI/rating/Rating';
 import AddToCartButton from '@/src/4_features/cart/AddToCartButton';
-import { EnumLinkPage } from '@/src/6_shared/types/enum';
+import { EnumLinkPage } from '@/src/6_shared/constants/main_navigation/enums';
+
 
 const PhoneCard: FC<{ data: PhoneData }> = ({ data }) => {
   const router = useRouter();

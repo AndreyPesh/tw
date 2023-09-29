@@ -9,8 +9,8 @@ import BurgerButton from '@/src/4_features/burger/BurgerButton';
 import Navigation from '@/src/4_features/navigation/Navigation';
 import UserButton from '@/src/4_features/userButton/UserButton';
 import CartIcon from '@/src/4_features/cart/CartIcon';
-import { EnumLinkPage } from '@/src/6_shared/types/enum';
 import { UserData } from '@/src/6_shared/utils/server/fetching/user/data';
+import { EnumLinkPage } from '@/src/6_shared/constants/main_navigation/enums';
 
 const Header = ({ user }: { user: UserData | null }) => {
   const active = useAppSelector((state) => state.burger.active);

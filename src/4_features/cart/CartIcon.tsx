@@ -1,9 +1,9 @@
-import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { useCartQuery } from './hooks/useCartQuery';
 import { FC, useEffect, useState } from 'react';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { useRouter } from 'next/navigation';
-import { EnumLinkPage } from '@/src/6_shared/types/enum';
 import classNames from 'classnames';
+import { useCartQuery } from './hooks/useCartQuery';
+import { EnumLinkPage } from '@/src/6_shared/constants/main_navigation/enums';
 
 interface CartIconProps {
   styles?: string;

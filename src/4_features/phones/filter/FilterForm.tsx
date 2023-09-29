@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import InputRange, { DEFAULT_RATING_FILTER_VALUE } from './fields/InputRange';
@@ -8,13 +10,11 @@ import InputPrice from './fields/InputPrice';
 import InputSortPrice from './fields/InputSortPrice';
 import { FilterPhoneQueryParams } from './types/interfaces';
 import { createFilterQueryParamsFromFormData } from './helpers/createFilterUrlFromFormData';
+import StateIconFilter from './StateIconFilter';
 import usePhoneFilterState from './stateFilter/state';
-import { EnumLinkPage } from '@/src/6_shared/types/enum';
 import Button from '@/src/6_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/6_shared/buttons/types/enums';
-import StateIconFilter from './StateIconFilter';
-import { useState } from 'react';
-import classNames from 'classnames';
+import { EnumLinkPage } from '@/src/6_shared/constants/main_navigation/enums';
 
 const FilterForm = () => {
   const [isShow, setIsShow] = useState(false);

@@ -1,4 +1,4 @@
-import { listNav } from '@/src/6_shared/utils/listNav';
+import { listNav } from '@/src/6_shared/constants/main_navigation/listNav';
 import ItemNavigation from './item/ItemNavigation';
 
 const Navigation = () => {

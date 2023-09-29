@@ -1,4 +1,4 @@
-import { EnumLinkPage } from './enum';
+import { EnumLinkPage } from './enums';
 
 export interface ListNav {
   name: string;

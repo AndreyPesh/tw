@@ -4,9 +4,9 @@ import { MouseEvent } from 'react';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { EnumLinkPage } from '@/src/6_shared/types/enum';
 import { DEFAULT_NAME_AVATAR } from '@/src/6_shared/types/constant';
 import { UserData } from '@/src/6_shared/utils/server/fetching/user/data';
+import { EnumLinkPage } from '@/src/6_shared/constants/main_navigation/enums';
 
 const UserButton = ({ user }: { user: UserData }) => {
   const router = useRouter();
