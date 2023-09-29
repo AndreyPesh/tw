@@ -1,11 +1,11 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { FC, useState } from 'react';
-import { ItemProductInCartData } from '@/src/6_shared/api/helpers/db/cart/CartDb';
 import AddToCartButton from './AddToCartButton';
-import { EnumLinkPage } from '@/src/6_shared/types/enum';
 import Counter from '../counter/Counter';
+import { ItemProductInCartData } from '@/src/6_shared/api/helpers/db/cart/CartDb';
 import OrderButton from '@/src/6_shared/UI/buttons/OrderButton';
+import { EnumLinkPage } from '@/src/6_shared/constants/main_navigation/enums';
 
 interface CartItemProps {
   cartItemData: ItemProductInCartData;

@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import ButtonIcon from './ButtonIcon';
 import { AiFillDelete } from 'react-icons/ai';
 import { useRouter } from 'next/navigation';
-import { UserAPI } from '../api/AccountAPI';
+import UserAPI from '../api/user/UserAPI';
 
 const DeleteButtonIcon: FC<{ disabled: boolean }> = ({ disabled }) => {
   const router = useRouter();
@@ -15,7 +15,7 @@ const DeleteButtonIcon: FC<{ disabled: boolean }> = ({ disabled }) => {
   const deleteFileHandler = async () => {
     try {
       setIsDisabled(true);
-      const isImageRemoved = await new UserAPI().deleteAvatar();
+      const isImageRemoved = await UserAPI.deleteAvatar();
       if (isImageRemoved) {
         router.refresh();
       }

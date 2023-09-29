@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { UserDB } from '@/src/6_shared/api/helpers/db/user/User';
-import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
+import { STATUS_CODE } from '@/src/6_shared/api/user/types/enums';
 
 const updateName = async (req: NextRequest) => {
   try {

@@ -1,10 +1,10 @@
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import CloudAPI from '@/src/6_shared/api/helpers/cloud/CloudAPI';
-import CloudinaryAPI from '@/src/6_shared/api/helpers/cloud/cloudinary/CloudinaryAPI';
-import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
-import { UserDB } from '@/src/6_shared/api/helpers/db/user/User';
 import { authOptions } from '@/src/1_app/auth/auth';
+import { STATUS_CODE } from '@/src/6_shared/api/user/types/enums';
+import { UserDB } from '@/src/6_shared/api/helpers/db/user/User';
+import CloudAPI from '@/src/6_shared/api/cloud/CloudAPI';
+import CloudinaryAPI from '@/src/6_shared/api/cloud/cloudinary/CloudinaryAPI';
 
 const cloudAPI = new CloudAPI(new CloudinaryAPI());
 const userDB = new UserDB();

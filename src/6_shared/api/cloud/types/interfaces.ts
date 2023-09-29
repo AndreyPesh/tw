@@ -1,4 +1,4 @@
-import { ResponseSuccess } from '../../../types/interfaces';
+import { ResponseSuccess } from '../../user/types/interfaces';
 
 export interface GeneralCloudAPI {
   uploadImageToCloud: (formData: FormData) => Promise<ResponseSuccess>;

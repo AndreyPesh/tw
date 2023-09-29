@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { LIST_ROUTES, STATUS_CODE } from './types/enums';
 
-export class UserAPI {
+class UserAPI {
   updateName = async (email: string, name: string) => {
     try {
       const { status } = await axios.patch(
@@ -57,3 +57,5 @@ export class UserAPI {
     }
   };
 }
+
+export default new UserAPI();

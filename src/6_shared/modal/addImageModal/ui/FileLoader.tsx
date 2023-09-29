@@ -5,7 +5,7 @@ import { ADD_FILE_TEMPLATE } from '../../../types/constant';
 import useAddImageModalStore from '../state';
 import { createFormData } from '../helpers/createFormData';
 import { revokeImageFromMemory } from '../helpers/revokeImageFromMemory';
-import { UserAPI } from '@/src/6_shared/api/AccountAPI';
+import UserAPI from '@/src/6_shared/api/user/UserAPI';
 
 const FileLoader = () => {
   const router = useRouter();
@@ -18,7 +18,6 @@ const FileLoader = () => {
 
   const inputFileRef = useRef<HTMLInputElement>(null);
   const refImage = useRef<HTMLImageElement>(null);
-  const userAPI = new UserAPI();
 
   const triggerInputHandler = () => {
     if (inputFileRef.current) {
@@ -44,7 +43,7 @@ const FileLoader = () => {
       if (imageSrc === ADD_FILE_TEMPLATE) return;
       setIsLoading(true);
       if (formData) {
-        const newImageUrl = await userAPI.updateAvatar(formData);
+        const newImageUrl = await UserAPI.updateAvatar(formData);
         if (newImageUrl) {
           router.refresh();
           closeModal();

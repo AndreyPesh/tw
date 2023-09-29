@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
-import { FILE_NAME_FIELD } from '@/src/6_shared/api/helpers/cloud/types/constants';
+import { FILE_NAME_FIELD } from '@/src/6_shared/api/cloud/types/constants';
+
 
 export const createFormData = (
   file: File,

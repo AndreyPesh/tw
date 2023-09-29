@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PhoneDb } from '@/src/6_shared/api/helpers/db/phone/PhoneDb';
-import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
+import { STATUS_CODE } from '@/src/6_shared/api/user/types/enums';
 import { FIRST_PAGE_NUMBER, PER_PAGE } from '@/src/6_shared/types/constant';
 import { LIST_QUERY_PARAMS_FILTER_PHONE } from '@/src/4_features/phones/filter/types/constants';
 import { ListAppliedFilterOptions } from '@/src/4_features/phones/filter/types/types';

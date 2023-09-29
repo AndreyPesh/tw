@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PhoneDb } from '@/src/6_shared/api/helpers/db/phone/PhoneDb';
-import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
+import { STATUS_CODE } from '@/src/6_shared/api/user/types/enums';
 
 const getPhoneById = async (req: NextRequest) => {
   const url = new URL(req.url);

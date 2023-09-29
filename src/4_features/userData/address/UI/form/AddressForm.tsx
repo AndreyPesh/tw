@@ -8,7 +8,7 @@ import Input from './input/Input';
 import { initAddressData } from './types/constants';
 import { AddressData } from './types/types';
 import useAddressQuery from '../../hooks/useAddressQuery';
-import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
+import { STATUS_CODE } from '@/src/6_shared/api/user/types/enums';
 import { ResponseUserAddress } from '../../fetch/AddressAPI';
 
 interface AddressFormProps {

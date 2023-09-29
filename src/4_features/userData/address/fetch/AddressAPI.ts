@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Address } from '@prisma/client';
-import { LIST_ROUTES } from '@/src/6_shared/api/types/enums';
+import { LIST_ROUTES } from '@/src/6_shared/api/user/types/enums';
 import { AddressData } from '../UI/form/types/types';
 
 export interface ResponseUserAddress {

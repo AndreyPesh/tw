@@ -3,8 +3,8 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { userEmailSchema, userNameSchema } from './schemas/userDataValidate';
 import EditInput from '@/src/4_features/input/editInput/EditInput';
-import { UserAPI } from '@/src/6_shared/api/AccountAPI';
-import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
+import { STATUS_CODE } from '@/src/6_shared/api/user/types/enums';
+import UserAPI from '@/src/6_shared/api/user/UserAPI';
 
 interface UserDataFormProps {
   name: string;
@@ -34,7 +34,7 @@ const UserDataForm: FC<UserDataFormProps> = ({ name, email }) => {
       return;
     }
     try {
-      const status = await new UserAPI().updateName(email, name);
+      const status = await UserAPI.updateName(email, name);
 
       if (status === STATUS_CODE.OK) {
         router.refresh();
@@ -55,7 +55,7 @@ const UserDataForm: FC<UserDataFormProps> = ({ name, email }) => {
     }
 
     try {
-      const status = await new UserAPI().updateEmail(email, validate.email);
+      const status = await UserAPI.updateEmail(email, validate.email);
 
       if (status === STATUS_CODE.OK && session && session.user) {
         await update({
