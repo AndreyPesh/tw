@@ -1,4 +1,4 @@
-import Auth from '@/src/1_page/Auth';
+import Auth from '@/src/2_page/Auth';
 import { Suspense } from 'react';
 import Loading from './loading';
 

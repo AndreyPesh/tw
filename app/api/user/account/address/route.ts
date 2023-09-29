@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import AddressDB from '@/src/5_shared/api/helpers/db/user/Address';
-import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
-import { CreateAddressData } from '@/src/3_features/userData/address/UI/form/types/interfaces';
+import AddressDB from '@/src/6_shared/api/helpers/db/user/Address';
+import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
+import { CreateAddressData } from '@/src/4_features/userData/address/UI/form/types/interfaces';
 
 const getUserAddress = async (request: NextRequest) => {
   try {

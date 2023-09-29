@@ -1,4 +1,4 @@
-import Cart from '@/src/1_page/Cart';
+import Cart from '@/src/2_page/Cart';
 
 export const metadata = {
   title: 'Cart',

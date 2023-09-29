@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import Loading from './loading';
-import Empty from '@/src/1_page/Empty';
-import PersonalData from '@/src/2_widgets/user/PersonalData';
-import { getUserData } from '@/src/5_shared/utils/server/fetching/user/data';
+import Empty from '@/src/2_page/Empty';
+import PersonalData from '@/src/3_widgets/user/PersonalData';
+import { getUserData } from '@/src/6_shared/utils/server/fetching/user/data';
 
 export const metadata = {
   title: 'Account',

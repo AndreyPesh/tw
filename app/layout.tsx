@@ -1,9 +1,11 @@
 import { Inter } from 'next/font/google';
-import '@/src/5_shared/styles/globals.css';
-import { ProviderRedux } from '@/src/5_shared/store/provider';
-import { NextAuthProvider } from '@/src/5_shared/providers/authProvider';
-import LayoutHeader from '@/src/1_page/LayoutHeader';
-import QueryProvider from '@/src/5_shared/providers/QueryProvider';
+
+import '@/src/1_app/styles/globals.css';
+
+import { NextAuthProvider } from '@/src/1_app/providers/NextAuthProvider';
+import QueryProvider from '@/src/1_app/providers/QueryProvider';
+import { ReduxProvider } from '@/src/1_app/store/ReduxProvider';
+import HeaderLayout from '@/src/1_app/layouts/HeaderLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,13 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} h-[calc(100vh-67px)]`}>
-        <ProviderRedux>
+        <ReduxProvider>
           <NextAuthProvider>
             <QueryProvider>
-              <LayoutHeader>{children}</LayoutHeader>
+              <HeaderLayout>{children}</HeaderLayout>
             </QueryProvider>
           </NextAuthProvider>
-        </ProviderRedux>
+        </ReduxProvider>
       </body>
     </html>
   );

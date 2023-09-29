@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { CartData } from '@/src/3_features/cart/fetch/CartFetchApi';
-import CartDb, { ListDataProductInCart } from '@/src/5_shared/api/helpers/db/cart/CartDb';
+import { CartData } from '@/src/4_features/cart/fetch/CartFetchApi';
+import CartDb, { ListDataProductInCart } from '@/src/6_shared/api/helpers/db/cart/CartDb';
 
 const getCartListRequest = async (request: NextRequest) => {
   const url = new URL(request.url);

@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
-import PhonesPage from '@/src/1_page/products/PhonesPage';
-import Pagination from '@/src/3_features/pagination/Pagination';
-import { fetchCountListPhone } from '@/src/5_shared/utils/server/fetching/phone/data';
-import { EnumLinkPage } from '@/src/5_shared/types/enum';
-import PhoneCardPreload from '@/src/4_entities/phones/card/phone/PhoneCardPreload';
-import { FilterPhoneQueryParams } from '@/src/3_features/phones/filter/types/interfaces';
-import { PER_PAGE } from '@/src/5_shared/types/constant';
+import PhonesPage from '@/src/2_page/products/PhonesPage';
+import Pagination from '@/src/4_features/pagination/Pagination';
+import { fetchCountListPhone } from '@/src/6_shared/utils/server/fetching/phone/data';
+import { EnumLinkPage } from '@/src/6_shared/types/enum';
+import PhoneCardPreload from '@/src/5_entities/phones/card/phone/PhoneCardPreload';
+import { FilterPhoneQueryParams } from '@/src/4_features/phones/filter/types/interfaces';
+import { PER_PAGE } from '@/src/6_shared/types/constant';
 
 const PhonePage = async ({
   params,

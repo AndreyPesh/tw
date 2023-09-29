@@ -1,9 +1,9 @@
-import Empty from '@/src/1_page/Empty';
-import Carousel from '@/src/3_features/carousel/Carousel';
-import OrderDescriptionModal from '@/src/3_features/order/ui/OrderModal';
-import ActionWithProduct from '@/src/3_features/phones/actions/ActionWithProduct';
-import PhoneDetails from '@/src/3_features/phones/details/PhoneDetails';
-import { getPhoneDataById } from '@/src/5_shared/utils/server/fetching/phone/data';
+import Empty from '@/src/2_page/Empty';
+import Carousel from '@/src/4_features/carousel/Carousel';
+import OrderDescriptionModal from '@/src/4_features/order/ui/OrderModal';
+import ActionWithProduct from '@/src/4_features/phones/actions/ActionWithProduct';
+import PhoneDetails from '@/src/4_features/phones/details/PhoneDetails';
+import { getPhoneDataById } from '@/src/6_shared/utils/server/fetching/phone/data';
 
 const PhoneDetailPage = async ({ params }: { params: { id: string } }) => {
   const phoneData = await getPhoneDataById(params.id);

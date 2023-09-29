@@ -1,6 +1,6 @@
-import ListOrders from '@/src/3_features/userData/orders/ListOrders';
-import { fetchListUserOrders } from '@/src/5_shared/utils/server/fetching/orders/orders';
-import { getUserData } from '@/src/5_shared/utils/server/fetching/user/data';
+import ListOrders from '@/src/4_features/userData/orders/ListOrders';
+import { fetchListUserOrders } from '@/src/6_shared/utils/server/fetching/orders/orders';
+import { getUserData } from '@/src/6_shared/utils/server/fetching/user/data';
 
 export const metadata = {
   title: 'Orders',

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { PhoneDb } from '@/src/5_shared/api/helpers/db/phone/PhoneDb';
-import { STATUS_CODE } from '@/src/5_shared/api/types/enums';
+import { PhoneDb } from '@/src/6_shared/api/helpers/db/phone/PhoneDb';
+import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
 
 const fetchBrandList = async () => {
   try {

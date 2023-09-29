@@ -1,5 +1,6 @@
-import FilterForm from '@/src/3_features/phones/filter/FilterForm';
 import { ReactNode } from 'react';
+
+import FilterForm from '@/src/4_features/phones/filter/FilterForm';
 
 export const metadata = {
   title: 'Products',

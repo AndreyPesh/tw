@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import UserNavigation from '@/src/3_features/userData/navigation/UserNavigation';
+import UserNavigation from '@/src/4_features/userData/navigation/UserNavigation';
 
 export default function UserLayout({ children }: { children: ReactNode }) {
   return (

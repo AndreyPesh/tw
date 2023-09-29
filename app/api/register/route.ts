@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/global.d';
 import bcryptjs from 'bcryptjs';
-import { SignupFormData } from '@/src/5_shared/types/type';
-import { validateSignupData } from '@/src/5_shared/utils/server/validate/validateFormData';
-import { ResponseServer } from '@/src/5_shared/utils/server/types/interface';
-import { ResponseStatus } from '@/src/5_shared/utils/server/types/enum';
+import { SignupFormData } from '@/src/6_shared/types/type';
+import { validateSignupData } from '@/src/6_shared/utils/server/validate/validateFormData';
+import { ResponseServer } from '@/src/6_shared/utils/server/types/interface';
+import { ResponseStatus } from '@/src/6_shared/utils/server/types/enum';
 
 export const POST = async (req: NextRequest): Promise<ResponseServer> => {
   const data = (await req.json()) as SignupFormData;

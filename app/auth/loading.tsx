@@ -1,4 +1,4 @@
-import Loader from '@/src/5_shared/loader/Loader';
+import Loader from '@/src/6_shared/loader/Loader';
 
 const Loading = () => {
   return <Loader />;
