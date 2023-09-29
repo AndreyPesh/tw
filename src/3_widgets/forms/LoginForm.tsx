@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '@/src/4_features/input/Input';
 import Button from '@/src/6_shared/buttons/Button';
 import { EnumTypeButton } from '@/src/6_shared/buttons/types/enums';
-import MiddleTitle from '@/src/6_shared/titles/MiddleTitle';
+import MiddleTitle from '@/src/6_shared/UI/titles/MiddleTitle';
 import { URL_SIGNUP_PAGE } from '@/src/6_shared/types/constant';
 import { LoginFormData } from '@/src/6_shared/types/type';
 import { schemaLogin } from './schemas/loginValidate';

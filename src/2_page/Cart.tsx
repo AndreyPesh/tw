@@ -1,7 +1,7 @@
 'use client';
 
 import { useCartQuery } from '../4_features/cart/hooks/useCartQuery';
-import Loader from '../6_shared/loader/Loader';
+import Loader from '../6_shared/UI/loader/Loader';
 import CartProductItem from '../4_features/cart/CartProductItem';
 import EmptyCart from '../4_features/cart/EmptyCart';
 import OrderDescriptionModal from '../4_features/order/ui/OrderModal';

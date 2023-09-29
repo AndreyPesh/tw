@@ -4,9 +4,10 @@ import { Adapter } from 'next-auth/adapters';
 import bcryptjs from 'bcryptjs';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { COOKIES } from '@/src/6_shared/types/constant';
+
 import { validateLoginData } from '@/src/6_shared/utils/server/validate/validateFormData';
-import { UserData } from './fetching/user/data';
+import { UserData } from '../../6_shared/utils/server/fetching/user/data';
+import { COOKIES } from './constants';
 
 export const authOptions: AuthOptions = {
   cookies: COOKIES,

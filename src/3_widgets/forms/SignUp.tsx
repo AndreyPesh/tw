@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import MiddleTitle from '@/src/6_shared/titles/MiddleTitle';
+import MiddleTitle from '@/src/6_shared/UI/titles/MiddleTitle';
 import Input from '@/src/4_features/input/Input';
 import { EnumTypeButton } from '@/src/6_shared/buttons/types/enums';
 import Button from '@/src/6_shared/buttons/Button';

@@ -4,7 +4,7 @@ import CloudAPI from '@/src/6_shared/api/helpers/cloud/CloudAPI';
 import CloudinaryAPI from '@/src/6_shared/api/helpers/cloud/cloudinary/CloudinaryAPI';
 import { STATUS_CODE } from '@/src/6_shared/api/types/enums';
 import { UserDB } from '@/src/6_shared/api/helpers/db/user/User';
-import { authOptions } from '@/src/6_shared/utils/server/auth';
+import { authOptions } from '@/src/1_app/auth/auth';
 
 const cloudAPI = new CloudAPI(new CloudinaryAPI());
 const userDB = new UserDB();

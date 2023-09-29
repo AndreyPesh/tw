@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 import prisma from '@/global.d';
 import { Prisma } from '@prisma/client';
-import { authOptions } from '@/src/6_shared/utils/server/auth';
+import { authOptions } from '@/src/1_app/auth/auth';
 
 type UserWithCart = Prisma.UserGetPayload<{
   include: { cart: true };

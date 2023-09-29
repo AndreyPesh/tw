@@ -3,7 +3,7 @@
 import { GetServerSideProps } from 'next';
 import { Session, getServerSession } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { authOptions } from '../../6_shared/utils/server/auth';
+import { authOptions } from '../auth/auth';
 
 interface Props {
   session?: Session | null;
