@@ -12,3 +12,5 @@ export const PER_PAGE = 4;
 
 export const URL_LOGIN_PAGE = `${EnumLinkPage.AUTH}?${TYPE_AUTH_PARAM}=${EnumTypeAuth.LOGIN}`;
 export const URL_SIGNUP_PAGE = `${EnumLinkPage.AUTH}?${TYPE_AUTH_PARAM}=${EnumTypeAuth.SIGNUP}`;
+
+export const UNKNOWN_BRAND_NAME = 'Uncertain';

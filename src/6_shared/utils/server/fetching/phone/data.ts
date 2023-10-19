@@ -3,10 +3,11 @@ import { FilterPhoneQueryParams } from '@/src/4_features/phones/filter/types/int
 import { PHONE_ROUTES } from '@/src/6_shared/api/phone/types/enum';
 import { getDomain } from '../../helpers/getDomain';
 import {
-  ListPhoneData,
-  PhoneData,
-} from '@/src/6_shared/api/helpers/db/phone/PhoneDb';
+  ProductListData,
+  ProductData,
+} from '@/src/6_shared/api/helpers/db/phone/ProductDb';
 import { createFilterQueryParamsFromFormData } from '@/src/4_features/phones/filter/helpers/createFilterUrlFromFormData';
+import { ProductPageProps } from './types/interfaces';
 
 export const fetchCountListPhone = async (
   searchParams?: FilterPhoneQueryParams
@@ -43,7 +44,7 @@ export const fetchAllPhones = async () => {
     });
 
     if (response.ok) {
-      const data: { data: ListPhoneData } = await response.json();
+      const data: { data: ProductListData } = await response.json();
       return data;
     }
     throw new Error('Cant get data phone ');
@@ -53,17 +54,18 @@ export const fetchAllPhones = async () => {
   }
 };
 
-export const fetchPhonePage = async (
-  pageNumber: number,
-  searchParams: FilterPhoneQueryParams
-) => {
+export const fetchPhonePage = async ({
+  page,
+  searchParams,
+}: ProductPageProps) => {
   try {
     const domain = getDomain();
     const queryParams = createFilterQueryParamsFromFormData(searchParams);
     const response = await fetch(
-      `${domain}${
-        PHONE_ROUTES.GET_PHONE_PAGE
-      }${pageNumber}${queryParams.replace('?', '&')}`,
+      `${domain}${PHONE_ROUTES.GET_PHONE_PAGE}${page}${queryParams.replace(
+        '?',
+        '&'
+      )}`,
       {
         headers: { 'Content-type': 'application/json' },
         cache: 'no-store',
@@ -71,7 +73,7 @@ export const fetchPhonePage = async (
     );
 
     if (response.ok) {
-      const data: { data: ListPhoneData } = await response.json();
+      const data: { data: ProductListData } = await response.json();
       return data;
     }
     throw new Error('Cant get data phone ');
@@ -90,7 +92,7 @@ export const getPhoneDataById = async (id: string) => {
     });
 
     if (response.ok) {
-      const data: { data: PhoneData } = await response.json();
+      const data: { data: ProductData } = await response.json();
       return data;
     }
     throw new Error('Cant get phone data by ID');

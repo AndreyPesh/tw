@@ -2,7 +2,7 @@
 
 import { FC } from 'react';
 import AddToCartButton from '@/src/4_features/cart/AddToCartButton';
-import { PhoneData } from '@/src/6_shared/api/helpers/db/phone/PhoneDb';
+import { PhoneData } from '@/src/6_shared/api/helpers/db/phone/ProductDb';
 import OrderButton from '@/src/6_shared/UI/buttons/OrderButton';
 
 const DEFAULT_QUANTITY = 1;

@@ -2,15 +2,15 @@ import prisma from '@/global.d';
 import { getConditionForFilterPhone } from './helpers/getConditionForFilterPhone';
 import { ListAppliedFilterOptions } from '@/src/4_features/phones/filter/types/types';
 
-export type ListPhoneData = Awaited<ReturnType<PhoneDb['getAllPhones']>>;
-export type PhoneData = NonNullable<
-  Awaited<ReturnType<PhoneDb['getPhoneById']>>
+export type ProductListData = Awaited<ReturnType<ProductDb['getAllProducts']>>;
+export type ProductData = NonNullable<
+  Awaited<ReturnType<ProductDb['fetchProductById']>>
 >;
 
-export type OrderProductData = Omit<PhoneData, 'details'>;
+export type OrderProductData = Omit<ProductData, 'details'>;
 
-export class PhoneDb {
-  getCountListPhones = async (optionsFilter: ListAppliedFilterOptions) => {
+export class ProductDb {
+  getCountListProducts = async (optionsFilter: ListAppliedFilterOptions) => {
     try {
       const conditionCount = getConditionForFilterPhone(optionsFilter);
       const count = await prisma.phones.count({
@@ -23,9 +23,9 @@ export class PhoneDb {
     }
   };
 
-  getAllPhones = async () => {
+  getAllProducts = async () => {
     try {
-      const listPhones = await prisma.phones.findMany({
+      const listProducts = await prisma.phones.findMany({
         include: {
           images: true,
           details: true,
@@ -36,14 +36,14 @@ export class PhoneDb {
           },
         },
       });
-      return listPhones;
+      return listProducts;
     } catch (error) {
       console.log('Error ', error);
       throw new Error((error as Error).message);
     }
   };
 
-  getPagePhones = async (
+  fetchProductPage = async (
     page: number,
     perPage: number,
     optionsFilter: ListAppliedFilterOptions
@@ -72,9 +72,9 @@ export class PhoneDb {
     }
   };
 
-  getPhoneById = async (id: string) => {
+  fetchProductById = async (id: string) => {
     try {
-      const phoneData = await prisma.phones.findUnique({
+      const productData = await prisma.phones.findUnique({
         where: {
           id,
         },
@@ -88,7 +88,7 @@ export class PhoneDb {
           },
         },
       });
-      return phoneData;
+      return productData;
     } catch (error) {
       throw new Error((error as Error).message);
     }

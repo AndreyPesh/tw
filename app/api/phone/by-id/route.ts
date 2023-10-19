@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PhoneDb } from '@/src/6_shared/api/helpers/db/phone/PhoneDb';
+import { ProductDb } from '@/src/6_shared/api/helpers/db/phone/ProductDb';
 import { STATUS_CODE } from '@/src/6_shared/api/user/types/enums';
 
 const getPhoneById = async (req: NextRequest) => {
@@ -8,7 +8,7 @@ const getPhoneById = async (req: NextRequest) => {
 
   try {
     if (id) {
-      const phones = await new PhoneDb().getPhoneById(id);
+      const phones = await new ProductDb().fetchProductById(id);
       return NextResponse.json({ status: STATUS_CODE.OK, data: phones });
     }
     throw new Error('Invalid request ID');

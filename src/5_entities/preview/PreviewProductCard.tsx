@@ -1,14 +1,14 @@
 import Image from 'next/image';
 import Rating from '@/src/6_shared/UI/rating/Rating';
 
-const PhoneCardPreload = ({ perPage }: { perPage: number }) => {
+const PreviewProductCard = ({ perPage }: { perPage: number }) => {
   const listCards = new Array(perPage).fill('');
 
   return (
     <div className="py-5 w-full flex flex-wrap justify-center gap-5">
       {listCards.map(() => (
         <div className="p-5 w-full sm:max-w-xs box-border text-sm border rounded-lg cursor-pointer hover:shadow-lg animate-flickering bg-gray-200">
-          <div className='rounded overflow-hidden select-none'>
+          <div className="rounded overflow-hidden select-none">
             <Image
               src={'/white.jpg'}
               width={500}
@@ -20,7 +20,7 @@ const PhoneCardPreload = ({ perPage }: { perPage: number }) => {
             <b className="w-40 h-5 bg-slate-300 block rounded-md"></b>
           </h3>
           <h3 className="w-20 h-3 bg-slate-300 block rounded"></h3>
-          <div className='my-1'>
+          <div className="my-1">
             <Rating rating={0} empty />
           </div>
           <span className="w-full inline-flex justify-between items-center">
@@ -32,7 +32,7 @@ const PhoneCardPreload = ({ perPage }: { perPage: number }) => {
   );
 };
 
-export default PhoneCardPreload;
+export default PreviewProductCard;
 
 {
   /* <div className="p-5 w-full sm:max-w-xs box-border text-sm border rounded-lg cursor-pointer hover:shadow-lg">

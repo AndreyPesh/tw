@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { PhoneDb } from '@/src/6_shared/api/helpers/db/phone/PhoneDb';
+import { ProductDb } from '@/src/6_shared/api/helpers/db/phone/ProductDb';
 import { STATUS_CODE } from '@/src/6_shared/api/user/types/enums';
 
 const fetchBrandList = async () => {
   try {
-    const brandList = await new PhoneDb().fetchListBrandPhone();
+    const brandList = await new ProductDb().fetchListBrandPhone();
     return NextResponse.json({ status: STATUS_CODE.OK, brandList });
   } catch (error) {
     return NextResponse.json({

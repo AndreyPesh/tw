@@ -1,13 +1,13 @@
 import { Suspense } from 'react';
-import PhonesPage from '@/src/2_page/products/PhonesPage';
+import ProductPage from '@/src/2_page/products/ProductPage';
 import Pagination from '@/src/4_features/pagination/Pagination';
 import { FilterPhoneQueryParams } from '@/src/4_features/phones/filter/types/interfaces';
-import PhoneCardPreload from '@/src/5_entities/phones/card/phone/PhoneCardPreload';
+import PhoneCardPreload from '@/src/5_entities/preview/PreviewProductCard';
 import { PER_PAGE } from '@/src/6_shared/types/constant';
 import { fetchCountListPhone } from '@/src/6_shared/utils/server/fetching/phone/data';
 import { EnumLinkPage } from '@/src/6_shared/constants/main_navigation/enums';
 
-const PhonePage = async ({
+const ProductListPage = async ({
   params,
   searchParams,
 }: {
@@ -21,7 +21,7 @@ const PhonePage = async ({
   return (
     <div className="w-full">
       <Suspense fallback={<PhoneCardPreload perPage={PER_PAGE} />}>
-        <PhonesPage page={Number(page)} searchParams={searchParams} />
+        <ProductPage page={Number(page)} searchParams={searchParams} />
       </Suspense>
 
       <div className="p-5">
@@ -38,4 +38,4 @@ const PhonePage = async ({
   );
 };
 
-export default PhonePage;
+export default ProductListPage;

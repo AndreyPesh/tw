@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { PiContactlessPaymentLight } from 'react-icons/pi';
 import useOrderModalStore from '@/src/4_features/order/state/modal/state';
-import { OrderProductData } from '../../api/helpers/db/phone/PhoneDb';
+import { OrderProductData } from '../../api/helpers/db/phone/ProductDb';
 import useOrderStore from '@/src/4_features/order/state/state';
 import { createOrderDataFromProductData } from '@/src/4_features/order/helpers/createOrderDataFromProductData';
 
